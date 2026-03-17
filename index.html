@@ -1,285 +1,553 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Infacta</title>
-
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background:
-        radial-gradient(circle at 20% 30%, rgba(255,255,255,0.6) 0%, transparent 40%),
-        radial-gradient(circle at 70% 20%, rgba(255,255,255,0.5) 0%, transparent 45%),
-        radial-gradient(circle at 50% 70%, rgba(255,255,255,0.4) 0%, transparent 50%),
-        linear-gradient(to bottom, #87cefa, #bfe9ff);
-      color: white;
+      color: #123;
       min-height: 100vh;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(255,255,255,0.85) 0 7%, rgba(255,255,255,0) 8%),
+        radial-gradient(circle at 35% 12%, rgba(255,255,255,0.75) 0 8%, rgba(255,255,255,0) 9%),
+        radial-gradient(circle at 60% 18%, rgba(255,255,255,0.8) 0 6%, rgba(255,255,255,0) 7%),
+        radial-gradient(circle at 78% 10%, rgba(255,255,255,0.7) 0 7%, rgba(255,255,255,0) 8%),
+        linear-gradient(180deg, #dff4ff 0%, #cdeeff 45%, #eaf8ff 100%);
+      background-attachment: fixed;
     }
 
     .page {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 30px 20px 100px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 18px 16px 90px;
     }
 
-    .logo {
-      font-size: 34px;
-      font-weight: bold;
+    .logo-wrap {
+      margin-top: 8px;
+      margin-bottom: 12px;
       text-align: center;
-      margin-bottom: 30px;
       cursor: pointer;
       user-select: none;
     }
 
-    .menu {
+    .shield {
+      width: 82px;
+      height: 96px;
+      margin: 0 auto 10px;
+      background: linear-gradient(180deg, #0f5ea8 0%, #0a3f73 100%);
+      clip-path: polygon(50% 0%, 92% 16%, 92% 58%, 50% 100%, 8% 58%, 8% 16%);
       display: flex;
-      flex-direction: column;
       align-items: center;
-      gap: 12px;
-      margin-bottom: 30px;
+      justify-content: center;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+      border: 3px solid rgba(255,255,255,0.85);
     }
 
-    .btn {
-      width: 320px;
-      padding: 14px 18px;
-      border: none;
-      border-radius: 10px;
-      background: #0f172a;
+    .shield span {
       color: white;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .brand {
+      font-size: 28px;
+      font-weight: 700;
+      color: #0b3c6f;
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: #30506b;
+      margin-bottom: 8px;
+    }
+
+    .home-panel,
+    .module-panel {
+      width: 100%;
+      max-width: 980px;
+      background: rgba(255, 255, 255, 0.86);
+      border: 1px solid rgba(120, 170, 210, 0.35);
+      border-radius: 18px;
+      box-shadow: 0 10px 28px rgba(27, 74, 116, 0.12);
+      backdrop-filter: blur(4px);
+      padding: 24px;
+    }
+
+    .home-panel {
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    .home-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #123b63;
+    }
+
+    .home-text {
       font-size: 16px;
+      color: #32506a;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    .menu-buttons {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .menu-btn,
+    .action-btn,
+    .back-btn {
+      border: none;
+      border-radius: 14px;
+      padding: 14px 18px;
+      font-size: 16px;
+      font-weight: 700;
       cursor: pointer;
-      transition: 0.2s;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
     }
 
-    .btn:hover {
-      background: #1e293b;
+    .menu-btn:hover,
+    .action-btn:hover,
+    .back-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
     }
 
-    .btn-secondary {
-      background: #334155;
+    .menu-btn.primary {
+      background: linear-gradient(180deg, #1e75c9 0%, #14599f 100%);
+      color: white;
     }
 
-    .btn-secondary:hover {
-      background: #475569;
+    .menu-btn.secondary {
+      background: linear-gradient(180deg, #dbefff 0%, #bddfff 100%);
+      color: #103c67;
+    }
+
+    .coming-soon {
+      color: #d60000;
+      font-weight: 700;
+      margin-top: 14px;
+      min-height: 24px;
     }
 
     .hidden {
-      display: none;
+      display: none !important;
     }
 
-    .workspace {
-      margin-top: 25px;
-      background: #0f172a;
-      border-radius: 14px;
-      padding: 20px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+    .module-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #123b63;
+      margin-bottom: 6px;
     }
 
-    .workspace h2 {
-      margin-top: 0;
-      margin-bottom: 15px;
-      font-size: 22px;
+    .module-subtitle {
+      font-size: 15px;
+      color: #40617d;
+      margin-bottom: 18px;
+      line-height: 1.5;
     }
 
     textarea {
       width: 100%;
-      min-height: 220px;
-      box-sizing: border-box;
-      padding: 14px;
-      border-radius: 12px;
-      border: none;
-      background: #020617;
-      color: white;
+      min-height: 260px;
       resize: vertical;
+      border-radius: 14px;
+      border: 1px solid #b9d3ea;
+      padding: 16px;
       font-size: 15px;
-      line-height: 1.4;
+      line-height: 1.5;
+      outline: none;
+      background: rgba(255,255,255,0.95);
+      color: #19364e;
+    }
+
+    textarea:focus {
+      border-color: #4d94d8;
+      box-shadow: 0 0 0 3px rgba(77, 148, 216, 0.18);
     }
 
     .actions {
       display: flex;
       gap: 12px;
-      margin-top: 15px;
-      margin-bottom: 18px;
       flex-wrap: wrap;
+      margin-top: 16px;
+      margin-bottom: 18px;
+    }
+
+    .action-btn.primary {
+      background: linear-gradient(180deg, #198754 0%, #136e44 100%);
+      color: #fff;
+    }
+
+    .action-btn.secondary {
+      background: linear-gradient(180deg, #eef6ff 0%, #d7ebff 100%);
+      color: #12436f;
+    }
+
+    .back-btn {
+      background: linear-gradient(180deg, #f0f7ff 0%, #dcefff 100%);
+      color: #12436f;
+      margin-top: 18px;
     }
 
     .status {
-      margin-top: 8px;
-      margin-bottom: 14px;
-      color: #e2e8f0;
+      font-weight: 700;
+      margin-bottom: 12px;
+      min-height: 22px;
+      color: #124b7d;
+    }
+
+    .status.processing {
+      color: #a85c00;
+    }
+
+    .status.success {
+      color: #0c6b3d;
+    }
+
+    .status.error {
+      color: #b30000;
     }
 
     .result-box {
-      border-radius: 12px;
-      background: #020617;
-      padding: 15px;
-      max-height: 300px;
+      border: 1px solid #c4dcef;
+      border-radius: 14px;
+      padding: 18px;
+      background: rgba(250, 253, 255, 0.96);
+      min-height: 240px;
+      max-height: 460px;
       overflow-y: auto;
+      line-height: 1.58;
+      color: #1d3550;
       white-space: pre-wrap;
-      line-height: 1.5;
     }
 
-    .soon {
-      margin-top: 20px;
-      text-align: center;
-      color: #b91c1c;
+    .result-box h3 {
+      margin: 14px 0 8px;
+      color: #103c67;
       font-size: 18px;
-      font-weight: bold;
-      text-shadow: 0 1px 2px rgba(255,255,255,0.35);
+    }
+
+    .result-box h4 {
+      margin: 10px 0 6px;
+      color: #184e7e;
+      font-size: 16px;
+    }
+
+    .result-box p {
+      margin: 7px 0;
+    }
+
+    .result-box ul {
+      margin: 6px 0 10px 22px;
+      padding: 0;
+    }
+
+    .result-box li {
+      margin: 4px 0;
     }
 
     .donate-box {
       position: fixed;
       right: 18px;
       bottom: 18px;
-      background: #a3e635;
-      color: #0f172a;
-      padding: 12px 14px;
-      border-radius: 12px;
+      z-index: 999;
+      background: #b8ff96;
+      color: #184000;
+      border: 1px solid #86d86a;
+      border-radius: 14px;
+      padding: 10px 14px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.14);
       font-size: 14px;
-      font-weight: bold;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+      font-weight: 700;
       cursor: pointer;
       user-select: none;
-      transition: 0.2s;
-      z-index: 1000;
     }
 
     .donate-box:hover {
-      background: #84cc16;
       transform: translateY(-1px);
     }
 
-    .donate-message {
-      position: fixed;
-      right: 18px;
-      bottom: 72px;
-      max-width: 260px;
-      background: rgba(15, 23, 42, 0.92);
-      color: white;
-      padding: 12px 14px;
-      border-radius: 12px;
-      font-size: 13px;
-      line-height: 1.4;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
-      z-index: 1000;
+    @media (max-width: 640px) {
+      .home-panel,
+      .module-panel {
+        padding: 18px;
+      }
+
+      .brand {
+        font-size: 24px;
+      }
+
+      .module-title,
+      .home-title {
+        font-size: 22px;
+      }
+
+      .donate-box {
+        right: 10px;
+        bottom: 10px;
+        font-size: 13px;
+      }
     }
   </style>
 </head>
-
 <body>
   <div class="page">
-
-    <div class="logo" onclick="goHome()">🛡️ INFACTA</div>
-
-    <div id="mainMenu" class="menu">
-      <button class="btn" onclick="openContracts()">Аналіз договорів</button>
-      <button class="btn" onclick="showSoon('Аналіз моїх документів буде доступний пізніше')">Аналіз мої документи (скоро)</button>
-      <button class="btn" onclick="showSoon('Аналіз новин буде доступний пізніше')">Аналіз новини (скоро)</button>
+    <div class="logo-wrap" onclick="goHome()" title="Повернутися на головну">
+      <div class="shield"><span>IA</span></div>
+      <div class="brand">Infacta</div>
+      <div class="subtitle">Information Analysis Platform</div>
     </div>
 
-    <div id="soonBox" class="soon hidden"></div>
-
-    <div id="contractWorkspace" class="workspace hidden">
-      <h2>Аналіз договорів</h2>
-
-      <textarea id="contractText" placeholder="Вставте текст договору..."></textarea>
-
-      <div class="actions">
-        <button class="btn btn-secondary" onclick="resetDocument()">Новий документ</button>
-        <button class="btn" onclick="analyzeContract()">Аналізувати</button>
+    <section id="homeView" class="home-panel">
+      <div class="home-title">Оберіть режим роботи</div>
+      <div class="home-text">
+        Стартова версія Infacta. Наразі активний модуль аналізу договорів.
       </div>
 
-      <div id="status" class="status hidden"></div>
+      <div class="menu-buttons">
+        <button class="menu-btn primary" onclick="openContracts()">
+          Аналіз договорів
+        </button>
 
-      <div id="resultBox" class="result-box hidden"></div>
-    </div>
+        <button class="menu-btn secondary" onclick="showComingSoon('Аналіз моїх документів буде доступний пізніше.')">
+          Аналіз мої документи (скоро)
+        </button>
 
+        <button class="menu-btn secondary" onclick="showComingSoon('Аналіз новин буде доступний пізніше.')">
+          Аналіз новини (скоро)
+        </button>
+      </div>
+
+      <div id="comingSoonText" class="coming-soon"></div>
+    </section>
+
+    <section id="contractsView" class="module-panel hidden">
+      <div class="module-title">Аналіз договорів</div>
+      <div class="module-subtitle">
+        Вставте текст договору або зразка договору. Система спробує дати коротке пояснення,
+        оцінити структуру, ризики, практичні наслідки та загальну силу договору.
+      </div>
+
+      <textarea id="contractInput" placeholder="Вставте сюди текст договору..."></textarea>
+
+      <div class="actions">
+        <button class="action-btn secondary" onclick="clearDocument()">Новий документ</button>
+        <button class="action-btn primary" onclick="analyzeContract()">Аналізувати</button>
+      </div>
+
+      <div id="statusText" class="status"></div>
+      <div id="resultBox" class="result-box">Результат аналізу з’явиться тут.</div>
+
+      <button class="back-btn" onclick="goHome()">Повернутися на головну</button>
+    </section>
   </div>
 
-  <div class="donate-box" onclick="toggleDonateMessage()">
+  <div class="donate-box" onclick="showDonatePlaceholder()">
     На розвиток сайту
   </div>
 
-  <div id="donateMessage" class="donate-message hidden">
-    Тут з часом будуть доступні реквізити для добровільної пожертви на розвиток сайту.
-  </div>
-
   <script>
-    window.onload = function() {
-      goHome();
-    };
+    const homeView = document.getElementById("homeView");
+    const contractsView = document.getElementById("contractsView");
+    const comingSoonText = document.getElementById("comingSoonText");
+    const contractInput = document.getElementById("contractInput");
+    const statusText = document.getElementById("statusText");
+    const resultBox = document.getElementById("resultBox");
 
     function goHome() {
-      document.getElementById("mainMenu").classList.remove("hidden");
-      document.getElementById("contractWorkspace").classList.add("hidden");
-      document.getElementById("soonBox").classList.add("hidden");
-      document.getElementById("donateMessage").classList.add("hidden");
+      homeView.classList.remove("hidden");
+      contractsView.classList.add("hidden");
+      comingSoonText.textContent = "";
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     function openContracts() {
-      document.getElementById("mainMenu").classList.add("hidden");
-      document.getElementById("soonBox").classList.add("hidden");
-      document.getElementById("contractWorkspace").classList.remove("hidden");
-      document.getElementById("donateMessage").classList.add("hidden");
+      homeView.classList.add("hidden");
+      contractsView.classList.remove("hidden");
+      comingSoonText.textContent = "";
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
-    function showSoon(message) {
-      document.getElementById("mainMenu").classList.add("hidden");
-      document.getElementById("contractWorkspace").classList.add("hidden");
-
-      const box = document.getElementById("soonBox");
-      box.textContent = message;
-      box.classList.remove("hidden");
-
-      document.getElementById("donateMessage").classList.add("hidden");
+    function showComingSoon(text) {
+      comingSoonText.textContent = text;
     }
 
-    function resetDocument() {
-      document.getElementById("contractText").value = "";
-      document.getElementById("status").classList.add("hidden");
-      document.getElementById("status").textContent = "";
-      document.getElementById("resultBox").classList.add("hidden");
-      document.getElementById("resultBox").textContent = "";
+    function showDonatePlaceholder() {
+      alert("Тут буде блок для добровільної підтримки сайту.\nПоки що це заглушка.");
     }
 
-    function toggleDonateMessage() {
-      const box = document.getElementById("donateMessage");
-      box.classList.toggle("hidden");
+    function clearDocument() {
+      contractInput.value = "";
+      statusText.textContent = "";
+      statusText.className = "status";
+      resultBox.innerHTML = "Результат аналізу з’явиться тут.";
+      contractInput.focus();
+    }
+
+    function escapeHtml(text) {
+      return String(text)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+    }
+
+    function renderList(items) {
+      if (!items || !items.length) {
+        return "<p>—</p>";
+      }
+      return "<ul>" + items.map(item => `<li>${escapeHtml(item)}</li>`).join("") + "</ul>";
+    }
+
+    function renderCoverageMap(map) {
+      if (!map) return "<p>Немає даних.</p>";
+
+      const labels = {
+        parties: "Сторони",
+        subject: "Предмет",
+        obligations: "Права та обов’язки",
+        payment: "Оплата / вартість",
+        liability: "Відповідальність",
+        termination: "Розірвання / припинення"
+      };
+
+      let html = "<ul>";
+      for (const key in labels) {
+        const value = map[key] ? "є" : "немає / не виявлено";
+        html += `<li><strong>${labels[key]}:</strong> ${escapeHtml(value)}</li>`;
+      }
+      html += "</ul>";
+      return html;
+    }
+
+    function renderAnalysis(data) {
+      const strength = data.contract_strength_index || "Невизначено";
+
+      return `
+        <h3>1. Plain Meaning</h3>
+        <p>${escapeHtml(data.summary || "Немає короткого висновку.")}</p>
+
+        <h3>2. Structure Coverage</h3>
+        ${renderCoverageMap(data.structure_map)}
+        <h4>Відсутні або слабко виражені елементи</h4>
+        ${renderList(data.missing_elements)}
+
+        <h3>3. Detected Risks</h3>
+        ${renderList(data.risks)}
+
+        <h3>4. Practical Impact</h3>
+        ${renderList(data.practical_impact)}
+        <h4>Financial Impact</h4>
+        ${renderList(data.financial_impact)}
+
+        <h3>5. Contract Strength Index</h3>
+        <p><strong>${escapeHtml(strength)}</strong></p>
+
+        <h4>Питання, які варто перевірити</h4>
+        ${renderList(data.questions)}
+
+        <h4>Додаткові нотатки</h4>
+        ${renderList(data.notes)}
+      `;
     }
 
     async function analyzeContract() {
-      const text = document.getElementById("contractText").value.trim();
-      const status = document.getElementById("status");
-      const resultBox = document.getElementById("resultBox");
+      const text = contractInput.value.trim();
 
       if (!text) {
-        status.textContent = "Вставте текст договору.";
-        status.classList.remove("hidden");
+        statusText.textContent = "Вставте текст договору перед аналізом.";
+        statusText.className = "status error";
+        resultBox.innerHTML = "Порожній текст для аналізу.";
         return;
       }
 
-      status.textContent = "Аналіз триває...";
-      status.classList.remove("hidden");
+      statusText.textContent = "Аналіз триває…";
+      statusText.className = "status processing";
+      resultBox.innerHTML = "Система виконує первинний аналіз договору...";
 
-      resultBox.classList.remove("hidden");
-      resultBox.textContent = "Обробка...";
+      try {
+        const response = await fetch("/api/analyze", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            mode: "contract_analysis",
+            language: "uk",
+            text: text
+          })
+        });
 
-      await new Promise(function(resolve) {
-        setTimeout(resolve, 700);
-      });
+        if (!response.ok) {
+          throw new Error("Помилка відповіді сервера");
+        }
 
-      resultBox.textContent =
-        "Короткий висновок:\n" +
-        "Інтерфейс працює стабільно.\n\n" +
-        "Наступний крок:\n" +
-        "Підключення ядра Infacta Core.";
+        const data = await response.json();
 
-      status.textContent = "Аналіз завершено.";
+        statusText.textContent = "Аналіз завершено.";
+        statusText.className = "status success";
+        resultBox.innerHTML = renderAnalysis(data);
+      } catch (error) {
+        statusText.textContent = "Помилка аналізу. Показано резервний демо-результат.";
+        statusText.className = "status error";
+
+        const fallback = {
+          summary: "Серверний міст тимчасово не відповів. Це резервний демо-результат для перевірки інтерфейсу.",
+          structure_map: {
+            parties: true,
+            subject: true,
+            obligations: true,
+            payment: true,
+            liability: false,
+            termination: false
+          },
+          risks: [
+            "Не вдалося виконати повний аналіз через помилку bridge/API.",
+            "Потрібно перевірити чи папка api завантажена в репозиторій.",
+            "Потрібно перевірити чи сайт задеплоєний через Vercel, а не лише як статична сторінка."
+          ],
+          practical_impact: [
+            "Інтерфейс працює, але реальний серверний аналіз ще потребує перевірки."
+          ],
+          financial_impact: [
+            "Фінансові наслідки не розраховано, бо bridge/API не повернув дані."
+          ],
+          contract_strength_index: "Тестовий режим",
+          missing_elements: [
+            "Відповідальність",
+            "Розірвання договору"
+          ],
+          questions: [
+            "Чи доступний /api/analyze після деплою?",
+            "Чи передається текст у JSON-форматі?",
+            "Чи повертає Vercel функція статус 200?"
+          ],
+          notes: [
+            error.message
+          ]
+        };
+
+        resultBox.innerHTML = renderAnalysis(fallback);
+      }
     }
   </script>
-
 </body>
 </html>
