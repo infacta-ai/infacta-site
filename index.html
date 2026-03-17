@@ -1,161 +1,784 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-    <meta charset="UTF-8">
-    <title>Infacta</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Infacta</title>
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to bottom, #dbeeff, #f5fbff);
-        }
-
-        .container {
-            text-align: center;
-            padding: 40px;
-        }
-
-        .logo {
-            cursor: pointer;
-            margin-bottom: 20px;
-        }
-
-        .logo img {
-            height: 90px;
-        }
-
-        .button {
-            display: block;
-            margin: 15px auto;
-            padding: 12px 20px;
-            width: 280px;
-            border-radius: 8px;
-            border: none;
-            font-size: 16px;
-            cursor: pointer;
-            background-color: #2c5aa0;
-            color: white;
-        }
-
-        .button:hover {
-            background-color: #1e3d70;
-        }
-
-        .disabled {
-            background-color: #ccc;
-            color: red;
-        }
-
-        textarea {
-            width: 80%;
-            height: 150px;
-            margin-top: 20px;
-            padding: 10px;
-            font-size: 14px;
-        }
-
-        .result {
-            margin-top: 20px;
-            padding: 15px;
-            background: white;
-            width: 80%;
-            margin-left: auto;
-            margin-right: auto;
-            border-radius: 10px;
-            max-height: 300px;
-            overflow-y: auto;
-        }
-
-        /* Донат блок */
-        .donate {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #b6ff7a;
-            padding: 10px 15px;
-            border-radius: 10px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-    </style>
-</head>
-
-<body>
-
-<div class="container">
-
-    <!-- ЛОГО -->
-    <div class="logo" onclick="goHome()">
-        <img src="infacta-logo-transparent.svg" alt="Infacta">
-    </div>
-
-    <!-- ГОЛОВНЕ МЕНЮ -->
-    <div id="menu">
-        <button class="button" onclick="openContracts()">Аналіз договорів</button>
-        <button class="button disabled">Аналіз моїх документів (скоро)</button>
-        <button class="button disabled">Аналіз новин (скоро)</button>
-    </div>
-
-    <!-- БЛОК АНАЛІЗУ -->
-    <div id="contracts" style="display:none;">
-        <textarea id="inputText" placeholder="Встав текст договору..."></textarea><br>
-
-        <button class="button" onclick="newDoc()">Новий документ</button>
-        <button class="button" onclick="analyze()">Аналізувати</button>
-
-        <div class="result" id="result"></div>
-    </div>
-
-</div>
-
-<!-- Донат -->
-<div class="donate" onclick="donate()">
-    На розвиток сайту
-</div>
-
-<script>
-
-function goHome() {
-    document.getElementById("menu").style.display = "block";
-    document.getElementById("contracts").style.display = "none";
-}
-
-function openContracts() {
-    document.getElementById("menu").style.display = "none";
-    document.getElementById("contracts").style.display = "block";
-}
-
-function newDoc() {
-    document.getElementById("inputText").value = "";
-    document.getElementById("result").innerHTML = "";
-}
-
-function analyze() {
-    let text = document.getElementById("inputText").value;
-
-    if (!text.trim()) {
-        alert("Встав текст договору");
-        return;
+  <style>
+    * {
+      box-sizing: border-box;
     }
 
-    document.getElementById("result").innerHTML = `
-        <b>Аналіз завершено.</b><br><br>
-        Короткий висновок:<br>
-        Інтерфейс працює стабільно.<br><br>
-        Наступний крок:<br>
-        Підключення ядра Infacta Core.
-    `;
-}
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: #123;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(255,255,255,0.85) 0 7%, rgba(255,255,255,0) 8%),
+        radial-gradient(circle at 35% 12%, rgba(255,255,255,0.75) 0 8%, rgba(255,255,255,0) 9%),
+        radial-gradient(circle at 60% 18%, rgba(255,255,255,0.8) 0 6%, rgba(255,255,255,0) 7%),
+        radial-gradient(circle at 78% 10%, rgba(255,255,255,0.7) 0 7%, rgba(255,255,255,0) 8%),
+        linear-gradient(180deg, #dff4ff 0%, #cdeeff 45%, #eaf8ff 100%);
+      background-attachment: fixed;
+    }
 
-function donate() {
-    alert("Реквізити скоро будуть додані");
-}
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 18px 16px 90px;
+    }
 
-</script>
+    .logo-wrap {
+      margin-top: 8px;
+      margin-bottom: 12px;
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+    }
 
+    .logo-wrap img {
+      width: 92px;
+      height: auto;
+      display: block;
+      margin: 0 auto 10px;
+    }
+
+    .brand {
+      font-size: 28px;
+      font-weight: 700;
+      color: #0b3c6f;
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: #30506b;
+      margin-bottom: 8px;
+    }
+
+    .home-panel,
+    .module-panel {
+      width: 100%;
+      max-width: 980px;
+      background: rgba(255, 255, 255, 0.86);
+      border: 1px solid rgba(120, 170, 210, 0.35);
+      border-radius: 18px;
+      box-shadow: 0 10px 28px rgba(27, 74, 116, 0.12);
+      backdrop-filter: blur(4px);
+      padding: 24px;
+    }
+
+    .home-panel {
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    .home-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #123b63;
+    }
+
+    .home-text {
+      font-size: 16px;
+      color: #32506a;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    .menu-buttons {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .menu-btn,
+    .action-btn,
+    .back-btn {
+      border: none;
+      border-radius: 14px;
+      padding: 14px 18px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .menu-btn:hover,
+    .action-btn:hover,
+    .back-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+
+    .menu-btn.primary {
+      background: linear-gradient(180deg, #1e75c9 0%, #14599f 100%);
+      color: white;
+    }
+
+    .menu-btn.secondary {
+      background: linear-gradient(180deg, #dbefff 0%, #bddfff 100%);
+      color: #103c67;
+    }
+
+    .coming-soon {
+      color: #d60000;
+      font-weight: 700;
+      margin-top: 14px;
+      min-height: 24px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .module-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #123b63;
+      margin-bottom: 6px;
+    }
+
+    .module-subtitle {
+      font-size: 15px;
+      color: #40617d;
+      margin-bottom: 18px;
+      line-height: 1.5;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 260px;
+      resize: vertical;
+      border-radius: 14px;
+      border: 1px solid #b9d3ea;
+      padding: 16px;
+      font-size: 15px;
+      line-height: 1.5;
+      outline: none;
+      background: rgba(255,255,255,0.95);
+      color: #19364e;
+    }
+
+    textarea:focus {
+      border-color: #4d94d8;
+      box-shadow: 0 0 0 3px rgba(77, 148, 216, 0.18);
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+      margin-bottom: 18px;
+    }
+
+    .action-btn.primary {
+      background: linear-gradient(180deg, #198754 0%, #136e44 100%);
+      color: #fff;
+    }
+
+    .action-btn.secondary {
+      background: linear-gradient(180deg, #eef6ff 0%, #d7ebff 100%);
+      color: #12436f;
+    }
+
+    .back-btn {
+      background: linear-gradient(180deg, #f0f7ff 0%, #dcefff 100%);
+      color: #12436f;
+      margin-top: 18px;
+    }
+
+    .status {
+      font-weight: 700;
+      margin-bottom: 12px;
+      min-height: 22px;
+      color: #124b7d;
+    }
+
+    .status.processing {
+      color: #a85c00;
+    }
+
+    .status.success {
+      color: #0c6b3d;
+    }
+
+    .status.error {
+      color: #b30000;
+    }
+
+    .result-box {
+      border: 1px solid #c4dcef;
+      border-radius: 14px;
+      padding: 18px;
+      background: rgba(250, 253, 255, 0.96);
+      min-height: 240px;
+      max-height: 520px;
+      overflow-y: auto;
+      line-height: 1.58;
+      color: #1d3550;
+    }
+
+    .result-box h3 {
+      margin: 14px 0 8px;
+      color: #103c67;
+      font-size: 18px;
+    }
+
+    .result-box h4 {
+      margin: 10px 0 6px;
+      color: #184e7e;
+      font-size: 16px;
+    }
+
+    .result-box p {
+      margin: 7px 0;
+    }
+
+    .result-box ul {
+      margin: 6px 0 10px 22px;
+      padding: 0;
+    }
+
+    .result-box li {
+      margin: 4px 0;
+    }
+
+    .donate-box {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 999;
+      background: #b8ff96;
+      color: #184000;
+      border: 1px solid #86d86a;
+      border-radius: 14px;
+      padding: 10px 14px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.14);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .donate-box:hover {
+      transform: translateY(-1px);
+    }
+
+    .score-good {
+      color: #0c6b3d;
+      font-weight: 700;
+    }
+
+    .score-medium {
+      color: #996300;
+      font-weight: 700;
+    }
+
+    .score-bad {
+      color: #b30000;
+      font-weight: 700;
+    }
+
+    @media (max-width: 640px) {
+      .home-panel,
+      .module-panel {
+        padding: 18px;
+      }
+
+      .brand {
+        font-size: 24px;
+      }
+
+      .module-title,
+      .home-title {
+        font-size: 22px;
+      }
+
+      .donate-box {
+        right: 10px;
+        bottom: 10px;
+        font-size: 13px;
+      }
+
+      .logo-wrap img {
+        width: 80px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="logo-wrap" onclick="goHome()" title="Повернутися на головну">
+      <img src="infacta-logo-transparent.svg" alt="Infacta">
+      <div class="brand">Infacta</div>
+      <div class="subtitle">Information Analysis Platform</div>
+    </div>
+
+    <section id="homeView" class="home-panel">
+      <div class="home-title">Оберіть режим роботи</div>
+      <div class="home-text">
+        Стартова версія Infacta. Наразі активний модуль аналізу договорів.
+      </div>
+
+      <div class="menu-buttons">
+        <button class="menu-btn primary" onclick="openContracts()">
+          Аналіз договорів
+        </button>
+
+        <button class="menu-btn secondary" onclick="showComingSoon('Аналіз моїх документів буде доступний пізніше.')">
+          Аналіз мої документи (скоро)
+        </button>
+
+        <button class="menu-btn secondary" onclick="showComingSoon('Аналіз новин буде доступний пізніше.')">
+          Аналіз новини (скоро)
+        </button>
+      </div>
+
+      <div id="comingSoonText" class="coming-soon"></div>
+    </section>
+
+    <section id="contractsView" class="module-panel hidden">
+      <div class="module-title">Аналіз договорів</div>
+      <div class="module-subtitle">
+        Вставте текст договору або зразка договору. Система дасть просте пояснення,
+        покаже структурне покриття, ризики, практичні наслідки та загальну оцінку сили договору.
+      </div>
+
+      <textarea id="contractInput" placeholder="Вставте сюди текст договору..."></textarea>
+
+      <div class="actions">
+        <button class="action-btn secondary" onclick="clearDocument()">Новий документ</button>
+        <button class="action-btn primary" onclick="analyzeContract()">Аналізувати</button>
+      </div>
+
+      <div id="statusText" class="status"></div>
+      <div id="resultBox" class="result-box">Результат аналізу з’явиться тут.</div>
+
+      <button class="back-btn" onclick="goHome()">Повернутися на головну</button>
+    </section>
+  </div>
+
+  <div class="donate-box" onclick="showDonatePlaceholder()">
+    На розвиток сайту
+  </div>
+
+  <script>
+    const homeView = document.getElementById("homeView");
+    const contractsView = document.getElementById("contractsView");
+    const comingSoonText = document.getElementById("comingSoonText");
+    const contractInput = document.getElementById("contractInput");
+    const statusText = document.getElementById("statusText");
+    const resultBox = document.getElementById("resultBox");
+
+    function goHome() {
+      homeView.classList.remove("hidden");
+      contractsView.classList.add("hidden");
+      comingSoonText.textContent = "";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function openContracts() {
+      homeView.classList.add("hidden");
+      contractsView.classList.remove("hidden");
+      comingSoonText.textContent = "";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function showComingSoon(text) {
+      comingSoonText.textContent = text;
+    }
+
+    function showDonatePlaceholder() {
+      alert("Тут буде блок для добровільної підтримки сайту.\nПоки що це заглушка.");
+    }
+
+    function clearDocument() {
+      contractInput.value = "";
+      statusText.textContent = "";
+      statusText.className = "status";
+      resultBox.innerHTML = "Результат аналізу з’явиться тут.";
+      contractInput.focus();
+    }
+
+    function escapeHtml(text) {
+      return String(text)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+    }
+
+    function renderList(items) {
+      if (!items || !items.length) {
+        return "<p>—</p>";
+      }
+      return "<ul>" + items.map(item => `<li>${escapeHtml(item)}</li>`).join("") + "</ul>";
+    }
+
+    function renderCoverageMap(map) {
+      if (!map) return "<p>Немає даних.</p>";
+
+      const labels = {
+        parties: "Сторони",
+        subject: "Предмет",
+        obligations: "Права та обов’язки",
+        payment: "Оплата / вартість",
+        liability: "Відповідальність",
+        termination: "Розірвання / припинення"
+      };
+
+      let html = "<ul>";
+      for (const key in labels) {
+        const value = map[key] ? "є" : "немає / не виявлено";
+        html += `<li><strong>${labels[key]}:</strong> ${escapeHtml(value)}</li>`;
+      }
+      html += "</ul>";
+      return html;
+    }
+
+    function strengthClass(value) {
+      if (!value) return "score-medium";
+      if (value.includes("сильний") || value.includes("достатній")) return "score-good";
+      if (value.includes("середній")) return "score-medium";
+      return "score-bad";
+    }
+
+    function renderAnalysis(data) {
+      const strength = data.contract_strength_index || "Невизначено";
+      const strengthCss = strengthClass(strength);
+
+      return `
+        <h3>1. Plain Meaning</h3>
+        <p>${escapeHtml(data.summary || "Немає короткого висновку.")}</p>
+
+        <h3>2. Structure Coverage</h3>
+        ${renderCoverageMap(data.structure_map)}
+        <h4>Відсутні або слабко виражені елементи</h4>
+        ${renderList(data.missing_elements)}
+
+        <h3>3. Detected Risks</h3>
+        ${renderList(data.risks)}
+
+        <h3>4. Practical Impact</h3>
+        ${renderList(data.practical_impact)}
+        <h4>Financial Impact</h4>
+        ${renderList(data.financial_impact)}
+
+        <h3>5. Contract Strength Index</h3>
+        <p class="${strengthCss}">${escapeHtml(strength)}</p>
+
+        <h4>Питання, які варто перевірити</h4>
+        ${renderList(data.questions)}
+
+        <h4>Додаткові нотатки</h4>
+        ${renderList(data.notes)}
+      `;
+    }
+
+    function hasAny(text, patterns) {
+      return patterns.some(pattern => text.includes(pattern));
+    }
+
+    function detectTemplate(text) {
+      return hasAny(text, [
+        "зразок договору",
+        "шаблон договору",
+        "типовий договір",
+        "проект договору",
+        "проєкт договору"
+      ]);
+    }
+
+    function extractFinancialNote(rawText) {
+      const percentMatches = rawText.match(/\d+[.,]?\d*\s*%/g);
+      const moneyMatches = rawText.match(/\d[\d\s]*([.,]\d+)?\s*(грн|uah|usd|євро|eur)/gi);
+
+      const parts = [];
+
+      if (percentMatches && percentMatches.length) {
+        parts.push("Виявлені відсоткові значення: " + percentMatches.slice(0, 5).join(", "));
+      }
+
+      if (moneyMatches && moneyMatches.length) {
+        parts.push("Виявлені суми: " + moneyMatches.slice(0, 5).join(", "));
+      }
+
+      if (!parts.length) {
+        return "У тексті є фінансові умови, але їх треба окремо порахувати вручну або в наступній версії ядра.";
+      }
+
+      return parts.join(" | ");
+    }
+
+    function calculateStrengthIndex(structureMap, risks) {
+      let score = 0;
+
+      Object.values(structureMap).forEach(value => {
+        if (value) score += 1;
+      });
+
+      if (risks.length <= 2) score += 2;
+      else if (risks.length <= 4) score += 1;
+
+      if (score >= 7) return "Відносно сильний / структурно достатній";
+      if (score >= 5) return "Середній / потребує ручної перевірки";
+      if (score >= 3) return "Слабкий / є суттєві прогалини";
+      return "Високий ризик / слабка конструкція";
+    }
+
+    function buildSummary(structureMap, risks, isTemplate) {
+      const presentBlocks = Object.values(structureMap).filter(Boolean).length;
+
+      if (isTemplate) {
+        return "Документ схожий на зразок договору. Аналіз сфокусовано на умовах, ризиках, структурі та практичних наслідках, без врахування відсутніх персональних реквізитів сторін.";
+      }
+
+      if (presentBlocks >= 5 && risks.length <= 3) {
+        return "Договір виглядає структурно відносно повним, але окремі умови все одно потребують ручної перевірки перед підписанням.";
+      }
+
+      if (presentBlocks >= 3) {
+        return "У договорі є базові структурні елементи, але помітні прогалини або ризикові умови, які потрібно перевірити уважніше.";
+      }
+
+      return "Договір виглядає структурно слабким або неповним. Перед підписанням потрібна детальна ручна перевірка.";
+    }
+
+    function runContractAnalysis(rawText) {
+      const normalized = rawText.toLowerCase();
+      const isTemplate = detectTemplate(normalized);
+
+      const structureMap = {
+        parties: hasAny(normalized, [
+          "сторони",
+          "сторона 1",
+          "сторона 2",
+          "позичальник",
+          "кредитодавець",
+          "орендодавець",
+          "орендар",
+          "замовник",
+          "виконавець",
+          "іпотекодержатель",
+          "іпотекодавець"
+        ]),
+        subject: hasAny(normalized, [
+          "предмет договору",
+          "предмет",
+          "цей договір регулює",
+          "зобов'язується надати",
+          "надає послуги",
+          "передає у користування",
+          "іпотека",
+          "предмет іпотеки"
+        ]),
+        obligations: hasAny(normalized, [
+          "права та обов'язки",
+          "обов'язки сторін",
+          "зобов'язаний",
+          "має право",
+          "зобов'язуються"
+        ]),
+        payment: hasAny(normalized, [
+          "ціна",
+          "вартість",
+          "оплата",
+          "платіж",
+          "відсотк",
+          "коміс",
+          "щомісячний платіж",
+          "тариф",
+          "процентна ставка"
+        ]),
+        liability: hasAny(normalized, [
+          "відповідальність сторін",
+          "відповідальність",
+          "штраф",
+          "пеня",
+          "неустойка"
+        ]),
+        termination: hasAny(normalized, [
+          "розірвання",
+          "припинення",
+          "строк дії",
+          "термін дії",
+          "достроково"
+        ])
+      };
+
+      const missingElements = [];
+
+      if (!structureMap.parties && !isTemplate) {
+        missingElements.push("Недостатньо чітко визначені сторони договору");
+      }
+      if (!structureMap.subject) {
+        missingElements.push("Слабко або нечітко визначений предмет договору");
+      }
+      if (!structureMap.obligations) {
+        missingElements.push("Недостатньо виписані права та обов’язки сторін");
+      }
+      if (!structureMap.payment) {
+        missingElements.push("Слабко визначені умови оплати / вартості");
+      }
+      if (!structureMap.liability) {
+        missingElements.push("Не виявлено або слабо виписано відповідальність сторін");
+      }
+      if (!structureMap.termination) {
+        missingElements.push("Не виявлено або слабо виписано порядок припинення / розірвання");
+      }
+
+      const risks = [];
+      const practicalImpact = [];
+      const financialImpact = [];
+      const questions = [];
+      const notes = [];
+
+      if (hasAny(normalized, [
+        "в односторонньому порядку",
+        "має право змінити",
+        "може змінювати тарифи",
+        "без додаткового погодження"
+      ])) {
+        risks.push("Є ознаки можливості односторонньої зміни умов другою стороною.");
+        practicalImpact.push("Інша сторона може змінити окремі умови без реального балансу впливу з вашого боку.");
+        questions.push("Які саме умови можуть змінюватися в односторонньому порядку і як вас мають повідомити?");
+      }
+
+      if (hasAny(normalized, [
+        "штраф",
+        "пеня",
+        "неустойка"
+      ])) {
+        risks.push("Передбачені штрафні санкції або пеня.");
+        practicalImpact.push("При порушенні строків чи умов договору можуть виникнути додаткові витрати.");
+        questions.push("За які саме дії або прострочення нараховується штраф чи пеня?");
+      }
+
+      if (hasAny(normalized, [
+        "автоматично продовжується",
+        "автопролонгація",
+        "вважається продовженим"
+      ])) {
+        risks.push("Є ознаки автоматичного продовження договору.");
+        practicalImpact.push("Договір може продовжитися автоматично, якщо ви вчасно не подасте заперечення або заяву.");
+        questions.push("Який строк і форма повідомлення для відмови від продовження договору?");
+      }
+
+      if (hasAny(normalized, [
+        "страхування",
+        "страховка",
+        "страховий платіж"
+      ])) {
+        risks.push("У договорі є умови щодо страхування.");
+        practicalImpact.push("Окрім базового платежу можуть бути додаткові витрати на страхування.");
+        financialImpact.push("Потрібно окремо перевірити чи страхування є обов’язковим, добровільним, разовим чи щорічним.");
+        questions.push("Чи можна обрати іншу страхову компанію, чи дозволена лише компанія, пов’язана з банком/контрагентом?");
+      }
+
+      if (hasAny(normalized, [
+        "комісія",
+        "разова комісія",
+        "щомісячна комісія",
+        "адміністративний збір"
+      ])) {
+        risks.push("Є додаткові комісії або збори понад основний платіж.");
+        practicalImpact.push("Фактична вартість договору може бути вищою, ніж здається з основної суми.");
+        financialImpact.push("Слід окремо порахувати суму всіх комісій, супутніх платежів та обов’язкових зборів.");
+        questions.push("Який повний перелік додаткових платежів при укладенні та виконанні договору?");
+      }
+
+      if (hasAny(normalized, [
+        "відсоткова ставка",
+        "процентна ставка",
+        "річних",
+        "%"
+      ])) {
+        practicalImpact.push("Фінансові умови мають прямий вплив на реальні витрати користувача.");
+        financialImpact.push(extractFinancialNote(rawText));
+        questions.push("Чи ставка є фіксованою чи змінною, і за яких умов вона може збільшитися?");
+      }
+
+      if (!structureMap.liability) {
+        risks.push("Немає чітко видимого блоку відповідальності сторін.");
+        practicalImpact.push("У разі спору може бути складніше зрозуміти наслідки порушення умов.");
+      }
+
+      if (!structureMap.termination) {
+        risks.push("Немає чітко видимого механізму розірвання або дострокового припинення.");
+        practicalImpact.push("Вихід із договору може виявитися складнішим або дорожчим, ніж очікується.");
+      }
+
+      if (isTemplate) {
+        notes.push("Виявлено ознаки того, що документ є зразком/шаблоном договору.");
+        notes.push("Для шаблону відсутність персональних даних сторін не вважається проблемою.");
+      }
+
+      if (!risks.length) {
+        risks.push("Явних критичних ризиків на базовому патерн-рівні не виявлено, але потрібна ручна перевірка тексту.");
+      }
+
+      if (!practicalImpact.length) {
+        practicalImpact.push("Практичні наслідки залежать від деталей виконання договору та прихованих умов у повному тексті.");
+      }
+
+      if (!financialImpact.length) {
+        financialImpact.push("Явних числових фінансових наслідків автоматично не виділено. Потрібен глибший розрахунок.");
+      }
+
+      if (!questions.length) {
+        questions.push("Чи є у договорі додатки, тарифи, правила або інші документи, на які він посилається?");
+      }
+
+      if (!notes.length) {
+        notes.push("Результат базується на первинному структурному аналізі тексту.");
+      }
+
+      const strengthIndex = calculateStrengthIndex(structureMap, risks);
+
+      return {
+        summary: buildSummary(structureMap, risks, isTemplate),
+        structure_map: structureMap,
+        risks,
+        practical_impact: practicalImpact,
+        financial_impact: financialImpact,
+        contract_strength_index: strengthIndex,
+        missing_elements: missingElements,
+        questions,
+        notes
+      };
+    }
+
+    function analyzeContract() {
+      const text = contractInput.value.trim();
+
+      if (!text) {
+        statusText.textContent = "Вставте текст договору перед аналізом.";
+        statusText.className = "status error";
+        resultBox.innerHTML = "Порожній текст для аналізу.";
+        return;
+      }
+
+      statusText.textContent = "Аналіз триває…";
+      statusText.className = "status processing";
+      resultBox.innerHTML = "Система виконує первинний аналіз договору...";
+
+      setTimeout(() => {
+        const result = runContractAnalysis(text);
+        statusText.textContent = "Аналіз завершено.";
+        statusText.className = "status success";
+        resultBox.innerHTML = renderAnalysis(result);
+      }, 700);
+    }
+  </script>
 </body>
 </html>
