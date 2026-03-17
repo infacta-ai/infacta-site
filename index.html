@@ -1,68 +1,119 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Infacta</title>
-  <link rel="stylesheet" href="css/styles.css" />
+    <meta charset="UTF-8">
+    <title>Infacta</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: linear-gradient(#cce6ff, #e6f2ff);
+        }
+
+        .header {
+            text-align: center;
+            padding: 20px;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .menu {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .menu button {
+            display: block;
+            margin: 10px auto;
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .container {
+            display: none;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        textarea {
+            width: 80%;
+            height: 150px;
+            margin-top: 20px;
+        }
+
+        .actions {
+            margin-top: 15px;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .soon {
+            color: red;
+        }
+
+        .donate {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background: lightgreen;
+            padding: 10px;
+            cursor: pointer;
+        }
+    </style>
 </head>
+
 <body>
-  <div class="sky-background"></div>
 
-  <header class="site-header">
-    <button id="homeLogo" class="logo-button" aria-label="На головну">
-      <img src="assets/logo/infacta-shield.png" alt="Infacta Logo" class="logo-image" />
-      <span class="logo-text">Infacta</span>
-    </button>
-  </header>
+<div class="header" onclick="goHome()">
+    INFACTA
+</div>
 
-  <main class="main-container">
-    <section id="homeScreen" class="screen active">
-      <div class="hero-card">
-        <h1>Infacta</h1>
-        <p class="hero-subtitle">Платформа аналізу інформації</p>
+<div class="menu" id="menu">
+    <button onclick="openModule('contract')">Аналіз договорів</button>
+    <button class="soon">Аналіз мої документи (скоро)</button>
+    <button class="soon">Аналіз новини (скоро)</button>
+</div>
 
-        <div class="menu-buttons">
-          <button id="openContractsBtn" class="menu-btn primary-btn">Аналіз договорів</button>
-          <button id="myDocsSoonBtn" class="menu-btn secondary-btn">Аналіз моїх документів (скоро)</button>
-          <button id="newsSoonBtn" class="menu-btn secondary-btn">Аналіз новин (скоро)</button>
-        </div>
+<div class="container" id="contract">
+    <textarea placeholder="Встав текст договору..."></textarea>
 
-        <div id="soonMessage" class="soon-message" aria-live="polite"></div>
-      </div>
-    </section>
+    <div class="actions">
+        <button onclick="newDoc()">Новий документ</button>
+        <button onclick="analyze()">Аналізувати</button>
+    </div>
 
-    <section id="contractsScreen" class="screen">
-      <div class="work-card">
-        <h2>Аналіз договорів</h2>
+    <div class="result" id="result"></div>
+</div>
 
-        <label for="documentInput" class="input-label">Вставте текст договору:</label>
-        <textarea
-          id="documentInput"
-          class="document-input"
-          placeholder="Вставте тут текст договору для аналізу..."
-        ></textarea>
-
-        <div class="action-buttons">
-          <button id="newDocumentBtn" class="menu-btn secondary-btn">Новий документ</button>
-          <button id="analyzeBtn" class="menu-btn primary-btn">Аналізувати</button>
-        </div>
-
-        <div id="statusBox" class="status-box" aria-live="polite"></div>
-
-        <div id="resultBox" class="result-box">
-          <div class="result-placeholder">
-            Результат аналізу з’явиться тут.
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <button id="donateBtn" class="donate-widget" type="button">
+<div class="donate">
     На розвиток сайту
-  </button>
+</div>
 
-  <script type="module" src="js/app.js"></script>
+<script>
+function openModule(id) {
+    document.getElementById('menu').style.display = 'none';
+    document.getElementById(id).style.display = 'block';
+}
+
+function goHome() {
+    document.getElementById('menu').style.display = 'block';
+    document.getElementById('contract').style.display = 'none';
+}
+
+function newDoc() {
+    document.querySelector('textarea').value = '';
+    document.getElementById('result').innerText = '';
+}
+
+function analyze() {
+    document.getElementById('result').innerText = 'Аналіз завершено (демо)';
+}
+</script>
+
 </body>
 </html>
