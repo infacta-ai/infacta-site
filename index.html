@@ -120,7 +120,7 @@
       font-size: 16px;
       font-weight: 700;
       cursor: pointer;
-      transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
 
     .menu-btn:hover,
@@ -233,11 +233,10 @@
       padding: 18px;
       background: rgba(250, 253, 255, 0.96);
       min-height: 240px;
-      max-height: 460px;
+      max-height: 520px;
       overflow-y: auto;
       line-height: 1.58;
       color: #1d3550;
-      white-space: pre-wrap;
     }
 
     .result-box h3 {
@@ -284,6 +283,21 @@
 
     .donate-box:hover {
       transform: translateY(-1px);
+    }
+
+    .score-good {
+      color: #0c6b3d;
+      font-weight: 700;
+    }
+
+    .score-medium {
+      color: #996300;
+      font-weight: 700;
+    }
+
+    .score-bad {
+      color: #b30000;
+      font-weight: 700;
     }
 
     @media (max-width: 640px) {
@@ -343,8 +357,8 @@
     <section id="contractsView" class="module-panel hidden">
       <div class="module-title">Аналіз договорів</div>
       <div class="module-subtitle">
-        Вставте текст договору або зразка договору. Система спробує дати коротке пояснення,
-        оцінити структуру, ризики, практичні наслідки та загальну силу договору.
+        Вставте текст договору або зразка договору. Система дасть просте пояснення,
+        покаже структурне покриття, ризики, практичні наслідки та загальну оцінку сили договору.
       </div>
 
       <textarea id="contractInput" placeholder="Вставте сюди текст договору..."></textarea>
@@ -438,8 +452,16 @@
       return html;
     }
 
+    function strengthClass(value) {
+      if (!value) return "score-medium";
+      if (value.includes("сильний") || value.includes("достатній")) return "score-good";
+      if (value.includes("середній")) return "score-medium";
+      return "score-bad";
+    }
+
     function renderAnalysis(data) {
       const strength = data.contract_strength_index || "Невизначено";
+      const strengthCss = strengthClass(strength);
 
       return `
         <h3>1. Plain Meaning</h3>
@@ -459,7 +481,7 @@
         ${renderList(data.financial_impact)}
 
         <h3>5. Contract Strength Index</h3>
-        <p><strong>${escapeHtml(strength)}</strong></p>
+        <p class="${strengthCss}">${escapeHtml(strength)}</p>
 
         <h4>Питання, які варто перевірити</h4>
         ${renderList(data.questions)}
@@ -469,7 +491,275 @@
       `;
     }
 
-    async function analyzeContract() {
+    function hasAny(text, patterns) {
+      return patterns.some(pattern => text.includes(pattern));
+    }
+
+    function detectTemplate(text) {
+      return hasAny(text, [
+        "зразок договору",
+        "шаблон договору",
+        "типовий договір",
+        "проект договору",
+        "проєкт договору"
+      ]);
+    }
+
+    function extractFinancialNote(rawText) {
+      const percentMatches = rawText.match(/\d+[.,]?\d*\s*%/g);
+      const moneyMatches = rawText.match(/\d[\d\s]*([.,]\d+)?\s*(грн|uah|usd|євро|eur)/gi);
+
+      const parts = [];
+
+      if (percentMatches && percentMatches.length) {
+        parts.push("Виявлені відсоткові значення: " + percentMatches.slice(0, 5).join(", "));
+      }
+
+      if (moneyMatches && moneyMatches.length) {
+        parts.push("Виявлені суми: " + moneyMatches.slice(0, 5).join(", "));
+      }
+
+      if (!parts.length) {
+        return "У тексті є фінансові умови, але їх треба окремо порахувати вручну або в наступній версії ядра.";
+      }
+
+      return parts.join(" | ");
+    }
+
+    function calculateStrengthIndex(structureMap, risks) {
+      let score = 0;
+
+      Object.values(structureMap).forEach(value => {
+        if (value) score += 1;
+      });
+
+      if (risks.length <= 2) score += 2;
+      else if (risks.length <= 4) score += 1;
+
+      if (score >= 7) return "Відносно сильний / структурно достатній";
+      if (score >= 5) return "Середній / потребує ручної перевірки";
+      if (score >= 3) return "Слабкий / є суттєві прогалини";
+      return "Високий ризик / слабка конструкція";
+    }
+
+    function buildSummary(structureMap, risks, isTemplate) {
+      const presentBlocks = Object.values(structureMap).filter(Boolean).length;
+
+      if (isTemplate) {
+        return "Документ схожий на зразок договору. Аналіз сфокусовано на умовах, ризиках, структурі та практичних наслідках, без врахування відсутніх персональних реквізитів сторін.";
+      }
+
+      if (presentBlocks >= 5 && risks.length <= 3) {
+        return "Договір виглядає структурно відносно повним, але окремі умови все одно потребують ручної перевірки перед підписанням.";
+      }
+
+      if (presentBlocks >= 3) {
+        return "У договорі є базові структурні елементи, але помітні прогалини або ризикові умови, які потрібно перевірити уважніше.";
+      }
+
+      return "Договір виглядає структурно слабким або неповним. Перед підписанням потрібна детальна ручна перевірка.";
+    }
+
+    function runContractAnalysis(rawText) {
+      const normalized = rawText.toLowerCase();
+      const isTemplate = detectTemplate(normalized);
+
+      const structureMap = {
+        parties: hasAny(normalized, [
+          "сторони",
+          "сторона 1",
+          "сторона 2",
+          "позичальник",
+          "кредитодавець",
+          "орендодавець",
+          "орендар",
+          "замовник",
+          "виконавець"
+        ]),
+        subject: hasAny(normalized, [
+          "предмет договору",
+          "предмет",
+          "цей договір регулює",
+          "зобов'язується надати",
+          "надає послуги",
+          "передає у користування"
+        ]),
+        obligations: hasAny(normalized, [
+          "права та обов'язки",
+          "обов'язки сторін",
+          "зобов'язаний",
+          "має право",
+          "зобов'язуються"
+        ]),
+        payment: hasAny(normalized, [
+          "ціна",
+          "вартість",
+          "оплата",
+          "платіж",
+          "відсотк",
+          "коміс",
+          "щомісячний платіж",
+          "тариф"
+        ]),
+        liability: hasAny(normalized, [
+          "відповідальність сторін",
+          "відповідальність",
+          "штраф",
+          "пеня",
+          "неустойка"
+        ]),
+        termination: hasAny(normalized, [
+          "розірвання",
+          "припинення",
+          "строк дії",
+          "термін дії",
+          "достроково"
+        ])
+      };
+
+      const missingElements = [];
+
+      if (!structureMap.parties && !isTemplate) {
+        missingElements.push("Недостатньо чітко визначені сторони договору");
+      }
+      if (!structureMap.subject) {
+        missingElements.push("Слабко або нечітко визначений предмет договору");
+      }
+      if (!structureMap.obligations) {
+        missingElements.push("Недостатньо виписані права та обов’язки сторін");
+      }
+      if (!structureMap.payment) {
+        missingElements.push("Слабко визначені умови оплати / вартості");
+      }
+      if (!structureMap.liability) {
+        missingElements.push("Не виявлено або слабо виписано відповідальність сторін");
+      }
+      if (!structureMap.termination) {
+        missingElements.push("Не виявлено або слабо виписано порядок припинення / розірвання");
+      }
+
+      const risks = [];
+      const practicalImpact = [];
+      const financialImpact = [];
+      const questions = [];
+      const notes = [];
+
+      if (hasAny(normalized, [
+        "в односторонньому порядку",
+        "має право змінити",
+        "може змінювати тарифи",
+        "без додаткового погодження"
+      ])) {
+        risks.push("Є ознаки можливості односторонньої зміни умов другою стороною.");
+        practicalImpact.push("Інша сторона може змінити окремі умови без реального балансу впливу з вашого боку.");
+        questions.push("Які саме умови можуть змінюватися в односторонньому порядку і як вас мають повідомити?");
+      }
+
+      if (hasAny(normalized, [
+        "штраф",
+        "пеня",
+        "неустойка"
+      ])) {
+        risks.push("Передбачені штрафні санкції або пеня.");
+        practicalImpact.push("При порушенні строків чи умов договору можуть виникнути додаткові витрати.");
+        questions.push("За які саме дії або прострочення нараховується штраф чи пеня?");
+      }
+
+      if (hasAny(normalized, [
+        "автоматично продовжується",
+        "автопролонгація",
+        "вважається продовженим"
+      ])) {
+        risks.push("Є ознаки автоматичного продовження договору.");
+        practicalImpact.push("Договір може продовжитися автоматично, якщо ви вчасно не подасте заперечення або заяву.");
+        questions.push("Який строк і форма повідомлення для відмови від продовження договору?");
+      }
+
+      if (hasAny(normalized, [
+        "страхування",
+        "страховка",
+        "страховий платіж"
+      ])) {
+        risks.push("У договорі є умови щодо страхування.");
+        practicalImpact.push("Окрім базового платежу можуть бути додаткові витрати на страхування.");
+        financialImpact.push("Потрібно окремо перевірити чи страхування є обов’язковим, добровільним, разовим чи щорічним.");
+        questions.push("Чи можна обрати іншу страхову компанію, чи дозволена лише компанія, пов’язана з банком/контрагентом?");
+      }
+
+      if (hasAny(normalized, [
+        "комісія",
+        "разова комісія",
+        "щомісячна комісія",
+        "адміністративний збір"
+      ])) {
+        risks.push("Є додаткові комісії або збори понад основний платіж.");
+        practicalImpact.push("Фактична вартість договору може бути вищою, ніж здається з основної суми.");
+        financialImpact.push("Слід окремо порахувати суму всіх комісій, супутніх платежів та обов’язкових зборів.");
+        questions.push("Який повний перелік додаткових платежів при укладенні та виконанні договору?");
+      }
+
+      if (hasAny(normalized, [
+        "відсоткова ставка",
+        "процентна ставка",
+        "річних",
+        "%"
+      ])) {
+        practicalImpact.push("Фінансові умови мають прямий вплив на реальні витрати користувача.");
+        financialImpact.push(extractFinancialNote(rawText));
+        questions.push("Чи ставка є фіксованою чи змінною, і за яких умов вона може збільшитися?");
+      }
+
+      if (!structureMap.liability) {
+        risks.push("Немає чітко видимого блоку відповідальності сторін.");
+        practicalImpact.push("У разі спору може бути складніше зрозуміти наслідки порушення умов.");
+      }
+
+      if (!structureMap.termination) {
+        risks.push("Немає чітко видимого механізму розірвання або дострокового припинення.");
+        practicalImpact.push("Вихід із договору може виявитися складнішим або дорожчим, ніж очікується.");
+      }
+
+      if (isTemplate) {
+        notes.push("Виявлено ознаки того, що документ є зразком/шаблоном договору.");
+        notes.push("Для шаблону відсутність персональних даних сторін не вважається проблемою.");
+      }
+
+      if (!risks.length) {
+        risks.push("Явних критичних ризиків на базовому патерн-рівні не виявлено, але потрібна ручна перевірка тексту.");
+      }
+
+      if (!practicalImpact.length) {
+        practicalImpact.push("Практичні наслідки залежать від деталей виконання договору та прихованих умов у повному тексті.");
+      }
+
+      if (!financialImpact.length) {
+        financialImpact.push("Явних числових фінансових наслідків автоматично не виділено. Потрібен глибший розрахунок.");
+      }
+
+      if (!questions.length) {
+        questions.push("Чи є у договорі додатки, тарифи, правила або інші документи, на які він посилається?");
+      }
+
+      if (!notes.length) {
+        notes.push("Результат базується на первинному структурному аналізі тексту.");
+      }
+
+      const strengthIndex = calculateStrengthIndex(structureMap, risks);
+
+      return {
+        summary: buildSummary(structureMap, risks, isTemplate),
+        structure_map: structureMap,
+        risks,
+        practical_impact: practicalImpact,
+        financial_impact: financialImpact,
+        contract_strength_index: strengthIndex,
+        missing_elements: missingElements,
+        questions,
+        notes
+      };
+    }
+
+    function analyzeContract() {
       const text = contractInput.value.trim();
 
       if (!text) {
@@ -483,70 +773,12 @@
       statusText.className = "status processing";
       resultBox.innerHTML = "Система виконує первинний аналіз договору...";
 
-      try {
-        const response = await fetch("/api/analyze", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            mode: "contract_analysis",
-            language: "uk",
-            text: text
-          })
-        });
-
-        if (!response.ok) {
-          throw new Error("Помилка відповіді сервера");
-        }
-
-        const data = await response.json();
-
+      setTimeout(() => {
+        const result = runContractAnalysis(text);
         statusText.textContent = "Аналіз завершено.";
         statusText.className = "status success";
-        resultBox.innerHTML = renderAnalysis(data);
-      } catch (error) {
-        statusText.textContent = "Помилка аналізу. Показано резервний демо-результат.";
-        statusText.className = "status error";
-
-        const fallback = {
-          summary: "Серверний міст тимчасово не відповів. Це резервний демо-результат для перевірки інтерфейсу.",
-          structure_map: {
-            parties: true,
-            subject: true,
-            obligations: true,
-            payment: true,
-            liability: false,
-            termination: false
-          },
-          risks: [
-            "Не вдалося виконати повний аналіз через помилку bridge/API.",
-            "Потрібно перевірити чи папка api завантажена в репозиторій.",
-            "Потрібно перевірити чи сайт задеплоєний через Vercel, а не лише як статична сторінка."
-          ],
-          practical_impact: [
-            "Інтерфейс працює, але реальний серверний аналіз ще потребує перевірки."
-          ],
-          financial_impact: [
-            "Фінансові наслідки не розраховано, бо bridge/API не повернув дані."
-          ],
-          contract_strength_index: "Тестовий режим",
-          missing_elements: [
-            "Відповідальність",
-            "Розірвання договору"
-          ],
-          questions: [
-            "Чи доступний /api/analyze після деплою?",
-            "Чи передається текст у JSON-форматі?",
-            "Чи повертає Vercel функція статус 200?"
-          ],
-          notes: [
-            error.message
-          ]
-        };
-
-        resultBox.innerHTML = renderAnalysis(fallback);
-      }
+        resultBox.innerHTML = renderAnalysis(result);
+      }, 700);
     }
   </script>
 </body>
