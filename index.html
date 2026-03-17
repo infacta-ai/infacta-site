@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Infacta</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #0f172a;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .logo {
+      font-size: 32px;
+      margin-bottom: 20px;
+      cursor: pointer;
+    }
+
+    .btn {
+      display: block;
+      width: 300px;
+      margin: 10px auto;
+      padding: 15px;
+      background: #1e293b;
+      border: none;
+      color: white;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .btn:hover {
+      background: #334155;
+    }
+
+    textarea {
+      width: 90%;
+      height: 150px;
+      margin-top: 20px;
+      background: #020617;
+      color: white;
+      border: 1px solid #334155;
+      padding: 10px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .result {
+      margin-top: 20px;
+      padding: 10px;
+      background: #020617;
+      border: 1px solid #334155;
+      text-align: left;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="logo" onclick="goHome()">🛡️ INFACTA</div>
+
+<div id="mainMenu">
+  <button class="btn" onclick="openContract()">Аналіз договорів</button>
+  <button class="btn">Мої документи (скоро)</button>
+  <button class="btn">Новини (скоро)</button>
+</div>
+
+<div id="contractBlock" class="hidden">
+  <textarea id="inputText" placeholder="Встав текст договору..."></textarea>
+
+  <button class="btn" onclick="analyze()">Аналізувати</button>
+  <button class="btn" onclick="reset()">Новий документ</button>
+
+  <div id="result" class="result hidden"></div>
+</div>
+
+<script>
+function goHome() {
+  document.getElementById("mainMenu").classList.remove("hidden");
+  document.getElementById("contractBlock").classList.add("hidden");
+}
+
+function openContract() {
+  document.getElementById("mainMenu").classList.add("hidden");
+  document.getElementById("contractBlock").classList.remove("hidden");
+}
+
+function reset() {
+  document.getElementById("inputText").value = "";
+  document.getElementById("result").classList.add("hidden");
+}
+
+async function analyze() {
+  const text = document.getElementById("inputText").value;
+
+  const res = await fetch("https://твій-api-url/api/analyze", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ text })
+  });
+
+  const data = await res.json();
+
+  const resultDiv = document.getElementById("result");
+  resultDiv.classList.remove("hidden");
+
+  resultDiv.innerHTML = `
+    <h3>Результат:</h3>
+    <pre>${JSON.stringify(data, null, 2)}</pre>
+  `;
+}
+</script>
+
+</body>
+</html>
