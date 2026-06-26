@@ -390,12 +390,23 @@
         "notAvailable.navStart": "На старт"
     }
 };
+
+  var LEVEL_UK={
+    '0':{title:'Що дає Level 0',state:'active',items:[['Пояснення простими словами','Розшифровує зміст документа без складних термінів.'],['Виявлення ризиків','Показує можливі ризики й приховані слабкі місця.'],['Що уточнити','Підказує, на що звернути увагу і які питання поставити.']],note:'<b>Level 0</b> — доступний демо-рівень: просте пояснення, ключові ризики і питання для уточнення.'},
+    '1':{title:'Що дає Level 1',state:'future',items:[['Структурований розбір','Має розкладати документ на сторони, предмет, строки, суми й обов’язки.'],['Ключові блоки','Має показувати головні частини документа у зрозумілій структурі.'],['Підготовка до наступного рівня','Має створювати основу для глибшого аналізу ризиків.']],note:'<b>Level 1</b> — майбутній рівень для структурованого розбору документа. У демо не активний.'},
+    '2':{title:'Що дає Level 2',state:'future',items:[['Ризики й штрафи','Має знаходити ризикові умови, штрафи, дедлайни та односторонні зобов’язання.'],['Що може піти не так','Має пояснювати практичні наслідки окремих пунктів.'],['Пріоритети перевірки','Має показувати, що перевірити в першу чергу.']],note:'<b>Level 2</b> — майбутній рівень для ризиків, строків, штрафів і зобов’язань. У демо не активний.'},
+    '3':{title:'Що дає Level 3',state:'future',items:[['Поглиблений аналіз','Має ставити уточнювальні питання й враховувати відповіді користувача.'],['Контекст ситуації','Має пов’язувати документ із реальною метою користувача.'],['Підготовка рішень','Має допомагати зрозуміти, які дії можливі далі.']],note:'<b>Level 3</b> — майбутній рівень для поглиблення аналізу через уточнення контексту. У демо не активний.'},
+    '4':{title:'Що дає Level 4',state:'future',items:[['Сценарії','Має порівнювати кілька варіантів дій.'],['Підготовка до консультації','Має формувати матеріал, з яким легше йти до профільного спеціаліста.'],['Порівняння наслідків','Має показувати плюси, мінуси й ризики кожного сценарію.']],note:'<b>Level 4</b> — майбутній рівень для сценаріїв, порівнянь і підготовки до консультації. У демо не активний.'},
+    '5':{title:'Що дає Level 5',state:'future',items:[['Повний супровід кейсу','Має працювати не тільки з одним документом, а з усім контекстом ситуації.'],['Пакет документів','Має пов’язувати кілька документів, подій, строків і рішень між собою.'],['Довгий контекст','Має допомагати вести складний кейс послідовно, з історією рішень і наступними кроками.']],note:'<b>Level 5</b> — майбутній рівень повного контекстного супроводу документа або кейсу. У демо не активний.'}
+  };
+
   var LEVEL_EN={
     '0':{title:'What Level 0 gives you',state:'active',items:[['Explains in simple words','Decodes the document content without complex terms.'],['Highlights risks','Shows possible risks and hidden pitfalls.'],['Suggests what to clarify','Points out what to pay attention to and what questions to ask.']],note:'<b>Level 0</b> — the first step to understanding a document: simple explanation, key risks, and questions to clarify.'},
-    '1':{title:'What Level 1 gives you',state:'future',items:[['Legal consequences','Should explain what legal consequences a document may create.'],['Restrictions and obligations','Should show what may change for a person after signing or performing a document.'],['Questions for a lawyer','Should form a list of questions worth checking with a specialist.']],note:'<b>Level 1</b> — a future level for understanding legal consequences of a document.'},
-    '2':{title:'What Level 2 gives you',state:'future',items:[['What to do next','Should turn document explanations into a practical next-step plan.'],['Priorities','Should help identify what to do first and what can wait.'],['Preparation','Should suggest what data, documents, or questions to gather.']],note:'<b>Level 2</b> — a future level for moving from understanding a document to action.'},
-    '3':{title:'What Level 3 gives you',state:'future',items:[['Alternatives','Should show different behavior or decision options.'],['Scenarios','Should explain how the situation may develop depending on the choice.'],['Comparison','Should help compare risks, costs, and benefits of each scenario.']],note:'<b>Level 3</b> — a future level for comparing alternatives and scenarios.'},
-    '4':{title:'What Level 4 gives you',state:'future',items:[['Document portfolio','Should help work not with one document, but with a set of related documents.'],['Links between documents','Should show how one document affects another.'],['Long case','Should support complex situations where decisions depend on several materials.']],note:'<b>Level 4</b> — a future level for document portfolios and longer cases.'}
+    '1':{title:'What Level 1 gives you',state:'future',items:[['Legal consequences','Should explain what legal consequences a document may create.'],['Restrictions and obligations','Should show what may change for a person after signing or performing a document.'],['Questions for a lawyer','Should form a list of questions worth checking with a specialist.']],note:'<b>Level 1</b> — a planned level for understanding legal consequences of a document. Not active in this demo.'},
+    '2':{title:'What Level 2 gives you',state:'future',items:[['What to do next','Should turn document explanations into a practical next-step plan.'],['Priorities','Should help identify what to do first and what can wait.'],['Preparation','Should suggest what data, documents, or questions to gather.']],note:'<b>Level 2</b> — a planned level for moving from understanding a document to action. Not active in this demo.'},
+    '3':{title:'What Level 3 gives you',state:'future',items:[['Alternatives','Should show different behavior or decision options.'],['Scenarios','Should explain how the situation may develop depending on the choice.'],['Comparison','Should help compare risks, costs, and benefits of each scenario.']],note:'<b>Level 3</b> — a planned level for comparing alternatives and scenarios. Not active in this demo.'},
+    '4':{title:'What Level 4 gives you',state:'future',items:[['Scenarios','Should compare several possible decisions or behaviors.'],['Preparation for consultation','Should prepare material that is easier to discuss with a specialist.'],['Consequences','Should show practical pros, cons, and risks of each scenario.']],note:'<b>Level 4</b> — a planned level for scenarios, comparisons, and consultation preparation. Not active in this demo.'},
+    '5':{title:'What Level 5 gives you',state:'future',items:[['Full case support','Should work not only with one document, but with the whole situation context.'],['Document set','Should connect several documents, events, deadlines, and decisions.'],['Long context','Should help maintain a complex case step by step, with history and next actions.']],note:'<b>Level 5</b> — a future level for full contextual support of a document or case. Not active in this demo.'}
   };
 
   var LEVEL_RU={
@@ -435,7 +446,7 @@
                 "Должен формировать список вопросов, которые стоит проверить со специалистом."
             ]
         ],
-        "note": "<b>Level 1</b> — будущий уровень для понимания юридических последствий документа."
+        "note": "<b>Level 1</b> — будущий уровень для понимания юридических последствий документа. В демо не активен."
     },
     "2": {
         "title": "Что даёт Level 2",
@@ -454,7 +465,7 @@
                 "Должен подсказывать, какие данные, документы или вопросы стоит собрать."
             ]
         ],
-        "note": "<b>Level 2</b> — будущий уровень для перехода от понимания документа к действию."
+        "note": "<b>Level 2</b> — будущий уровень для перехода от понимания документа к действию. В демо не активен."
     },
     "3": {
         "title": "Что даёт Level 3",
@@ -473,30 +484,46 @@
                 "Должен помогать видеть риски, затраты и преимущества каждого сценария."
             ]
         ],
-        "note": "<b>Level 3</b> — будущий уровень для сравнения альтернатив и сценариев."
+        "note": "<b>Level 3</b> — будущий уровень для сравнения альтернатив и сценариев. В демо не активен."
     },
     "4": {
         "title": "Что даёт Level 4",
         "state": "future",
         "items": [
-            [
-                "Портфель документов",
-                "Должен помогать работать не с одним документом, а с набором связанных документов."
-            ],
-            [
-                "Связи между документами",
-                "Должен показывать, как один документ влияет на другой."
-            ],
-            [
-                "Долгий кейс",
-                "Должен поддерживать сложные ситуации, где решение зависит от нескольких материалов."
-            ]
+            ["Сценарии", "Должен сравнивать несколько вариантов действий."],
+            ["Подготовка к консультации", "Должен готовить материал, с которым проще идти к специалисту."],
+            ["Сравнение последствий", "Должен показывать плюсы, минусы и риски каждого сценария."]
         ],
-        "note": "<b>Level 4</b> — будущий уровень для работы с портфелем документов и более длинными кейсами."
+        "note": "<b>Level 4</b> — будущий уровень для сценариев, сравнения и подготовки к консультации."
+    },
+    "5": {
+        "title": "Что даёт Level 5",
+        "state": "future",
+        "items": [
+            ["Полное сопровождение кейса", "Должен работать не только с одним документом, а со всем контекстом ситуации."],
+            ["Пакет документов", "Должен связывать несколько документов, событий, сроков и решений."],
+            ["Длинный контекст", "Должен помогать вести сложный кейс последовательно, с историей решений и следующими шагами."]
+        ],
+        "note": "<b>Level 5</b> — будущий уровень полного контекстного сопровождения документа или кейса. В demo не активен."
     }
 };
 
-  var LEVEL_BY_LANG={en:LEVEL_EN,ru:LEVEL_RU};
+  var LEVEL_BY_LANG={uk:LEVEL_UK,en:LEVEL_EN,ru:LEVEL_RU};
+
+  var LEVEL_OPTION_LABELS={
+    uk:{'0':'Level 0 — доступний у демо · просте пояснення','1':'Level 1 — майбутній · структурований розбір','2':'Level 2 — майбутній · ризики, строки, штрафи','3':'Level 3 — майбутній · поглиблений аналіз','4':'Level 4 — майбутній · сценарії та підготовка','5':'Level 5 — майбутній · повний супровід кейсу'},
+    en:{'0':'Level 0 — available in demo · simple explanation','1':'Level 1 — planned · structured breakdown','2':'Level 2 — planned · risks, deadlines, penalties','3':'Level 3 — planned · deeper analysis','4':'Level 4 — planned · scenarios and preparation','5':'Level 5 — planned · full case support'},
+    ru:{'0':'Level 0 — доступен в демо · простое объяснение','1':'Level 1 — будущий · структурированный разбор','2':'Level 2 — будущий · риски, сроки, штрафы','3':'Level 3 — будущий · углублённый анализ','4':'Level 4 — будущий · сценарии и подготовка','5':'Level 5 — будущий · сопровождение кейса'}
+  };
+
+  var LEVEL_STATUS_LABELS={
+    uk:{active:'Доступний у демо',future:'Майбутній рівень'},
+    en:{active:'Available in demo',future:'Planned level'},
+    ru:{active:'Доступен в демо',future:'Будущий уровень'}
+  };
+
+  var LANGUAGE_FLAGS={uk:'🇺🇦',en:'🇬🇧',ru:'🇷🇺'};
+
 
   function getRequestedLang(search){
     var params=new URLSearchParams(typeof search==='string' ? search : window.location.search);
@@ -528,11 +555,31 @@
     var title=document.getElementById('levelTitle');
     var list=document.getElementById('levelList');
     var note=document.getElementById('levelNote');
+    var badge=document.getElementById('levelStatusBadge');
     var card=document.querySelector('.level-card');
+    var state=data.state || 'future';
     if(title) title.textContent=data.title;
-    if(card) card.setAttribute('data-level-state', data.state);
+    if(card) card.setAttribute('data-level-state', state);
+    if(badge){
+      var labels=LEVEL_STATUS_LABELS[resolvedLang] || LEVEL_STATUS_LABELS[DEFAULT_LANG];
+      badge.textContent=labels[state] || labels.future;
+      badge.setAttribute('data-state', state);
+      badge.setAttribute('aria-label', badge.textContent);
+    }
     if(list) list.innerHTML=data.items.map(function(i){return '<div class="level-item"><div><strong>'+i[0]+'</strong><p>'+i[1]+'</p></div></div>';}).join('');
     if(note) note.innerHTML=data.note;
+  }
+
+
+
+  function syncLevelSelectorOptions(resolvedLang){
+    var labels=LEVEL_OPTION_LABELS[resolvedLang] || LEVEL_OPTION_LABELS[DEFAULT_LANG] || {};
+    document.querySelectorAll('#levelSelect,#cardLevelSelect').forEach(function(select){
+      Array.prototype.forEach.call(select.options || [], function(option){
+        var key=String(option.value || '0');
+        if(labels[key]) option.textContent=labels[key];
+      });
+    });
   }
 
   function applyI18n(root, lang){
@@ -558,6 +605,7 @@
       var value=t(el.getAttribute('data-i18n-attr-title'), resolved);
       if(value) el.setAttribute('title', value);
     });
+    syncLevelSelectorOptions(resolved);
     applyLevel(resolved);
     return resolved;
   }
@@ -611,7 +659,31 @@
         a.removeAttribute('data-active');
       }
     });
+    scope.querySelectorAll('[data-infacta-language-select]').forEach(function(select){
+      select.value=resolved;
+      select.setAttribute('aria-label', t('header.languageSelectorAria', resolved));
+      select.setAttribute('data-active-lang', resolved);
+    });
+    scope.querySelectorAll('[data-language-current-flag]').forEach(function(flag){
+      flag.textContent=LANGUAGE_FLAGS[resolved] || LANGUAGE_FLAGS[DEFAULT_LANG] || '';
+      flag.setAttribute('data-active-lang', resolved);
+    });
     return resolved;
+  }
+
+  function navigateToLanguage(target){
+    var targetLang=resolveLang(target || DEFAULT_LANG);
+    var baseOrigin=getInternalBaseOrigin();
+    var currentPath=(window.location && window.location.pathname) ? window.location.pathname : '/';
+    var currentSearch=(window.location && window.location.search) ? window.location.search : '';
+    try{
+      var url=new URL(currentPath + currentSearch, baseOrigin);
+      url.searchParams.set('lang', targetLang);
+      url.searchParams.set('v', VERSION_TOKEN);
+      window.location.assign(url.pathname + url.search + url.hash);
+    }catch(e){
+      window.location.assign('?lang=' + encodeURIComponent(targetLang));
+    }
   }
 
   function init(root){
@@ -619,8 +691,15 @@
     applyI18n(root || document, resolved);
     preserveLangAndVersionLinks(root || document, resolved);
     syncLanguageSwitcher(root || document, resolved);
+    document.querySelectorAll('[data-infacta-language-select]').forEach(function(select){
+      if(select.getAttribute('data-infacta-language-bound')==='1') return;
+      select.setAttribute('data-infacta-language-bound','1');
+      select.addEventListener('change', function(){ navigateToLanguage(select.value); });
+    });
     document.querySelectorAll('#levelSelect,#cardLevelSelect').forEach(function(select){
-      select.addEventListener('change', function(){ window.setTimeout(function(){ applyLevel(resolved); }, 0); });
+      if(select.getAttribute('data-infacta-level-bound')==='1') return;
+      select.setAttribute('data-infacta-level-bound','1');
+      select.addEventListener('change', function(){ window.setTimeout(function(){ applyLevel(currentLang()); }, 0); });
     });
     return resolved;
   }
@@ -636,6 +715,8 @@
     applyI18n:applyI18n,
     preserveLangAndVersionLinks:preserveLangAndVersionLinks,
     syncLanguageSwitcher:syncLanguageSwitcher,
+    navigateToLanguage:navigateToLanguage,
+    syncLevelSelectorOptions:syncLevelSelectorOptions,
     init:init
   };
 

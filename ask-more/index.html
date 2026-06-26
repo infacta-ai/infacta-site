@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 
-<html data-i18n-title-key="askMore.metaTitle" lang="uk">
+<html data-i18n-title-key="askMore.metaTitle" lang="uk" translate="no" class="notranslate">
 <head>
 <meta charset="utf-8"/>
+<meta name="google" content="notranslate"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
 <meta content="noindex,nofollow,noarchive" name="robots"/>
 <meta content="no-store, no-cache, must-revalidate, max-age=0" http-equiv="Cache-Control"/>
 <meta content="no-cache" http-equiv="Pragma"/>
 <meta content="0" http-equiv="Expires"/>
 <title>Уточнення · inFACTa</title>
+<link rel="icon" href="/favicon.ico" sizes="any"/>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
 <style>
 
 :root{
@@ -776,6 +780,83 @@ body::after {
   }
 }
 
+
+
+/* POST-LIVE REPAIR v1.0: language dropdown, no browser autotranslate, background parity, safe scroll, favicon readiness */
+html.notranslate, body.notranslate { -webkit-text-size-adjust: 100%; }
+.brand.notranslate, .brand.notranslate * { translate: no; }
+.language-dropdown {
+  position: relative;
+  min-width: 108px;
+  padding: 0 10px;
+  gap: 7px;
+}
+.language-dropdown::after {
+  content: "▾";
+  font-size: 11px;
+  color: var(--ink-soft,#39414d);
+  pointer-events: none;
+  margin-left: 2px;
+}
+.language-select {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--ink-soft,#39414d);
+  font: inherit;
+  font-weight: 750;
+  line-height: 1;
+  padding: 0 12px 0 0;
+  outline: none;
+  cursor: pointer;
+  max-width: 124px;
+}
+.language-select option { color:#1e2430; background:#fffaf2; }
+.level-selector select option { white-space: normal; }
+.level-switch select, .level-selector select {
+  max-width: min(58vw, 420px);
+}
+body, body.screen, body.content {
+  min-height: 100dvh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: var(--paper,#f3eee4) !important;
+  background-image:
+    linear-gradient(180deg, rgba(251,248,242,.76), rgba(235,225,210,.74)),
+    url('/assets/infacta-reference-background-v2-4.webp'),
+    radial-gradient(circle at 2% 46%, rgba(193,154,79,.14) 0 13rem, transparent 24rem),
+    radial-gradient(circle at 95% 12%, rgba(19,41,71,.08) 0 16rem, transparent 34rem),
+    linear-gradient(135deg,#fbf8f2 0%,#f5f0e6 46%,#ebe1d2 100%) !important;
+  background-size: cover, cover, auto, auto, auto !important;
+  background-position: center, center, center, center, center !important;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat !important;
+  background-attachment: fixed, fixed, fixed, fixed, fixed !important;
+}
+.screen-main, .content-main, main {
+  padding-bottom: calc(150px + env(safe-area-inset-bottom, 0px)) !important;
+}
+body.preview-page .screen-main,
+body.result-safe-scroll-v252 .screen-main,
+body[class*="result"] .screen-main,
+body[class*="preview"] .screen-main {
+  min-height: 100dvh !important;
+  overflow: visible !important;
+  padding-bottom: calc(180px + env(safe-area-inset-bottom, 0px)) !important;
+}
+#infacta-service-nav-v251,
+.float-nav.infacta-bottom-nav {
+  z-index: 50 !important;
+}
+@media (max-width: 640px){
+  .topbar{grid-template-columns:auto 1fr auto;padding:0 10px;width:min(calc(100vw - 24px),1220px);gap:8px;}
+  .brand{font-size:clamp(23px,7vw,31px);gap:7px;}
+  .brand::before{width:24px;height:26px;border-radius:8px 8px 11px 11px;}
+  .language-dropdown{min-width:86px;padding:0 7px;}
+  .language-select{max-width:88px;font-size:13px;}
+  .level-switch select, .level-selector select { max-width: 116px; font-size: 12px; }
+  .screen-main, .content-main, main { padding-bottom: calc(170px + env(safe-area-inset-bottom, 0px)) !important; }
+}
 </style>
 <script data-infacta-nav-lock="v2.0">
 (function(){
@@ -1221,12 +1302,25 @@ p,
 .language-switcher .lang-option[aria-current="true"]{border-color:rgba(193,154,79,.95)!important;background:rgba(255,248,230,.92)!important;box-shadow:0 0 0 1px rgba(193,154,79,.18) inset!important;}
 @media (max-width:520px){.language-switcher{gap:3px!important}.language-switcher .lang-option{min-width:24px!important;height:21px!important;padding:0 5px!important;font-size:10.5px!important}}
 </style>
+
+<style data-infacta-claude-minor-corrections="v1.1">
+/* v1.1 Claude review minor corrections: flag outside native select + visible future level badge. */
+.language-dropdown{gap:6px!important;}
+.language-current-flag{display:inline-grid!important;place-items:center!important;width:18px!important;min-width:18px!important;height:18px!important;font-size:16px!important;line-height:1!important;filter:saturate(.95)!important;}
+.language-select{min-width:38px!important;}
+.level-head{flex-wrap:wrap!important;}
+.level-status-badge{display:inline-flex!important;align-items:center!important;justify-content:center!important;min-height:22px!important;padding:2px 9px!important;border-radius:999px!important;border:1px solid rgba(193,154,79,.38)!important;background:rgba(255,250,242,.78)!important;color:#57472b!important;font-size:11.5px!important;font-weight:800!important;line-height:1.15!important;white-space:nowrap!important;letter-spacing:.01em!important;}
+.level-status-badge[data-state="active"]{border-color:rgba(72,126,82,.42)!important;background:rgba(238,247,238,.92)!important;color:#2f6b39!important;}
+.level-status-badge[data-state="future"]{border-color:rgba(193,154,79,.46)!important;background:rgba(255,247,229,.94)!important;color:#775a22!important;}
+.level-card[data-level-state="future"] .level-status-badge{border-color:rgba(193,154,79,.46)!important;background:rgba(255,247,229,.94)!important;color:#775a22!important;}
+@media(max-width:520px){.language-current-flag{width:16px!important;min-width:16px!important;font-size:15px!important}.language-select{min-width:34px!important}.level-status-badge{font-size:10.8px!important;padding:2px 7px!important}.level-card-switch{margin-left:0!important}}
+</style>
 </head>
-<body class="screen ask-more-i18n-gate3o" data-i18n-title-key="askMore.metaTitle">
+<body class="screen ask-more-i18n-gate3o notranslate" data-i18n-title-key="askMore.metaTitle" translate="no">
 <header class="topbar">
 <a class="pill level-selector" data-i18n-attr-aria-label="header.levelSelectorAria" href="/index.html?v=infacta-bg-v2-7-handoff-sync"><span>Level 0</span></a>
-<a class="brand" data-i18n-preserve="true" href="/index.html?v=infacta-bg-v2-7-handoff-sync">inFACTa</a>
-<nav class="pill right language-selector language-switcher" data-infacta-language-switcher data-i18n-attr-aria-label="header.languageSelectorAria" aria-label="Мова інтерфейсу"><a class="lang-option" data-lang-switch="uk" href="?lang=uk">UA</a><a class="lang-option" data-lang-switch="en" href="?lang=en">EN</a><a class="lang-option" data-lang-switch="ru" href="?lang=ru">RU</a></nav>
+<a class="brand notranslate" translate="no" data-i18n-preserve="true" href="/index.html?v=infacta-bg-v2-7-handoff-sync"><span translate="no">inFACTa</span></a>
+<label class="pill right language-selector language-dropdown notranslate" data-infacta-language-switcher data-i18n-attr-aria-label="header.languageSelectorAria" aria-label="Мова інтерфейсу" translate="no"><span class="language-current-flag notranslate" data-language-current-flag aria-hidden="true" translate="no">🇺🇦</span><select class="language-select notranslate" id="languageSelect" data-infacta-language-select aria-label="Мова інтерфейсу" translate="no"><option value="uk">UA</option><option value="en">EN</option><option value="ru">RU</option></select></label>
 </header>
 <main class="screen-main">
 <section class="ask">
