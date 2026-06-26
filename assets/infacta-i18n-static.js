@@ -1,6 +1,6 @@
 (function(){
   'use strict';
-  var VERSION_TOKEN='infacta-live-polish-v1-2';
+  var VERSION_TOKEN='infacta-live-polish-v1-2-2';
   var DEFAULT_LANG='uk';
   var REAL_LANGS=['uk','en','ru'];
   var PLANNED_INTERFACE_LANGS=['uk','en','de','pl','es','it','ru','fr','cs'];
@@ -10,8 +10,9 @@
         "header.levelSelectorAria": "Вибір рівня аналізу",
         "header.levelSelectAria": "Виберіть рівень аналізу",
         "header.languageSelectorAria": "Мова інтерфейсу",
+        "level.futureNotice": "{level} ще в розробці. У демо активний лише Level 0.",
         "header.languageCode": "UA",
-        "index.uploadAria": "Подати документ: у статичній версії реальне завантаження ще не підключене",
+        "index.uploadAria": "Подати документ: у цій демо-версії поле не надсилає документ на сервер",
         "index.eyebrow": "Розуміння замість здогадок",
         "index.heroTitle": "Подайте документ",
         "index.heroLead": "Ми допоможемо зрозуміти, що означає документ, які ризики він містить і на що варто звернути увагу. Просто, зрозуміло, без юридичного жаргону.",
@@ -22,7 +23,7 @@
         "index.source.link": "Посилання",
         "index.source.photo": "Фото",
         "index.source.camera": "Камера",
-        "honest.staticDemoOnly": "У цій тестовій версії реальне завантаження ще не працює. Для демонстрації використовуйте приклади документів.",
+        "honest.staticDemoOnly": "У цій демо-версії поле не надсилає документ на сервер і не запускає обробку. Для перевірки сценарію скористайтесь прикладами.",
         "legal.boundaryShort": "inFACTa допомагає зрозуміти документ і наступні кроки.",
         "legal.notLawyerReplacement": "Це не юридичний висновок і не замінює консультацію юриста.",
         "index.learnMoreHtml": "Дізнатися більше <span>→</span>",
@@ -56,7 +57,7 @@
         "feedback.metaTitle": "Відгук · inFACTa",
         "feedback.title": "Відгук тестера",
         "feedback.intro": "Ця сторінка не надсилає дані автоматично. Скопіюйте питання, дайте відповіді й надішліть власнику тесту вручну.",
-        "feedback.privacyBoundary": "Не додавайте реальні документи, email, телефон, адресу, особисті ідентифікатори або конфіденційний текст договору.",
+        "feedback.privacyBoundary": "Для фідбеку достатньо короткого опису проблеми. Документи й персональні дані в цій формі не потрібні.",
         "feedback.legalBoundary": "inFACTa пояснює документ і можливі ризики, але не є юридичним висновком і не замінює консультацію юриста.",
         "feedback.questionsTitle": "Питання для копіювання",
         "feedback.questionsText": "1. За 5 секунд зрозуміло, що робить inFACTa?\n2. Навігація назад/на старт очевидна?\n3. На першому екрані видно всі 6 типів зразків?\n4. Напис у полі вибору документа візуально центрований?\n5. Екран займає повний viewport і підлаштовується під розмір?\n6. Чи зрозуміло, що це тестовий прототип, а не робочий сервіс?\n7. Чи зрозуміло, що inFACTa не дає юридичний вирок?\n8. Чи зрозумілий результат Level-0?\n9. Що найбільше незрозуміло?\n10. Що треба виправити першим?",
@@ -118,11 +119,11 @@
         "notAvailable.title.upload": "Функція ще не підключена",
         "notAvailable.title.sample": "Зразок ще не підключений",
         "notAvailable.body.action": "Ця дія позначена в інтерфейсі, але в поточній static demo ще не має реалізованого результату.",
-        "notAvailable.body.upload.main": "У цій static demo функція подання документа ще не працює. Ми не відкриваємо реальний upload і не збираємо документи тестерів. Для перевірки сценарію скористайтесь прикладами документів.",
-        "notAvailable.body.upload.file": "У цій static demo функція завантаження файлу ще не працює. Ми не відкриваємо реальний upload і не збираємо документи тестерів. Для перевірки сценарію скористайтесь прикладами документів.",
-        "notAvailable.body.upload.link": "У цій static demo функція обробки посилання ще не працює. Ми не відкриваємо реальний upload і не збираємо документи тестерів. Для перевірки сценарію скористайтесь прикладами документів.",
-        "notAvailable.body.upload.photo": "У цій static demo функція завантаження фото ще не працює. Ми не відкриваємо реальний upload і не збираємо документи тестерів. Для перевірки сценарію скористайтесь прикладами документів.",
-        "notAvailable.body.upload.camera": "У цій static demo функція камери ще не працює. Ми не відкриваємо реальний upload і не збираємо документи тестерів. Для перевірки сценарію скористайтесь прикладами документів.",
+        "notAvailable.body.upload.main": "У цій demo-версії поле подання документа не надсилає файл на сервер і не запускає обробку. Для перевірки сценарію скористайтесь прикладами документів.",
+        "notAvailable.body.upload.file": "У цій demo-версії вибір файлу ще не запускає обробку й не надсилає документ на сервер. Для перевірки сценарію скористайтесь прикладами документів.",
+        "notAvailable.body.upload.link": "У цій demo-версії посилання ще не обробляється сервером. Для перевірки сценарію скористайтесь прикладами документів.",
+        "notAvailable.body.upload.photo": "У цій demo-версії фото ще не надсилається на сервер і не запускає обробку. Для перевірки сценарію скористайтесь прикладами документів.",
+        "notAvailable.body.upload.camera": "У цій demo-версії камера ще не підключена до обробки документа. Для перевірки сценарію скористайтесь прикладами документів.",
         "notAvailable.body.sample": "Зразок «{name}» уже є в структурі категорій, але в цій static demo для нього ще немає окремого результату. Щоб не показувати неправдивий результат, ми не перекидаємо його на приклад оренди.",
         "notAvailable.sampleFallback": "обраний документ",
         "notAvailable.noticeHtml": "<strong>Жодного обману в діях.</strong><br>Якщо дія не реалізована, inFACTa прямо показує її статус, а не підміняє результатом іншого документа.",
@@ -138,8 +139,9 @@
         "header.levelSelectorAria": "Analysis level selection",
         "header.levelSelectAria": "Choose analysis level",
         "header.languageSelectorAria": "Interface language",
+        "level.futureNotice": "{level} is still in development. Only Level 0 is active in this demo.",
         "header.languageCode": "EN",
-        "index.uploadAria": "Submit a document: real upload is not connected in this static version",
+        "index.uploadAria": "Submit a document: in this demo the field does not send a document to the server",
         "index.eyebrow": "Understanding instead of guesswork",
         "index.heroTitle": "Submit a document",
         "index.heroLead": "We help you understand what a document means, what risks it contains, and what to pay attention to. Simple and clear, without legal jargon.",
@@ -150,7 +152,7 @@
         "index.source.link": "Link",
         "index.source.photo": "Photo",
         "index.source.camera": "Camera",
-        "honest.staticDemoOnly": "In this test version, real upload is not active yet. Use document examples for the demo.",
+        "honest.staticDemoOnly": "In this demo version, the field does not send a document to the server or start processing. Use examples to test the scenario.",
         "legal.boundaryShort": "inFACTa helps you understand a document and the next steps.",
         "legal.notLawyerReplacement": "This is not a legal conclusion and does not replace a lawyer consultation.",
         "index.learnMoreHtml": "Learn more <span>→</span>",
@@ -184,7 +186,7 @@
         "feedback.metaTitle": "Feedback · inFACTa",
         "feedback.title": "Tester feedback",
         "feedback.intro": "This page does not send data automatically. Copy the questions, answer them, and send them to the test owner manually.",
-        "feedback.privacyBoundary": "Do not add real documents, email, phone number, address, personal identifiers, or confidential contract text.",
+        "feedback.privacyBoundary": "A short description of the issue is enough for feedback. Documents and personal data are not needed in this form.",
         "feedback.legalBoundary": "inFACTa explains the document and possible risks, but it is not a legal conclusion and does not replace a lawyer consultation.",
         "feedback.questionsTitle": "Questions to copy",
         "feedback.questionsText": "1. Is it clear within 5 seconds what inFACTa does?\n2. Is Back / Start navigation obvious?\n3. Are all 6 sample types visible on the first screen?\n4. Is the document selection field text visually centered?\n5. Does the screen fill the viewport and adapt to the screen size?\n6. Is it clear that this is a test prototype, not a working service?\n7. Is it clear that inFACTa does not give a legal verdict?\n8. Is the Level 0 result understandable?\n9. What is most unclear?\n10. What should be fixed first?",
@@ -246,11 +248,11 @@
         "notAvailable.title.upload": "Feature is not connected yet",
         "notAvailable.title.sample": "Sample is not connected yet",
         "notAvailable.body.action": "This action is shown in the interface, but this static demo does not have an implemented result for it yet.",
-        "notAvailable.body.upload.main": "In this static demo, document submission is not active yet. We do not open a real upload flow and do not collect tester documents. Use document examples to test the scenario.",
-        "notAvailable.body.upload.file": "In this static demo, file upload is not active yet. We do not open a real upload flow and do not collect tester documents. Use document examples to test the scenario.",
-        "notAvailable.body.upload.link": "In this static demo, link processing is not active yet. We do not open a real upload flow and do not collect tester documents. Use document examples to test the scenario.",
-        "notAvailable.body.upload.photo": "In this static demo, photo upload is not active yet. We do not open a real upload flow and do not collect tester documents. Use document examples to test the scenario.",
-        "notAvailable.body.upload.camera": "In this static demo, camera input is not active yet. We do not open a real upload flow and do not collect tester documents. Use document examples to test the scenario.",
+        "notAvailable.body.upload.main": "In this demo version, the document submission field does not send a file to the server or start processing. Use examples to test the scenario.",
+        "notAvailable.body.upload.file": "In this demo version, file selection does not start processing or send a document to the server. Use examples to test the scenario.",
+        "notAvailable.body.upload.link": "In this demo version, links are not processed by a server yet. Use examples to test the scenario.",
+        "notAvailable.body.upload.photo": "In this demo version, photos are not sent to the server and do not start processing. Use examples to test the scenario.",
+        "notAvailable.body.upload.camera": "In this demo version, the camera is not connected to document processing yet. Use examples to test the scenario.",
         "notAvailable.body.sample": "The sample “{name}” is already present in the category structure, but this static demo does not have a separate result for it yet. To avoid showing a misleading result, we do not redirect it to the lease demo.",
         "notAvailable.sampleFallback": "selected document",
         "notAvailable.noticeHtml": "<strong>No deception in actions.</strong><br>If an action is not implemented, inFACTa shows its status directly instead of replacing it with another document result.",
@@ -266,8 +268,9 @@
         "header.levelSelectorAria": "Выбор уровня анализа",
         "header.levelSelectAria": "Выберите уровень анализа",
         "header.languageSelectorAria": "Язык интерфейса",
+        "level.futureNotice": "{level} ещё в разработке. В демо активен только Level 0.",
         "header.languageCode": "RU",
-        "index.uploadAria": "Подать документ: в статической версии реальная загрузка ещё не подключена",
+        "index.uploadAria": "Подать документ: в этой демо-версии поле не отправляет документ на сервер",
         "index.eyebrow": "Понимание вместо догадок",
         "index.heroTitle": "Подайте документ",
         "index.heroLead": "Мы поможем понять, что означает документ, какие риски он содержит и на что стоит обратить внимание. Просто, понятно, без юридического жаргона.",
@@ -278,7 +281,7 @@
         "index.source.link": "Ссылка",
         "index.source.photo": "Фото",
         "index.source.camera": "Камера",
-        "honest.staticDemoOnly": "В этой тестовой версии реальная загрузка ещё не работает. Для демонстрации используйте примеры документов.",
+        "honest.staticDemoOnly": "В этой демо-версии поле не отправляет документ на сервер и не запускает обработку. Для проверки сценария используйте примеры.",
         "legal.boundaryShort": "inFACTa помогает понять документ и следующие шаги.",
         "legal.notLawyerReplacement": "Это не юридическое заключение и не заменяет консультацию юриста.",
         "index.learnMoreHtml": "Узнать больше <span>→</span>",
@@ -312,7 +315,7 @@
         "feedback.metaTitle": "Отзыв · inFACTa",
         "feedback.title": "Отзыв тестера",
         "feedback.intro": "Эта страница не отправляет данные автоматически. Скопируйте вопросы, дайте ответы и отправьте владельцу теста вручную.",
-        "feedback.privacyBoundary": "Не добавляйте реальные документы, email, телефон, адрес, личные идентификаторы или конфиденциальный текст договора.",
+        "feedback.privacyBoundary": "Для фидбека достаточно короткого описания проблемы. Документы и персональные данные в этой форме не нужны.",
         "feedback.legalBoundary": "inFACTa объясняет документ и возможные риски, но не является юридическим заключением и не заменяет консультацию юриста.",
         "feedback.questionsTitle": "Вопросы для копирования",
         "feedback.questionsText": "1. За 5 секунд понятно, что делает inFACTa?\n2. Навигация назад/на старт очевидна?\n3. На первом экране видны все 6 типов образцов?\n4. Надпись в поле выбора документа визуально центрирована?\n5. Экран занимает весь viewport и подстраивается под размер?\n6. Понятно ли, что это тестовый прототип, а не рабочий сервис?\n7. Понятно ли, что inFACTa не даёт юридический вердикт?\n8. Понятен ли результат Level 0?\n9. Что больше всего непонятно?\n10. Что нужно исправить первым?",
@@ -374,11 +377,11 @@
         "notAvailable.title.upload": "Функция ещё не подключена",
         "notAvailable.title.sample": "Образец ещё не подключён",
         "notAvailable.body.action": "Это действие обозначено в интерфейсе, но в текущей static demo для него ещё нет реализованного результата.",
-        "notAvailable.body.upload.main": "В этой static demo функция подачи документа ещё не работает. Мы не открываем реальный upload и не собираем документы тестеров. Для проверки сценария воспользуйтесь примерами документов.",
-        "notAvailable.body.upload.file": "В этой static demo функция загрузки файла ещё не работает. Мы не открываем реальный upload и не собираем документы тестеров. Для проверки сценария воспользуйтесь примерами документов.",
-        "notAvailable.body.upload.link": "В этой static demo функция обработки ссылки ещё не работает. Мы не открываем реальный upload и не собираем документы тестеров. Для проверки сценария воспользуйтесь примерами документов.",
-        "notAvailable.body.upload.photo": "В этой static demo функция загрузки фото ещё не работает. Мы не открываем реальный upload и не собираем документы тестеров. Для проверки сценария воспользуйтесь примерами документов.",
-        "notAvailable.body.upload.camera": "В этой static demo функция камеры ещё не работает. Мы не открываем реальный upload и не собираем документы тестеров. Для проверки сценария воспользуйтесь примерами документов.",
+        "notAvailable.body.upload.main": "В этой демо-версии поле подачи документа не отправляет файл на сервер и не запускает обработку. Для проверки сценария воспользуйтесь примерами документов.",
+        "notAvailable.body.upload.file": "В этой демо-версии выбор файла ещё не запускает обработку и не отправляет документ на сервер. Для проверки сценария воспользуйтесь примерами документов.",
+        "notAvailable.body.upload.link": "В этой демо-версии ссылка ещё не обрабатывается сервером. Для проверки сценария воспользуйтесь примерами документов.",
+        "notAvailable.body.upload.photo": "В этой демо-версии фото ещё не отправляется на сервер и не запускает обработку. Для проверки сценария воспользуйтесь примерами документов.",
+        "notAvailable.body.upload.camera": "В этой демо-версии камера ещё не подключена к обработке документа. Для проверки сценария воспользуйтесь примерами документов.",
         "notAvailable.body.sample": "Образец «{name}» уже есть в структуре категорий, но в этой static demo для него ещё нет отдельного результата. Чтобы не показывать недостоверный результат, мы не перенаправляем его на пример аренды.",
         "notAvailable.sampleFallback": "выбранный документ",
         "notAvailable.noticeHtml": "<strong>Никакого обмана в действиях.</strong><br>Если действие не реализовано, inFACTa прямо показывает её статус, а не подменяет результатом другого документа.",
@@ -398,19 +401,19 @@
     "badge": "Доступний у демо · Free",
     "items": [
       [
-        "Безкоштовний zero-token core",
-        "Працює без AI: витягує, нормалізує і структурує знайдені дані документа."
+        "Витягування й нормалізація",
+        "Витягує, нормалізує і структурує знайдені дані документа."
       ],
       [
         "Знайдені дані й фрагменти",
         "Показує сторони, дати, суми, строки, штрафи, обов’язки, реквізити та зони уваги."
       ],
       [
-        "Бали без юридичного тлумачення",
-        "Може рахувати доказовість, повноту, невідомі й пріоритет показу, але не дає правову оцінку."
+        "Показники для пріоритетів",
+        "Рахує доказовість, повноту, невідомі й пріоритет показу знайдених зон уваги."
       ]
     ],
-    "note": "<b>Level 0</b> — доступний демо-рівень. Це не AI-аналіз і не юридична консультація: відповіді можливі тільки за знайденими даними документа."
+    "note": "<b>Level 0</b> — доступний демо-рівень. Показує структуру, знайдені дані, фрагменти й зони уваги. Для юридично значимих рішень варто звернутися до профільного спеціаліста."
   },
   "1": {
     "title": "Level 1 — Мінімальне AI-пояснення",
@@ -521,19 +524,19 @@
     "badge": "Available in demo · Free",
     "items": [
       [
-        "Free zero-token core",
-        "Works without AI: extracts, normalizes, and structures data found in the document."
+        "Extraction and normalization",
+        "Extracts, normalizes, and structures data found in the document."
       ],
       [
         "Found data and fragments",
         "Shows parties, dates, amounts, deadlines, penalties, obligations, details, and attention zones."
       ],
       [
-        "Scores without legal interpretation",
-        "Can score evidence, completeness, unknowns, and display priority, but does not provide a legal assessment."
+        "Priority indicators",
+        "Scores evidence, completeness, unknowns, and display priority for found attention zones."
       ]
     ],
-    "note": "<b>Level 0</b> — available demo level. This is not AI analysis or legal advice: answers are limited to data found in the document."
+    "note": "<b>Level 0</b> — available demo level. Shows structure, found data, fragments, and attention zones. For legally significant decisions, consult a relevant specialist."
   },
   "1": {
     "title": "Level 1 — Minimal AI explanation",
@@ -644,19 +647,19 @@
     "badge": "Доступен в демо · Free",
     "items": [
       [
-        "Бесплатное zero-token ядро",
-        "Работает без AI: извлекает, нормализует и структурирует найденные данные документа."
+        "Извлечение и нормализация",
+        "Извлекает, нормализует и структурирует найденные данные документа."
       ],
       [
         "Найденные данные и фрагменты",
         "Показывает стороны, даты, суммы, сроки, штрафы, обязанности, реквизиты и зоны внимания."
       ],
       [
-        "Баллы без юридического толкования",
-        "Может считать доказательность, полноту, неизвестные и приоритет показа, но не даёт правовую оценку."
+        "Показатели для приоритетов",
+        "Считает доказательность, полноту, неизвестные и приоритет показа найденных зон внимания."
       ]
     ],
-    "note": "<b>Level 0</b> — доступный демо-уровень. Это не AI-анализ и не юридическая консультация: ответы возможны только по найденным данным документа."
+    "note": "<b>Level 0</b> — доступный демо-уровень. Показывает структуру, найденные данные, фрагменты и зоны внимания. Для юридически значимых решений стоит обратиться к профильному специалисту."
   },
   "1": {
     "title": "Level 1 — Минимальное AI-объяснение",
@@ -969,6 +972,29 @@
     }
   }
 
+
+  function showFutureLevelNotice(lang, attemptedLevel){
+    var resolved=resolveLang(lang || currentLang());
+    var label=(LEVEL_OPTION_LABELS[resolved] && LEVEL_OPTION_LABELS[resolved][String(attemptedLevel)]) || ('Level '+attemptedLevel);
+    var text=(t('level.futureNotice', resolved) || '').replace('{level}', label);
+    if(!text) text=label + ' is still in development. Only Level 0 is active in this demo.';
+    var el=document.getElementById('levelFutureNotice');
+    if(!el){
+      el=document.createElement('div');
+      el.id='levelFutureNotice';
+      el.className='level-future-notice';
+      el.setAttribute('role','status');
+      el.setAttribute('aria-live','polite');
+      var topbar=document.querySelector('.topbar');
+      if(topbar && topbar.parentNode){ topbar.parentNode.insertBefore(el, topbar.nextSibling); }
+      else { document.body.insertBefore(el, document.body.firstChild); }
+    }
+    el.textContent=text;
+    el.hidden=false;
+    window.clearTimeout(showFutureLevelNotice._timer);
+    showFutureLevelNotice._timer=window.setTimeout(function(){ if(el) el.hidden=true; }, 4200);
+  }
+
   function init(root){
     var resolved=currentLang();
     applyI18n(root || document, resolved);
@@ -982,7 +1008,16 @@
     document.querySelectorAll('#levelSelect,#cardLevelSelect').forEach(function(select){
       if(select.getAttribute('data-infacta-level-bound')==='1') return;
       select.setAttribute('data-infacta-level-bound','1');
-      select.addEventListener('change', function(){ window.setTimeout(function(){ applyLevel(currentLang()); }, 0); });
+      select.addEventListener('change', function(){
+        var selected=String(select.value || '0');
+        if(select.id==='levelSelect' && selected !== '0'){
+          showFutureLevelNotice(currentLang(), selected);
+          select.value='0';
+          window.setTimeout(function(){ applyLevel(currentLang()); }, 0);
+          return;
+        }
+        window.setTimeout(function(){ applyLevel(currentLang()); }, 0);
+      });
     });
     return resolved;
   }
