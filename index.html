@@ -1,6 +1,818 @@
 <!DOCTYPE html>
-<html>
-<body>
-<h1>INFACTA-NEW-CORE-BACKUP</h1>
+
+<html data-i18n-root="gate3e-shared-helper-index-only" lang="uk">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<meta content="noindex,nofollow,noarchive" name="robots"/>
+<meta content="no-store, no-cache, must-revalidate, max-age=0" http-equiv="Cache-Control"/>
+<meta content="no-cache" http-equiv="Pragma"/>
+<meta content="0" http-equiv="Expires"/>
+<title>Перший екран · inFACTa</title>
+<style>
+
+:root{
+  --paper:#f3eee4;
+  --paper-light:#fbf8f2;
+  --paper-card:#fffaf2;
+  --paper-soft:#ede4d6;
+  --ink:#1e2430;
+  --ink-soft:#39414d;
+  --muted:#5d6672;
+  --navy:#132947;
+  --navy-2:#18345c;
+  --gold:#c19a4f;
+  --gold-soft:#eadfca;
+  --line:#ded2c2;
+  --shadow:0 18px 46px rgba(30,36,48,.12);
+  --soft-shadow:0 10px 28px rgba(30,36,48,.08);
+  --header:64px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;color:var(--ink);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--paper);}
+body.screen{width:100vw;min-height:100svh;overflow-x:hidden;overflow-y:auto;background:
+  radial-gradient(circle at 2% 46%, rgba(193,154,79,.14) 0 13rem, transparent 24rem),
+  radial-gradient(circle at 95% 12%, rgba(19,41,71,.08) 0 16rem, transparent 34rem),
+  linear-gradient(135deg,#fbf8f2 0%,#f5f0e6 46%,#ebe1d2 100%);
+}
+body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;background:
+  repeating-linear-gradient(0deg,rgba(30,36,48,.018) 0,rgba(30,36,48,.018) 1px,transparent 1px,transparent 6px),
+  repeating-linear-gradient(90deg,rgba(255,255,255,.12) 0,rgba(255,255,255,.12) 1px,transparent 1px,transparent 9px);opacity:.48;}
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:
+  radial-gradient(ellipse at 16% 40%, rgba(193,154,79,.12) 0 4rem, transparent 4.2rem),
+  radial-gradient(ellipse at 18% 41%, transparent 0 8rem, rgba(193,154,79,.07) 8.1rem 8.3rem, transparent 8.4rem),
+  linear-gradient(90deg, transparent 0 68%, rgba(19,41,71,.045) 68% 68.4%, transparent 68.5%),
+  linear-gradient(180deg, transparent 0 11%, rgba(255,255,255,.28) 11% 11.3%, transparent 11.4%);opacity:.75;}
+a{text-decoration:none;color:inherit}
+.topbar{height:var(--header);margin:16px auto 0;width:min(calc(100vw - 56px),1220px);border:1px solid rgba(222,210,194,.86);border-radius:14px;background:rgba(251,248,242,.88);box-shadow:0 12px 32px rgba(30,36,48,.08);backdrop-filter:blur(10px);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 24px;position:relative;z-index:5;}
+.brand{font-family:Georgia,"Times New Roman",serif;font-size:clamp(29px,3vw,40px);font-weight:500;letter-spacing:-.03em;color:var(--ink);line-height:1;display:inline-flex;align-items:center;gap:11px;justify-self:center;}
+.brand::before{content:"";width:32px;height:34px;border:1.6px solid var(--gold);border-radius:10px 10px 14px 14px;display:inline-block;background:linear-gradient(180deg,rgba(255,250,242,.86),rgba(234,223,202,.32));box-shadow:inset 0 0 0 3px rgba(255,250,242,.72)}
+.pill{height:34px;min-width:auto;width:auto;padding:0 12px;border:1px solid var(--line);border-radius:9px;background:rgba(255,250,242,.86);display:inline-flex;gap:7px;align-items:center;justify-content:center;font-size:14px;font-weight:650;color:var(--ink-soft);box-shadow:0 4px 12px rgba(30,36,48,.04);white-space:nowrap;line-height:1}
+.pill::before{content:none}.level-selector{justify-self:start}.language-selector{justify-self:end}.mini-shield{width:15px;height:17px;border:1.4px solid var(--gold);border-radius:5px 5px 7px 7px;display:inline-block;background:rgba(255,250,242,.7);flex:0 0 auto}.chev{font-size:12px;opacity:.78;margin-left:1px}.flag{font-size:15px;line-height:1}.pill.right{justify-self:end;min-width:auto}
+.screen-main{width:min(calc(100vw - 56px),1220px);margin:0 auto;padding:clamp(48px,6.4vh,74px) 0 30px;min-height:calc(100svh - 92px);position:relative;}
+.screen-main::before{content:"";position:absolute;inset:0 0 auto auto;width:min(48vw,590px);height:min(58vh,500px);z-index:-1;opacity:.55;background:
+  linear-gradient(90deg, rgba(30,36,48,.045) 0 .6%, transparent .7% 100%),
+  linear-gradient(180deg, rgba(255,255,255,.28), rgba(255,255,255,0) 70%);border-radius:0 0 0 40px;}
+.ref-hero{display:grid;grid-template-columns:minmax(500px,1.18fr) minmax(330px,.82fr);gap:clamp(46px,7vw,98px);align-items:start;}
+.hero-copy{padding-left:clamp(18px,4vw,48px);}
+.eyebrow{display:inline-flex;align-items:center;border:1px solid rgba(193,154,79,.38);border-radius:999px;background:rgba(255,250,242,.72);padding:9px 16px;font-size:14px;font-weight:650;color:#735828;margin-bottom:26px;box-shadow:0 7px 18px rgba(193,154,79,.07)}
+h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(54px,6.8vw,82px);line-height:.95;letter-spacing:.02em;font-weight:500;margin:0 0 20px;color:var(--ink);text-shadow:0 1px 0 rgba(255,255,255,.6)}
+p{margin:0;color:var(--muted);font-size:clamp(16px,1.42vw,20px);line-height:1.48;letter-spacing:.015em}.lead{max-width:560px;color:#38414d}
+
+.upload-hero-field{display:block;width:min(100%,560px);padding:22px 22px 20px;border:1px solid rgba(193,154,79,.26);border-radius:24px;background:linear-gradient(180deg,rgba(255,250,242,.62),rgba(245,238,226,.28));box-shadow:0 14px 36px rgba(30,36,48,.055);cursor:pointer;transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease,background .16s ease;}
+.upload-hero-field:hover{transform:translateY(-1px);border-color:rgba(193,154,79,.46);box-shadow:0 18px 44px rgba(30,36,48,.095);background:linear-gradient(180deg,rgba(255,250,242,.78),rgba(245,238,226,.42));}
+.upload-hero-field:focus-visible{outline:3px solid rgba(193,154,79,.5);outline-offset:4px;}
+.upload-title{display:block;font-family:Georgia,"Times New Roman",serif;font-size:clamp(54px,6.8vw,82px);line-height:.95;letter-spacing:.02em;font-weight:500;margin:0 0 20px;color:var(--ink);text-shadow:0 1px 0 rgba(255,255,255,.6)}
+.upload-hero-field .lead{display:block;max-width:560px;color:#38404b;font-size:clamp(16px,1.42vw,20px);line-height:1.48;letter-spacing:.015em;}
+.upload-hint{display:block;margin-top:11px;font-size:13px;line-height:1.35;color:#75664c;}
+.primary-cta{width:100%;height:74px;margin-top:28px;padding:0 24px 0 26px;border-radius:12px;background:linear-gradient(180deg,#18345c 0%,#102743 100%);color:#fff;display:flex;align-items:center;justify-content:space-between;font-size:20px;font-weight:780;box-shadow:0 16px 34px rgba(19,41,71,.26);border:1px solid rgba(8,21,40,.95)}
+.primary-cta span:first-child{display:inline-flex;align-items:center;gap:14px}.primary-cta .icon{font-size:22px;color:#f7efe1}.primary-cta .arrow{font-size:28px;font-weight:400;opacity:.9}
+.add-label{width:min(100%,560px);display:flex;align-items:center;gap:13px;margin:25px 0 13px;color:#6a6257;font-size:14px;justify-content:center}.add-label::before,.add-label::after{content:"";height:1px;flex:1;background:linear-gradient(90deg,transparent,#d9cbbb)}
+.source-grid{width:min(100%,560px);display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.source-card{min-height:74px;border:1px solid var(--line);border-radius:12px;background:rgba(255,250,242,.84);box-shadow:var(--soft-shadow);display:grid;place-items:center;text-align:center;padding:10px 5px;font-weight:700;font-size:14px;color:#2b3038}.source-card b{display:block;font-size:22px;font-weight:500;color:#1d2b3d;margin-bottom:4px}
+.level-card{margin-top:16px;border:1px solid var(--line);border-radius:18px;background:rgba(255,250,242,.88);box-shadow:var(--shadow);padding:28px 28px 24px;position:relative;overflow:hidden}.level-card::after{content:"";position:absolute;right:-40px;bottom:-60px;width:180px;height:180px;border-radius:50%;border:1px solid rgba(193,154,79,.16)}
+.level-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}.level-head h2{font-family:Georgia,"Times New Roman",serif;font-size:26px;font-weight:600;margin:0}.shield{width:44px;height:52px;border:2px solid var(--gold);border-radius:19px 19px 22px 22px;display:grid;place-items:center;color:#9a7430;font-weight:800;background:rgba(255,250,242,.7)}
+.level-list{display:grid;gap:21px}.level-item{display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start}.level-icon{width:36px;height:36px;border-radius:50%;border:1px solid rgba(193,154,79,.25);background:rgba(234,223,202,.52);display:grid;place-items:center;color:#9a7430}.level-item strong{display:block;color:#202733;font-size:15.5px;margin-bottom:4px}.level-item p{font-size:14px;line-height:1.35;color:#4f5965}.level-note{margin-top:20px;border-radius:12px;background:#eef1f5;border:1px solid #e0e4eb;padding:13px 15px;font-size:13.5px;color:#39414d;line-height:1.35}.level-note b{color:#1e2430}
+.trust-ribbon{margin-top:34px;border-radius:15px;background:linear-gradient(180deg,#172f53 0%,#102743 100%);color:#fff;box-shadow:0 18px 38px rgba(19,41,71,.23);padding:22px 28px;display:grid;grid-template-columns:86px 1fr auto;gap:26px;align-items:center}.trust-ribbon .badge{width:64px;height:64px;border-radius:50%;border:1px solid rgba(193,154,79,.45);display:grid;place-items:center;color:#d7bc7a;font-size:27px;background:rgba(255,255,255,.04)}.trust-ribbon strong{font-size:18px;line-height:1.35}.trust-ribbon p{color:#d6dde8;font-size:15px;margin-top:5px}.learn{color:#d8c08b;font-weight:700;display:flex;align-items:center;gap:14px;white-space:nowrap}
+.doc-section{margin-top:28px;padding:0 clamp(18px,4vw,48px)}.doc-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}.doc-head h2{font-family:Georgia,"Times New Roman",serif;font-size:30px;font-weight:600;margin:0}.doc-head a{color:#455b78;font-size:14px;font-weight:650}
+.category-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}.category-card{min-height:128px;border:1px solid var(--line);border-radius:14px;background:rgba(255,250,242,.82);box-shadow:var(--soft-shadow);padding:17px 13px;display:grid;text-align:center;align-content:center;justify-items:center}.category-card .cat-icon{font-size:34px;line-height:1;color:#1c2b3e;margin-bottom:12px}.category-card strong{font-size:15.5px}.category-card p{font-size:12.5px;line-height:1.28;margin-top:6px;color:#5d6672}
+.footer{display:none}.mobile-level{display:none}.mobile-trust{display:none}
+@media(max-width:880px){
+  :root{--header:58px}body.screen{background:linear-gradient(135deg,#fbf8f2 0,#f4eee4 62%,#eadfce 100%)}.topbar{width:100%;margin:0;border-radius:0;border-left:0;border-right:0;border-top:0;height:58px;padding:0 14px;grid-template-columns:auto 1fr auto}.brand{font-size:22px}.brand::before{width:22px;height:24px;border-radius:7px 7px 10px 10px}.pill{height:28px;font-size:12px;padding:0 8px;gap:5px}.level-selector{max-width:92px}.language-selector{min-width:54px}.mini-shield{width:12px;height:14px}.flag{font-size:14px}.screen-main{width:100%;min-height:calc(100svh - 58px);padding:18px 17px 26px}.screen-main::before{display:none}.ref-hero{display:block}.hero-copy{padding:0}.upload-hero-field{width:100%;padding:15px 0 0;border:0;border-radius:0;background:transparent;box-shadow:none}.upload-hero-field:hover{transform:none;box-shadow:none;background:transparent}.eyebrow{font-size:12px;padding:7px 12px;margin-bottom:13px}.upload-title{font-size:clamp(37px,12.2vw,48px);line-height:1.04;margin-bottom:12px}.lead,.upload-hero-field .lead{font-size:14px;line-height:1.42;max-width:100%}.upload-hint{font-size:11.5px;margin-top:8px;color:#6f614c}.primary-cta{width:100%;height:58px;margin-top:18px;border-radius:10px;font-size:16px}.primary-cta .icon{font-size:18px}.primary-cta .arrow{font-size:21px}.add-label{width:100%;font-size:12px;margin:14px 0 8px}.source-grid{width:100%;grid-template-columns:repeat(2,1fr);gap:8px}.source-card{min-height:44px;grid-template-columns:auto auto;display:flex;justify-content:center;gap:8px;font-size:13px}.source-card b{font-size:15px;margin:0}.mobile-trust{display:grid;margin-top:14px}.desktop-trust{display:none}.level-card{margin-top:14px;padding:17px 15px;border-radius:12px}.level-head{margin-bottom:10px}.level-head h2{font-size:18px}.shield{width:31px;height:36px;border-radius:12px}.level-list{gap:10px}.level-item{grid-template-columns:31px 1fr;gap:10px}.level-icon{width:26px;height:26px}.level-item strong{font-size:13px}.level-item p{font-size:12px}.level-item:nth-child(n+2){display:none}.level-note{font-size:12px;margin-top:12px;padding:10px}.trust-ribbon{margin-top:14px;grid-template-columns:42px 1fr;gap:12px;padding:15px;border-radius:11px}.trust-ribbon .badge{width:36px;height:36px;font-size:17px}.trust-ribbon strong{font-size:13px}.trust-ribbon p{font-size:11.5px}.learn{grid-column:2;font-size:12px}.doc-section{margin-top:15px;padding:0}.doc-head{margin-bottom:10px}.doc-head h2{font-size:22px}.category-grid{grid-template-columns:repeat(2,1fr);gap:8px;overflow:hidden}.category-card{min-height:92px;border-radius:10px;padding:11px 8px}.category-card:nth-child(n+3){display:none}.category-card .cat-icon{font-size:28px;margin-bottom:7px}.category-card strong{font-size:14px}.category-card p{font-size:11px}.mobile-level{display:block}.desktop-only{display:none!important}}
+@media(max-height:760px) and (min-width:881px){.screen-main{padding-top:38px}.upload-hero-field{padding:18px 18px 16px}.eyebrow{margin-bottom:16px}.upload-title{font-size:62px}.primary-cta{height:64px;margin-top:22px}.source-card{min-height:62px}.trust-ribbon{margin-top:22px;padding:18px 24px}.category-card{min-height:108px}.doc-section{margin-top:20px}.level-card{padding:22px}.level-list{gap:15px}.level-note{margin-top:14px}}
+
+
+/* v1.4 icon cleanup + interactive level selector */
+.brand::before{display:none!important}.brand{gap:0!important}.mini-shield,.level-icon,.source-card b,.primary-cta .icon,.category-card .cat-icon{display:none!important}.language-selector .chev{display:none!important}.language-selector{gap:7px!important}.language-selector .flag{font-size:17px!important;line-height:1!important}.level-switch{height:34px;padding:0 10px;border:1px solid var(--line);border-radius:9px;background:rgba(255,250,242,.88);display:inline-flex;align-items:center;gap:7px;box-shadow:0 4px 12px rgba(30,36,48,.04);white-space:nowrap;line-height:1;justify-self:start;max-width:max-content}.level-num,.level-number-badge{display:inline-grid;place-items:center;border:1.8px solid var(--gold);color:#8a6629;background:rgba(255,250,242,.82);font-weight:800}.level-num{width:23px;height:23px;border-radius:999px;font-size:12px;flex:0 0 auto}.level-number-badge{width:42px;height:42px;border-radius:999px;font-size:19px;box-shadow:inset 0 0 0 3px rgba(255,250,242,.54)}#levelSelect{border:0;background:transparent;color:var(--ink-soft);font:inherit;font-size:14px;font-weight:700;outline:none;appearance:auto;padding:0 1px;max-width:108px}.level-item{grid-template-columns:1fr!important}.level-item strong{position:relative;padding-left:0}.level-card .shield{display:none!important}.level-card[data-level-state="dev"]{border-color:rgba(193,154,79,.38)}.level-card[data-level-state="dev"] .level-note{background:#fff7e6;border-color:#ead7aa;color:#4c4025}.source-card{display:flex!important;align-items:center!important;justify-content:center!important;gap:0!important;font-size:15px!important}.category-card{align-content:center}.category-card strong{font-size:16px}.category-card p{margin-top:8px}.primary-cta span:first-child{gap:0!important}.trust-ribbon .badge{font-family:Georgia,"Times New Roman",serif;border-color:rgba(193,154,79,.55)}
+@media(max-width:880px){.brand{font-size:23px!important}.level-switch{height:30px;padding:0 8px;gap:5px}.level-num{width:21px;height:21px;font-size:11px}#levelSelect{font-size:12px;max-width:80px}.level-number-badge{width:34px;height:34px;font-size:15px}.source-card{min-height:44px!important}.level-item:nth-child(n+2){display:block!important}.level-list{gap:11px!important}.level-note{font-size:12px!important}.language-selector{min-width:auto!important}.language-selector .flag{font-size:16px!important}.category-card{min-height:86px!important}.category-card strong{font-size:15px}.category-card p{font-size:12px}}
+
+
+
+/* v1.5 functional element cleanup + level explanation selector */
+.trust-ribbon{grid-template-columns:1fr auto!important;gap:22px!important}.trust-ribbon .badge{display:none!important}.mobile-trust{grid-template-columns:1fr!important}.mobile-trust .learn{grid-column:auto!important}.level-head{gap:14px!important}.level-card-switch{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;background:rgba(255,250,242,.76);padding:5px 9px 5px 5px;box-shadow:0 6px 14px rgba(30,36,48,.05);white-space:nowrap;cursor:pointer}.level-card-switch select{border:0;background:transparent;color:var(--ink-soft);font:inherit;font-size:13px;font-weight:700;outline:none;appearance:auto;max-width:92px}.level-number-badge{width:34px!important;height:34px!important;border-radius:999px!important;font-size:15px!important;box-shadow:none!important;flex:0 0 auto}.level-card[data-level-state="future"]{border-color:rgba(193,154,79,.36)}.level-card[data-level-state="future"] .level-note{background:#f6f0e3;border-color:#e5d5b5;color:#4b4028}.level-card[data-level-state="future"] .level-note b{color:#1e2430}.trust-ribbon strong,.trust-ribbon p,.learn{position:relative;z-index:1}
+@media(max-width:880px){.trust-ribbon{grid-template-columns:1fr!important;padding:17px 16px!important}.trust-ribbon strong{font-size:13.5px!important}.trust-ribbon p{font-size:12px!important}.learn{font-size:12.5px!important}.level-head{align-items:center!important}.level-card-switch{padding:4px 8px 4px 4px;gap:6px}.level-card-switch select{font-size:12px;max-width:74px}.level-number-badge{width:31px!important;height:31px!important;font-size:14px!important}.level-card{overflow:hidden}.level-list{gap:13px!important}.level-item p{font-size:13px!important}.level-note{font-size:12.5px!important}}
+
+
+/* v2.0 functional examples + minimal UI cleanup
+   Rule: every visible element must carry function; decorative rings/numbers removed. */
+.level-num,
+.level-number-badge,
+.shield,
+.level-icon,
+.trust-ribbon .badge,
+.mini-shield,
+.brand::before,
+.level-card::after { display:none !important; }
+.level-switch,
+.level-card-switch,
+.pill.level-selector {
+  height:34px !important;
+  padding:0 12px !important;
+  gap:6px !important;
+  border:1px solid var(--line, #ded2c2) !important;
+  border-radius:9px !important;
+  background:rgba(255,250,242,.9) !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  box-shadow:0 4px 12px rgba(30,36,48,.04) !important;
+  white-space:nowrap !important;
+  width:auto !important;
+  min-width:auto !important;
+  max-width:max-content !important;
+}
+#levelSelect,
+#cardLevelSelect,
+.level-switch select,
+.level-card-switch select {
+  border:0 !important;
+  background:transparent !important;
+  color:var(--ink-soft, #39414d) !important;
+  font:inherit !important;
+  font-size:14px !important;
+  font-weight:760 !important;
+  outline:none !important;
+  appearance:auto !important;
+  padding:0 2px !important;
+  max-width:112px !important;
+}
+.level-head{gap:12px !important;}
+.level-head h2{flex:1 1 auto !important;}
+.language-selector{gap:7px !important;}
+.language-selector .flag{display:none !important;}
+.ua-flag{width:21px;height:14px;border-radius:3px;display:inline-block;flex:0 0 auto;background:linear-gradient(180deg,#0057B7 0 50%,#FFD700 50% 100%);box-shadow:0 0 0 1px rgba(30,36,48,.16), inset 0 0 0 1px rgba(255,255,255,.18)}
+.category-card[aria-current="page"]{border-color:rgba(193,154,79,.7);box-shadow:0 0 0 2px rgba(193,154,79,.13), var(--soft-shadow, 0 10px 28px rgba(30,36,48,.08));}
+.examples-filter-note{margin-top:14px;font-size:14px;color:var(--muted,#5d6672);line-height:1.45;}
+@media(max-width:880px){
+  .level-switch,.level-card-switch,.pill.level-selector{height:30px !important;padding:0 9px !important;}
+  #levelSelect,#cardLevelSelect,.level-switch select,.level-card-switch select{font-size:12px !important;max-width:88px !important;}
+  .ua-flag{width:19px;height:13px;}
+}
+
+
+/* v2.2 compact upload hero repair: preserve large tap target, reduce vertical height so trust block fits earlier */
+.upload-hero-field{
+  max-width:520px!important;
+  padding:16px 18px 15px!important;
+}
+.upload-title{
+  font-size:clamp(46px,5.8vw,68px)!important;
+  line-height:.96!important;
+  margin-bottom:13px!important;
+}
+.upload-hero-field .lead{
+  font-size:clamp(15px,1.22vw,18px)!important;
+  line-height:1.38!important;
+}
+.upload-hint{
+  margin-top:8px!important;
+  font-size:12px!important;
+  line-height:1.25!important;
+}
+.primary-cta{
+  height:62px!important;
+  margin-top:16px!important;
+  font-size:18px!important;
+  padding-left:22px!important;
+  padding-right:22px!important;
+}
+.add-label{margin:18px 0 12px!important;}
+.trust-ribbon{margin-top:24px!important;}
+.source-card{min-height:58px!important;}
+@media(max-height:760px) and (min-width:881px){
+  .upload-hero-field{padding:14px 16px 13px!important;}
+  .upload-title{font-size:58px!important;margin-bottom:10px!important;}
+  .upload-hero-field .lead{font-size:15px!important;line-height:1.34!important;}
+  .primary-cta{height:56px!important;margin-top:12px!important;font-size:17px!important;}
+  .add-label{margin:12px 0 9px!important;}
+  .source-card{min-height:52px!important;}
+  .trust-ribbon{margin-top:18px!important;padding:16px 22px!important;}
+}
+@media(max-width:880px){
+  .upload-hero-field{padding:10px 0 0!important;}
+  .eyebrow{margin-bottom:10px!important;padding:6px 11px!important;}
+  .upload-title{font-size:clamp(32px,10.5vw,42px)!important;line-height:1.03!important;margin-bottom:8px!important;}
+  .upload-hero-field .lead{font-size:13.2px!important;line-height:1.34!important;}
+  .upload-hint{display:none!important;}
+  .primary-cta{height:52px!important;margin-top:12px!important;font-size:15.5px!important;border-radius:10px!important;}
+  .add-label{margin:11px 0 7px!important;font-size:11.5px!important;}
+  .source-grid{gap:7px!important;}
+  .source-card{min-height:40px!important;font-size:13px!important;}
+  .mobile-trust{margin-top:12px!important;}
+}
+
+
+/* v2.3 honest action boundary: implemented vs non-implemented actions must be explicit */
+.upload-honest-note{width:min(100%,560px);margin:9px 0 0;font-size:12.5px;line-height:1.35;color:#6f614c}
+@media(max-width:880px){.upload-honest-note{font-size:11.5px;margin-top:6px}}
+
+
+
+/* Gate 2B: dead reference-v2-4 background block removed (was overridden by generated-v2-6). */
+/* Gate 2C: reference-era body::after overlay removed (was neutralized by Block C content:none/display:none). */
+body::before {
+  background: transparent !important;
+  opacity: 0 !important;
+}
+.screen-main,
+.content-shell,
+.page,
+.not-available-page,
+.preview-page {
+  background: transparent !important;
+}
+.topbar,
+.level-card,
+.category-card,
+.source-card,
+.content-card,
+.panel,
+.preview-card,
+.result-card,
+.feedback-card,
+.not-available-card {
+  backdrop-filter: blur(10px);
+}
+@media(max-width: 880px) {
+  body {
+    background-attachment: scroll !important;
+    background-position: center top !important;
+    background-size: auto 100svh !important;
+  }
+}
+
+
+
+/* Gate 2B: dead duplicate generated-v2-6 background block removed (Block C below is the canonical active background). */
+body::before,
+body::after {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+  opacity: 0 !important;
+}
+.screen-main,
+.content-shell,
+.page,
+.not-available-page,
+.preview-page,
+.content-main {
+  background: transparent !important;
+}
+#infacta-service-nav-v251 {
+  z-index: 10000 !important;
+}
+@media(max-width: 880px) {
+  body {
+    background-attachment: scroll !important;
+    background-size: cover !important;
+    background-position: center center !important;
+  }
+}
+
+</style>
+<script data-infacta-nav-lock="v2.0">
+(function(){
+  const INF_VERSION='infacta-bg-v2-7-handoff-sync';
+  const BASE='/';
+  function withVersion(path){ return path + (path.includes('?')?'&':'?') + 'v=' + INF_VERSION; }
+  const params=new URLSearchParams(window.location.search);
+  if(params.get('v')!==INF_VERSION){
+    params.set('v', INF_VERSION);
+    const next=window.location.pathname+'?'+params.toString()+(window.location.hash||'');
+    window.location.replace(next);
+    return;
+  }
+  window.INFACTA_CANONICAL_START = withVersion(BASE+'index.html');
+})();
+</script>
+<style data-infacta-background-foreground-repair="v2.6.1">
+
+/* v2.6.1 background foreground opaque repair.
+   Rule: generated image remains ONLY the rear page background.
+   All application UI is a fully opaque foreground layer with standard colors.
+   No translucent cards, no glass/backdrop layer, no text directly over the image. */
+html, body {
+  background-color: #f4eee4 !important;
+}
+body {
+  background-image: url('/assets/infacta-generated-background-v2-6.webp') !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  background-attachment: fixed !important;
+}
+body::before,
+body::after,
+.screen-main::before,
+.content-main::before,
+.content-shell::before,
+.page::before {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+  opacity: 0 !important;
+}
+.screen-main,
+.content-main,
+.content-shell,
+.page,
+.preview-page,
+.not-available-page,
+.feedback-page,
+.examples-page {
+  background: transparent !important;
+}
+.topbar,
+.upload-hero-field,
+.eyebrow,
+.source-card,
+.level-card,
+.level-note,
+.level-switch,
+.level-card-switch,
+.pill,
+.category-card,
+.content-card,
+.panel,
+.card,
+.ask-card,
+.trial-card,
+.notice,
+.boundary,
+.primary-info,
+.example-action-note,
+.legal-boundary-note,
+.preview-card,
+.result-card,
+.feedback-card,
+.not-available-card,
+.row,
+.question,
+.input,
+.preview-demo-boundary,
+.preview-title,
+.timer,
+.demo-label,
+.add-label,
+.upload-honest-note,
+.examples-filter-note,
+.trial-nav-note,
+.trial-secondary-link {
+  background-color: #fffaf2 !important;
+  background-image: none !important;
+  opacity: 1 !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  color: #1e2430 !important;
+}
+.topbar,
+.upload-hero-field,
+.source-card,
+.level-card,
+.category-card,
+.content-card,
+.panel,
+.card,
+.ask-card,
+.trial-card,
+.notice,
+.boundary,
+.primary-info,
+.preview-card,
+.result-card,
+.feedback-card,
+.not-available-card,
+.row,
+.question,
+.input,
+.preview-demo-boundary,
+.preview-title,
+.timer,
+.add-label,
+.upload-honest-note,
+.examples-filter-note,
+.trial-nav-note,
+.trial-secondary-link {
+  border-color: #ded2c2 !important;
+}
+.upload-hero-field {
+  padding: 22px 22px 20px !important;
+  border: 1px solid #ded2c2 !important;
+  border-radius: 24px !important;
+  box-shadow: 0 14px 36px rgba(30,36,48,.12) !important;
+}
+.add-label {
+  width: min(100%,560px) !important;
+  min-height: 36px !important;
+  padding: 8px 14px !important;
+  border: 1px solid #ded2c2 !important;
+  border-radius: 999px !important;
+  color: #39414d !important;
+  font-weight: 650 !important;
+}
+.add-label::before,
+.add-label::after {
+  background: #ded2c2 !important;
+}
+.upload-honest-note,
+.examples-filter-note,
+.legal-boundary-note,
+.example-action-note,
+.trial-nav-note {
+  display: block !important;
+  padding: 10px 12px !important;
+  border: 1px solid #ded2c2 !important;
+  border-radius: 12px !important;
+  color: #39414d !important;
+  line-height: 1.4 !important;
+}
+.upload-title,
+h1,
+h2,
+h3,
+strong,
+.lead,
+p,
+.category-card p,
+.source-card,
+.level-item p,
+.level-note,
+.examples-filter-note,
+.upload-honest-note {
+  opacity: 1 !important;
+  text-shadow: none !important;
+}
+.lead,
+p,
+.category-card p,
+.level-item p,
+.examples-filter-note,
+.upload-honest-note {
+  color: #39414d !important;
+}
+.primary-cta,
+.trust-ribbon,
+.primary,
+.btn.primary,
+.fbtn.primary,
+.copy,
+.trial-main-action,
+.trial-next {
+  background-color: #102743 !important;
+  background-image: none !important;
+  color: #fffaf2 !important;
+  opacity: 1 !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  border-color: #102743 !important;
+}
+.primary-cta *,
+.trust-ribbon *,
+.primary *,
+.btn.primary *,
+.fbtn.primary *,
+.copy *,
+.trial-main-action *,
+.trial-next * {
+  color: inherit !important;
+  opacity: 1 !important;
+  text-shadow: none !important;
+}
+.trust-ribbon p {
+  color: #d6dde8 !important;
+}
+.trust-ribbon .learn {
+  color: #d8c08b !important;
+}
+.btn:not(.primary),
+.fbtn:not(.primary),
+.infActa-service-nav-btn,
+.infacta-service-nav-btn {
+  background-color: #fffaf2 !important;
+  background-image: none !important;
+  color: #1e2430 !important;
+  opacity: 1 !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  border-color: #ded2c2 !important;
+}
+#infacta-service-nav-v251 {
+  z-index: 10000 !important;
+  opacity: 1 !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+#infacta-service-nav-v251 .infacta-service-nav-btn {
+  background-color: #fffaf2 !important;
+  color: #1e2430 !important;
+  border: 1px solid #ded2c2 !important;
+  opacity: 1 !important;
+}
+#infacta-service-nav-v251 .infacta-service-nav-btn[data-home="true"],
+#infacta-service-nav-v251 .infacta-service-nav-btn.home {
+  background-color: #102743 !important;
+  color: #fffaf2 !important;
+  border-color: #102743 !important;
+}
+@media(max-width: 880px) {
+  body {
+    background-attachment: scroll !important;
+    background-size: cover !important;
+    background-position: center center !important;
+  }
+  .upload-hero-field {
+    padding: 18px 18px 17px !important;
+    border-radius: 22px !important;
+  }
+  .upload-title {
+    font-size: clamp(38px, 10.5vw, 48px) !important;
+  }
+  .screen-main,
+  .content-main {
+    padding-bottom: max(120px, calc(88px + env(safe-area-inset-bottom))) !important;
+  }
+}
+
+
+/* v2.6.2 desktop trust + source pictograms repair.
+   Rule: on desktop the trust block sits in the right rail directly above Level explanation.
+   Source options are icon-first buttons with colored outlined pictograms; visible text is removed, labels stay accessible. */
+.right-rail {
+  width: 100% !important;
+  display: grid !important;
+  gap: 16px !important;
+  align-content: start !important;
+}
+.right-rail .desktop-trust {
+  width: 100% !important;
+  margin: 0 !important;
+  border-radius: 18px !important;
+  min-height: 136px !important;
+  align-items: center !important;
+}
+.right-rail .level-card {
+  width: 100% !important;
+  margin-top: 0 !important;
+}
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0,0,0,0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+.source-card {
+  position: relative !important;
+  min-height: 74px !important;
+  padding: 10px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0 !important;
+}
+.source-picto {
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 999px !important;
+  border: 2px solid var(--source-ring, #c19a4f) !important;
+  background: #fffaf2 !important;
+  color: var(--source-ring, #c19a4f) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: inset 0 0 0 4px rgba(255,250,242,.92), 0 7px 16px rgba(30,36,48,.08) !important;
+}
+.source-picto svg {
+  width: 23px !important;
+  height: 23px !important;
+  display: block !important;
+  stroke: currentColor !important;
+}
+.source-card[data-source="file"] { --source-ring: #c19a4f; }
+.source-card[data-source="link"] { --source-ring: #132947; }
+.source-card[data-source="photo"] { --source-ring: #9a7430; }
+.source-card[data-source="camera"] { --source-ring: #18345c; }
+.source-card:hover .source-picto,
+.source-card:focus-visible .source-picto {
+  transform: translateY(-1px) !important;
+  box-shadow: inset 0 0 0 4px rgba(255,250,242,.96), 0 10px 22px rgba(30,36,48,.12) !important;
+}
+@media(max-width: 880px) {
+  .right-rail {
+    display: block !important;
+    width: 100% !important;
+    margin-top: 14px !important;
+  }
+  .right-rail .desktop-trust {
+    display: none !important;
+  }
+  .source-card {
+    min-height: 58px !important;
+    padding: 7px !important;
+  }
+  .source-picto {
+    width: 38px !important;
+    height: 38px !important;
+  }
+  .source-picto svg {
+    width: 20px !important;
+    height: 20px !important;
+  }
+}
+
+</style>
+<style data-infacta-mobile-language-inline-repair="v2.6.3">
+/* v2.6.3 mobile language inline repair.
+   Goal: keep UA flag and UA label in one horizontal line on all mobile secondary pages. */
+@media (max-width: 880px) {
+  .topbar {
+    grid-template-columns: auto minmax(0, 1fr) auto !important;
+    column-gap: 10px !important;
+  }
+  .language-selector,
+  .pill.right.language-selector,
+  .pill.lang,
+  .lang {
+    width: auto !important;
+    min-width: 62px !important;
+    max-width: none !important;
+    display: inline-flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 7px !important;
+    white-space: nowrap !important;
+    line-height: 1 !important;
+    padding-left: 9px !important;
+    padding-right: 9px !important;
+  }
+  .language-selector .ua-flag,
+  .pill.lang .ua-flag,
+  .lang .ua-flag {
+    display: inline-block !important;
+    flex: 0 0 auto !important;
+    width: 19px !important;
+    height: 13px !important;
+    margin: 0 !important;
+  }
+  .language-selector span,
+  .pill.lang span,
+  .lang span {
+    display: inline-flex !important;
+    align-items: center !important;
+    flex: 0 0 auto !important;
+    min-width: 0 !important;
+  }
+}
+</style>
+<style data-infacta-desktop-language-inline-repair="v2.6.4">
+/* v2.6.4 desktop language inline repair.
+   Goal: keep UA flag and UA label in one horizontal line on desktop pages too.
+   Mirrors the accepted v2.6.3 mobile behavior without changing layout, background, navigation, or runtime boundary. */
+@media (min-width: 881px) {
+  .topbar {
+    grid-template-columns: auto minmax(0, 1fr) auto !important;
+    column-gap: 14px !important;
+  }
+  .language-selector,
+  .pill.right.language-selector,
+  .pill.lang,
+  .lang {
+    width: auto !important;
+    min-width: 66px !important;
+    max-width: none !important;
+    display: inline-flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: center !important;
+    justify-self: end !important;
+    gap: 8px !important;
+    white-space: nowrap !important;
+    line-height: 1 !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+  .language-selector .ua-flag,
+  .pill.lang .ua-flag,
+  .lang .ua-flag {
+    display: inline-block !important;
+    flex: 0 0 auto !important;
+    width: 21px !important;
+    height: 14px !important;
+    margin: 0 !important;
+  }
+  .language-selector span,
+  .pill.lang span,
+  .lang span {
+    display: inline-flex !important;
+    align-items: center !important;
+    flex: 0 0 auto !important;
+    min-width: 0 !important;
+    white-space: nowrap !important;
+  }
+}
+</style>
+
+<style data-infacta-language-selector-ui-access-repair="v1.0">
+/* v1.0 language selector UI access repair: explicit visible access to active uk/en/ru locales. */
+.language-switcher{display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:4px!important;white-space:nowrap!important;}
+.language-switcher .lang-option{display:inline-flex!important;align-items:center!important;justify-content:center!important;min-width:26px!important;height:22px!important;padding:0 6px!important;border-radius:999px!important;text-decoration:none!important;color:inherit!important;font-weight:800!important;font-size:11px!important;letter-spacing:.02em!important;border:1px solid rgba(193,154,79,.38)!important;background:rgba(255,250,242,.50)!important;}
+.language-switcher .lang-option[data-active="true"],
+.language-switcher .lang-option[aria-current="true"]{border-color:rgba(193,154,79,.95)!important;background:rgba(255,248,230,.92)!important;box-shadow:0 0 0 1px rgba(193,154,79,.18) inset!important;}
+@media (max-width:520px){.language-switcher{gap:3px!important}.language-switcher .lang-option{min-width:24px!important;height:21px!important;padding:0 5px!important;font-size:10.5px!important}}
+</style>
+</head>
+<body class="screen">
+<header class="topbar">
+<label aria-label="Вибір рівня аналізу" class="level-switch level-selector" data-i18n-attr-aria-label="header.levelSelectorAria"><select aria-label="Виберіть рівень аналізу" data-i18n-attr-aria-label="header.levelSelectAria" id="levelSelect"><option value="0">Level 0</option><option value="1">Level 1</option><option value="2">Level 2</option><option value="3">Level 3</option><option value="4">Level 4</option></select></label>
+<a class="brand" href="/index.html?v=infacta-bg-v2-7-handoff-sync">inFACTa</a>
+<nav class="pill right language-selector language-switcher" data-infacta-language-switcher data-i18n-attr-aria-label="header.languageSelectorAria" aria-label="Мова інтерфейсу"><a class="lang-option" data-lang-switch="uk" href="?lang=uk">UA</a><a class="lang-option" data-lang-switch="en" href="?lang=en">EN</a><a class="lang-option" data-lang-switch="ru" href="?lang=ru">RU</a></nav>
+</header>
+<main class="screen-main">
+<section class="ref-hero">
+<div class="hero-copy">
+<a aria-label="Подати документ: у статичній версії реальне завантаження ще не підключене" class="upload-hero-field" data-i18n-attr-aria-label="index.uploadAria" href="/not-available/index.html?v=infacta-bg-v2-7-handoff-sync&amp;kind=upload&amp;source=main">
+<span class="eyebrow" data-i18n="index.eyebrow">Розуміння замість здогадок</span>
+<span class="upload-title" data-i18n="index.heroTitle">Подайте документ</span>
+<span class="lead" data-i18n="index.heroLead">Ми допоможемо зрозуміти, що означає документ, які ризики він містить і на що варто звернути увагу. Просто, зрозуміло, без юридичного жаргону.</span>
+<span class="primary-cta"><span data-i18n="index.ctaPrimary">Вибрати документ</span><span class="arrow">→</span></span>
+<span class="upload-hint" data-i18n="index.uploadHint">Натисніть поле, щоб побачити статус функції.</span>
+</a>
+<div class="add-label" data-i18n="index.addLabel">Інші способи подання</div>
+<div class="source-grid">
+<a aria-label="Файл" class="source-card" data-i18n-attr-aria-label="index.source.file" data-i18n-attr-title="index.source.file" data-source="file" href="/not-available/index.html?v=infacta-bg-v2-7-handoff-sync&amp;kind=upload&amp;source=file" title="Файл"><span aria-hidden="true" class="source-picto"><svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M7 3.5h6.3L18 8.2V20.5H7z"></path><path d="M13.2 3.5v4.9H18"></path><path d="M9.6 13h4.8"></path><path d="M9.6 16h4.8"></path></svg></span><span class="visually-hidden" data-i18n="index.source.file">Файл</span></a>
+<a aria-label="Посилання" class="source-card" data-i18n-attr-aria-label="index.source.link" data-i18n-attr-title="index.source.link" data-source="link" href="/not-available/index.html?v=infacta-bg-v2-7-handoff-sync&amp;kind=upload&amp;source=link" title="Посилання"><span aria-hidden="true" class="source-picto"><svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M10.5 13.5a3.2 3.2 0 0 1 0-4.5l2.1-2.1a3.2 3.2 0 0 1 4.5 4.5l-1.1 1.1"></path><path d="M13.5 10.5a3.2 3.2 0 0 1 0 4.5l-2.1 2.1a3.2 3.2 0 0 1-4.5-4.5l1.1-1.1"></path></svg></span><span class="visually-hidden" data-i18n="index.source.link">Посилання</span></a>
+<a aria-label="Фото" class="source-card" data-i18n-attr-aria-label="index.source.photo" data-i18n-attr-title="index.source.photo" data-source="photo" href="/not-available/index.html?v=infacta-bg-v2-7-handoff-sync&amp;kind=upload&amp;source=photo" title="Фото"><span aria-hidden="true" class="source-picto"><svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><rect height="12" rx="2" width="15" x="4.5" y="6"></rect><circle cx="9" cy="10" r="1.4"></circle><path d="M6.8 16.2l3.5-3.4 2.5 2.4 2.1-2.1 2.3 3.1"></path></svg></span><span class="visually-hidden" data-i18n="index.source.photo">Фото</span></a>
+<a aria-label="Камера" class="source-card" data-i18n-attr-aria-label="index.source.camera" data-i18n-attr-title="index.source.camera" data-source="camera" href="/not-available/index.html?v=infacta-bg-v2-7-handoff-sync&amp;kind=upload&amp;source=camera" title="Камера"><span aria-hidden="true" class="source-picto"><svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M7.2 7.5l1.2-2h7.2l1.2 2h2.1a2 2 0 0 1 2 2v7.6a2 2 0 0 1-2 2H5.1a2 2 0 0 1-2-2V9.5a2 2 0 0 1 2-2z"></path><circle cx="12" cy="13" r="3.1"></circle></svg></span><span class="visually-hidden" data-i18n="index.source.camera">Камера</span></a>
+</div>
+<p class="upload-honest-note" data-i18n="honest.staticDemoOnly">У цій тестовій версії реальне завантаження ще не працює. Для демонстрації використовуйте приклади документів.</p>
+<section class="trust-ribbon mobile-trust">
+<div><strong data-i18n="legal.boundaryShort">inFACTa допомагає зрозуміти документ і наступні кроки.</strong><p data-i18n="legal.notLawyerReplacement">Це не юридичний висновок і не замінює консультацію юриста.</p></div>
+<a class="learn" data-i18n-html="index.learnMoreHtml" href="/examples/index.html?v=infacta-bg-v2-7-handoff-sync">Дізнатися більше <span>→</span></a>
+</section>
+</div>
+<div class="right-rail">
+<section class="trust-ribbon desktop-trust">
+<div><strong data-i18n="legal.boundaryShort">inFACTa допомагає зрозуміти документ і наступні кроки.</strong><p data-i18n="legal.notLawyerReplacement">Це не юридичний висновок і не замінює консультацію юриста.</p></div>
+<a class="learn" data-i18n-html="index.learnMoreHtml" href="/examples/index.html?v=infacta-bg-v2-7-handoff-sync">Дізнатися більше <span>→</span></a>
+</section>
+<aside class="level-card">
+<div class="level-head"><h2 data-i18n-level="level.title" id="levelTitle">Що дає Level 0</h2><label aria-label="Змінити рівень пояснення" class="level-card-switch" data-i18n-attr-aria-label="level.cardSwitchAria"><select aria-label="Виберіть рівень для пояснення" data-i18n-attr-aria-label="level.cardSelectAria" id="cardLevelSelect"><option value="0">Level 0</option><option value="1">Level 1</option><option value="2">Level 2</option><option value="3">Level 3</option><option value="4">Level 4</option></select></label></div>
+<div class="level-list" data-i18n-level="level.list" id="levelList">
+<div class="level-item"><div><strong>Пояснюємо простими словами</strong><p>Розшифровуємо зміст документа без складних термінів.</p></div></div>
+<div class="level-item"><div><strong>Виявляємо ризики</strong><p>Показуємо можливі ризики та підводні камені.</p></div></div>
+<div class="level-item"><div><strong>Підказуємо, що уточнити</strong><p>Вказуємо, на що звернути увагу та які запитання поставити.</p></div></div>
+</div>
+<div class="level-note" data-i18n-level="level.note" id="levelNote"><b>Level 0</b> — це перший крок до розуміння. За потреби ви зможете перейти на наступні рівні аналізу.</div>
+</aside>
+</div>
+</section>
+<section class="doc-section">
+<div class="doc-head"><h2 data-i18n="examples.title">Приклади документів</h2><a data-i18n="examples.showMore" href="/examples/index.html?v=infacta-bg-v2-7-handoff-sync">Показати більше категорій ↓</a></div>
+<div class="category-grid">
+<a class="category-card" href="/examples/index.html?c=realty&amp;v=infacta-bg-v2-7-handoff-sync"><strong data-i18n="examples.category.realty">Нерухомість</strong><p data-i18n="examples.category.realtyDesc">Договори, акти, витяги</p></a>
+<a class="category-card" href="/examples/index.html?c=work&amp;v=infacta-bg-v2-7-handoff-sync"><strong data-i18n="examples.category.work">Робота</strong><p data-i18n="examples.category.workDesc">Трудові договори, контракти, накази</p></a>
+<a class="category-card" href="/examples/index.html?c=finance&amp;v=infacta-bg-v2-7-handoff-sync"><strong data-i18n="examples.category.finance">Фінанси</strong><p data-i18n="examples.category.financeDesc">Кредити, договори, страхування</p></a>
+<a class="category-card" href="/examples/index.html?c=family&amp;v=infacta-bg-v2-7-handoff-sync"><strong data-i18n="examples.category.family">Сімʼя</strong><p data-i18n="examples.category.familyDesc">Шлюбні договори, довіреності, аліменти</p></a>
+<a class="category-card" href="/examples/index.html?c=transport&amp;v=infacta-bg-v2-7-handoff-sync"><strong data-i18n="examples.category.transport">Транспорт</strong><p data-i18n="examples.category.transportDesc">Купівля-продаж, страхування</p></a>
+<a class="category-card" href="/examples/index.html?c=other&amp;v=infacta-bg-v2-7-handoff-sync"><strong data-i18n="examples.category.other">Інше</strong><p data-i18n="examples.category.otherDesc">Будь-які інші документи</p></a>
+</div>
+</section>
+</main>
+<script>
+(function(){
+  const data={
+    0:{title:'Що дає Level 0',state:'active',items:[['Пояснюємо простими словами','Розшифровуємо зміст документа без складних термінів.'],['Виявляємо ризики','Показуємо можливі ризики та підводні камені.'],['Підказуємо, що уточнити','Вказуємо, на що звернути увагу та які запитання поставити.']],note:'<b>Level 0</b> — перший рівень розуміння документа: просте пояснення, головні ризики і питання для уточнення.'},
+    1:{title:'Що дає Level 1',state:'future',items:[['Юридичні наслідки','Має пояснювати, які правові наслідки може створити документ.'],['Обмеження й зобовʼязання','Має показувати, що може змінитися для людини після підписання або виконання документа.'],['Питання до юриста','Має формувати перелік питань, які варто перевірити з фахівцем.']],note:'<b>Level 1</b> — майбутній рівень для розуміння юридичних наслідків документа.'},
+    2:{title:'Що дає Level 2',state:'future',items:[['Що робити далі','Має перетворювати пояснення документа на практичний план наступних кроків.'],['Пріоритети','Має допомагати зрозуміти, що зробити першим, а що може зачекати.'],['Підготовка','Має підказувати, які дані, документи або питання варто зібрати.']],note:'<b>Level 2</b> — майбутній рівень для переходу від розуміння документа до дії.'},
+    3:{title:'Що дає Level 3',state:'future',items:[['Альтернативи','Має показувати різні варіанти поведінки або рішення.'],['Сценарії','Має пояснювати, як може розвиватися ситуація залежно від вибору.'],['Порівняння','Має допомагати бачити ризики, витрати й переваги кожного сценарію.']],note:'<b>Level 3</b> — майбутній рівень для порівняння альтернатив і сценаріїв.'},
+    4:{title:'Що дає Level 4',state:'future',items:[['Портфель документів','Має допомагати працювати не з одним документом, а з набором повʼязаних документів.'],['Звʼязки між документами','Має показувати, як один документ впливає на інший.'],['Довгий кейс','Має підтримувати складні ситуації, де рішення залежить від кількох матеріалів.']],note:'<b>Level 4</b> — майбутній рівень для роботи з портфелем документів і довшими кейсами.'}
+  };
+  const selects=[document.getElementById('levelSelect'), document.getElementById('cardLevelSelect')].filter(Boolean);
+  const title=document.getElementById('levelTitle');
+  const list=document.getElementById('levelList');
+  const note=document.getElementById('levelNote');
+  const card=document.querySelector('.level-card');
+  function render(v){
+    const key=String(v);
+    const d=data[key]||data[0];
+    if(title) title.textContent=d.title;
+    if(card) card.setAttribute('data-level-state', d.state);
+    if(list) list.innerHTML=d.items.map(i=>'<div class="level-item"><div><strong>'+i[0]+'</strong><p>'+i[1]+'</p></div></div>').join('');
+    if(note) note.innerHTML=d.note;
+    selects.forEach(s=>{ if(s.value!==key) s.value=key; });
+  }
+  selects.forEach(s=>s.addEventListener('change', e=>render(e.target.value)));
+  render(selects[0] ? selects[0].value : '0');
+})();
+</script>
+
+<script data-infacta-i18n="gate3e-shared-helper-index-only" src="assets/infacta-i18n-static.js"></script>
 </body>
 </html>

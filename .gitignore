@@ -1,0 +1,5 @@
+# Local/editor noise only
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
