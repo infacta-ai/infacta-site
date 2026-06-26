@@ -1,6 +1,6 @@
 (function(){
   'use strict';
-  var VERSION_TOKEN='infacta-bg-v2-7-handoff-sync';
+  var VERSION_TOKEN='infacta-live-polish-v1-2';
   var DEFAULT_LANG='uk';
   var REAL_LANGS=['uk','en','ru'];
   var PLANNED_INTERFACE_LANGS=['uk','en','de','pl','es','it','ru','fr','cs'];
@@ -102,7 +102,7 @@
         "preview.countryValue": "Україна — demo-приклад",
         "preview.contextDisclaimer": "Це demo-поле. Воно не визначає застосовне право.",
         "preview.levelLabel": "Рівень аналізу",
-        "preview.levelValue": "Level 0 · просте пояснення",
+        "preview.levelValue": "Level 0 · структурування без AI",
         "preview.statusLabel": "Статус",
         "preview.statusValue": "готово до старту",
         "preview.mobileNextAria": "Перехід до demo-результату",
@@ -230,7 +230,7 @@
         "preview.countryValue": "Ukraine — demo example",
         "preview.contextDisclaimer": "This is a demo field. It does not determine which laws apply.",
         "preview.levelLabel": "Analysis level",
-        "preview.levelValue": "Level 0 · simple explanation",
+        "preview.levelValue": "Level 0 · zero-token structuring",
         "preview.statusLabel": "Status",
         "preview.statusValue": "ready to start",
         "preview.mobileNextAria": "Go to the demo result",
@@ -358,7 +358,7 @@
         "preview.countryValue": "Украина — demo-пример",
         "preview.contextDisclaimer": "Это demo-поле. Оно не определяет применимое право.",
         "preview.levelLabel": "Уровень анализа",
-        "preview.levelValue": "Level 0 · простое объяснение",
+        "preview.levelValue": "Level 0 · структурирование без AI",
         "preview.statusLabel": "Статус",
         "preview.statusValue": "готово к старту",
         "preview.mobileNextAria": "Переход к demo-результату",
@@ -392,135 +392,417 @@
 };
 
   var LEVEL_UK={
-    '0':{title:'Що дає Level 0',state:'active',items:[['Пояснення простими словами','Розшифровує зміст документа без складних термінів.'],['Виявлення ризиків','Показує можливі ризики й приховані слабкі місця.'],['Що уточнити','Підказує, на що звернути увагу і які питання поставити.']],note:'<b>Level 0</b> — доступний демо-рівень: просте пояснення, ключові ризики і питання для уточнення.'},
-    '1':{title:'Що дає Level 1',state:'future',items:[['Структурований розбір','Має розкладати документ на сторони, предмет, строки, суми й обов’язки.'],['Ключові блоки','Має показувати головні частини документа у зрозумілій структурі.'],['Підготовка до наступного рівня','Має створювати основу для глибшого аналізу ризиків.']],note:'<b>Level 1</b> — майбутній рівень для структурованого розбору документа. У демо не активний.'},
-    '2':{title:'Що дає Level 2',state:'future',items:[['Ризики й штрафи','Має знаходити ризикові умови, штрафи, дедлайни та односторонні зобов’язання.'],['Що може піти не так','Має пояснювати практичні наслідки окремих пунктів.'],['Пріоритети перевірки','Має показувати, що перевірити в першу чергу.']],note:'<b>Level 2</b> — майбутній рівень для ризиків, строків, штрафів і зобов’язань. У демо не активний.'},
-    '3':{title:'Що дає Level 3',state:'future',items:[['Поглиблений аналіз','Має ставити уточнювальні питання й враховувати відповіді користувача.'],['Контекст ситуації','Має пов’язувати документ із реальною метою користувача.'],['Підготовка рішень','Має допомагати зрозуміти, які дії можливі далі.']],note:'<b>Level 3</b> — майбутній рівень для поглиблення аналізу через уточнення контексту. У демо не активний.'},
-    '4':{title:'Що дає Level 4',state:'future',items:[['Сценарії','Має порівнювати кілька варіантів дій.'],['Підготовка до консультації','Має формувати матеріал, з яким легше йти до профільного спеціаліста.'],['Порівняння наслідків','Має показувати плюси, мінуси й ризики кожного сценарію.']],note:'<b>Level 4</b> — майбутній рівень для сценаріїв, порівнянь і підготовки до консультації. У демо не активний.'},
-    '5':{title:'Що дає Level 5',state:'future',items:[['Повний супровід кейсу','Має працювати не тільки з одним документом, а з усім контекстом ситуації.'],['Пакет документів','Має пов’язувати кілька документів, подій, строків і рішень між собою.'],['Довгий контекст','Має допомагати вести складний кейс послідовно, з історією рішень і наступними кроками.']],note:'<b>Level 5</b> — майбутній рівень повного контекстного супроводу документа або кейсу. У демо не активний.'}
-  };
+  "0": {
+    "title": "Level 0 — Попереднє структурування документа",
+    "state": "active",
+    "badge": "Доступний у демо · Free",
+    "items": [
+      [
+        "Безкоштовний zero-token core",
+        "Працює без AI: витягує, нормалізує і структурує знайдені дані документа."
+      ],
+      [
+        "Знайдені дані й фрагменти",
+        "Показує сторони, дати, суми, строки, штрафи, обов’язки, реквізити та зони уваги."
+      ],
+      [
+        "Бали без юридичного тлумачення",
+        "Може рахувати доказовість, повноту, невідомі й пріоритет показу, але не дає правову оцінку."
+      ]
+    ],
+    "note": "<b>Level 0</b> — доступний демо-рівень. Це не AI-аналіз і не юридична консультація: відповіді можливі тільки за знайденими даними документа."
+  },
+  "1": {
+    "title": "Level 1 — Мінімальне AI-пояснення",
+    "state": "future",
+    "badge": "Майбутній платний · 1 кредит",
+    "items": [
+      [
+        "1 кредит",
+        "Базова одиниця платного AI-пояснення."
+      ],
+      [
+        "Один фрагмент або один документ",
+        "Коротко пояснює конкретний знайдений пункт чи фрагмент, не запускаючи повний аналіз без потреби."
+      ],
+      [
+        "Після Level 0",
+        "Використовує структуровані дані й фрагменти як підготовчий шар."
+      ]
+    ],
+    "note": "<b>Level 1</b> — майбутній платний рівень. У поточному static demo не активний і не запускає AI."
+  },
+  "2": {
+    "title": "Level 2 — Розширене AI-пояснення одного документа",
+    "state": "future",
+    "badge": "Майбутній платний · 3 кредити",
+    "items": [
+      [
+        "3 кредити",
+        "Розширений платний рівень для одного документа."
+      ],
+      [
+        "Кілька знайдених пунктів",
+        "Пояснює кілька важливих фрагментів, формує короткий AI-висновок і базову карту ризиків."
+      ],
+      [
+        "Контроль собівартості",
+        "Працює з контрольованим обсягом контексту й AI-витрат."
+      ]
+    ],
+    "note": "<b>Level 2</b> — майбутній платний рівень одного документа. У demo не активний."
+  },
+  "3": {
+    "title": "Level 3 — Найвищий стандартний аналіз одного документа",
+    "state": "future",
+    "badge": "Майбутній платний · 6 кредитів",
+    "items": [
+      [
+        "6 кредитів",
+        "Найвищий стандартний платний рівень для одного документа."
+      ],
+      [
+        "Повний стандартний AI-аналіз",
+        "Працює в межах стандартного тарифу, стандартних лімітів і контрольованої собівартості."
+      ],
+      [
+        "Не Premium override",
+        "Якщо документ завеликий, система може запропонувати зменшити обсяг або перейти на Level 5 Premium."
+      ]
+    ],
+    "note": "<b>Level 3</b> — верх стандартної шкали для одного документа. У demo не активний."
+  },
+  "4": {
+    "title": "Level 4 Premium — Аналіз пакета документів",
+    "state": "future",
+    "badge": "Premium · кабінет / кошторис",
+    "items": [
+      [
+        "Багато документів",
+        "Договір, додатки, акти, рахунки, специфікації або кілька версій документа."
+      ],
+      [
+        "Порівняння й суперечності",
+        "Знаходить залежності, зміни та невідповідності у строках, сумах, сторонах, реквізитах і обов’язках."
+      ],
+      [
+        "Project-case workspace",
+        "Потребує особистого кабінету, перевірки підписки або окремого рахунку, кошторису й upgrade credit у межах кейсу."
+      ]
+    ],
+    "note": "<b>Level 4 Premium</b> — майбутній режим для пакета документів. Це не “сильніший Level 3” для одного документа."
+  },
+  "5": {
+    "title": "Level 5 Premium — Максимальний аналіз одного документа",
+    "state": "future",
+    "badge": "Premium · один документ",
+    "items": [
+      [
+        "Один документ",
+        "Максимальний AI-аналіз одного договору або документа після попереднього кошторису."
+      ],
+      [
+        "Кілька AI-проходів",
+        "Може включати сильні моделі, незалежні проходи, cross-model validation, verifier-pass і final composer."
+      ],
+      [
+        "Guest checkout можливий",
+        "Особистий кабінет не обов’язковий для одного документа; попередня оплата нижчих рівнів може враховуватись як upgrade credit."
+      ]
+    ],
+    "note": "<b>Level 5 Premium</b> — майбутній premium-рівень для одного документа. Це не multi-document workflow."
+  }
+};
 
   var LEVEL_EN={
-    '0':{title:'What Level 0 gives you',state:'active',items:[['Explains in simple words','Decodes the document content without complex terms.'],['Highlights risks','Shows possible risks and hidden pitfalls.'],['Suggests what to clarify','Points out what to pay attention to and what questions to ask.']],note:'<b>Level 0</b> — the first step to understanding a document: simple explanation, key risks, and questions to clarify.'},
-    '1':{title:'What Level 1 gives you',state:'future',items:[['Legal consequences','Should explain what legal consequences a document may create.'],['Restrictions and obligations','Should show what may change for a person after signing or performing a document.'],['Questions for a lawyer','Should form a list of questions worth checking with a specialist.']],note:'<b>Level 1</b> — a planned level for understanding legal consequences of a document. Not active in this demo.'},
-    '2':{title:'What Level 2 gives you',state:'future',items:[['What to do next','Should turn document explanations into a practical next-step plan.'],['Priorities','Should help identify what to do first and what can wait.'],['Preparation','Should suggest what data, documents, or questions to gather.']],note:'<b>Level 2</b> — a planned level for moving from understanding a document to action. Not active in this demo.'},
-    '3':{title:'What Level 3 gives you',state:'future',items:[['Alternatives','Should show different behavior or decision options.'],['Scenarios','Should explain how the situation may develop depending on the choice.'],['Comparison','Should help compare risks, costs, and benefits of each scenario.']],note:'<b>Level 3</b> — a planned level for comparing alternatives and scenarios. Not active in this demo.'},
-    '4':{title:'What Level 4 gives you',state:'future',items:[['Scenarios','Should compare several possible decisions or behaviors.'],['Preparation for consultation','Should prepare material that is easier to discuss with a specialist.'],['Consequences','Should show practical pros, cons, and risks of each scenario.']],note:'<b>Level 4</b> — a planned level for scenarios, comparisons, and consultation preparation. Not active in this demo.'},
-    '5':{title:'What Level 5 gives you',state:'future',items:[['Full case support','Should work not only with one document, but with the whole situation context.'],['Document set','Should connect several documents, events, deadlines, and decisions.'],['Long context','Should help maintain a complex case step by step, with history and next actions.']],note:'<b>Level 5</b> — a future level for full contextual support of a document or case. Not active in this demo.'}
-  };
+  "0": {
+    "title": "Level 0 — Preliminary document structuring",
+    "state": "active",
+    "badge": "Available in demo · Free",
+    "items": [
+      [
+        "Free zero-token core",
+        "Works without AI: extracts, normalizes, and structures data found in the document."
+      ],
+      [
+        "Found data and fragments",
+        "Shows parties, dates, amounts, deadlines, penalties, obligations, details, and attention zones."
+      ],
+      [
+        "Scores without legal interpretation",
+        "Can score evidence, completeness, unknowns, and display priority, but does not provide a legal assessment."
+      ]
+    ],
+    "note": "<b>Level 0</b> — available demo level. This is not AI analysis or legal advice: answers are limited to data found in the document."
+  },
+  "1": {
+    "title": "Level 1 — Minimal AI explanation",
+    "state": "future",
+    "badge": "Planned paid · 1 credit",
+    "items": [
+      [
+        "1 credit",
+        "The basic unit of paid AI explanation."
+      ],
+      [
+        "One fragment or one document",
+        "Briefly explains a specific found clause or fragment without launching full analysis unless needed."
+      ],
+      [
+        "After Level 0",
+        "Uses structured data and fragments as a preparation layer."
+      ]
+    ],
+    "note": "<b>Level 1</b> — planned paid level. It is not active in this static demo and does not run AI."
+  },
+  "2": {
+    "title": "Level 2 — Extended AI explanation of one document",
+    "state": "future",
+    "badge": "Planned paid · 3 credits",
+    "items": [
+      [
+        "3 credits",
+        "Extended paid level for one document."
+      ],
+      [
+        "Several found points",
+        "Explains several important fragments, forms a short AI summary, and builds a basic risk map."
+      ],
+      [
+        "Cost control",
+        "Works with controlled context size and controlled AI cost."
+      ]
+    ],
+    "note": "<b>Level 2</b> — planned paid level for one document. Not active in the demo."
+  },
+  "3": {
+    "title": "Level 3 — Highest standard analysis of one document",
+    "state": "future",
+    "badge": "Planned paid · 6 credits",
+    "items": [
+      [
+        "6 credits",
+        "The highest standard paid level for one document."
+      ],
+      [
+        "Full standard AI analysis",
+        "Works within a standard tariff, standard limits, and controlled cost."
+      ],
+      [
+        "Not a Premium override",
+        "If the document exceeds standard limits, the system may suggest reducing scope or moving to Level 5 Premium."
+      ]
+    ],
+    "note": "<b>Level 3</b> — top of the standard scale for one document. Not active in the demo."
+  },
+  "4": {
+    "title": "Level 4 Premium — Document package analysis",
+    "state": "future",
+    "badge": "Premium · account / estimate",
+    "items": [
+      [
+        "Multiple documents",
+        "Contracts, appendices, acts, invoices, specifications, or several versions of one document."
+      ],
+      [
+        "Comparison and contradictions",
+        "Finds dependencies, changes, and mismatches in deadlines, amounts, parties, details, and obligations."
+      ],
+      [
+        "Project-case workspace",
+        "Requires an account, subscription check or separate invoice, estimate, and upgrade credit inside the case."
+      ]
+    ],
+    "note": "<b>Level 4 Premium</b> — future mode for a document package. It is not a “stronger Level 3” for one document."
+  },
+  "5": {
+    "title": "Level 5 Premium — Maximum analysis of one document",
+    "state": "future",
+    "badge": "Premium · one document",
+    "items": [
+      [
+        "One document",
+        "Maximum AI analysis of one contract or document after a prior estimate."
+      ],
+      [
+        "Several AI passes",
+        "May include strong models, independent passes, cross-model validation, verifier-pass, and final composer."
+      ],
+      [
+        "Guest checkout possible",
+        "An account is not mandatory for one document; prior payment for lower levels may be applied as upgrade credit."
+      ]
+    ],
+    "note": "<b>Level 5 Premium</b> — future premium level for one document. It is not a multi-document workflow."
+  }
+};
 
   var LEVEL_RU={
-    "0": {
-        "title": "Что даёт Level 0",
-        "state": "active",
-        "items": [
-            [
-                "Объясняем простыми словами",
-                "Расшифровываем смысл документа без сложных терминов."
-            ],
-            [
-                "Выявляем риски",
-                "Показываем возможные риски и подводные камни."
-            ],
-            [
-                "Подсказываем, что уточнить",
-                "Указываем, на что обратить внимание и какие вопросы задать."
-            ]
-        ],
-        "note": "<b>Level 0</b> — первый шаг к пониманию документа: простое объяснение, главные риски и вопросы для уточнения."
-    },
-    "1": {
-        "title": "Что даёт Level 1",
-        "state": "future",
-        "items": [
-            [
-                "Юридические последствия",
-                "Должен объяснять, какие правовые последствия может создавать документ."
-            ],
-            [
-                "Ограничения и обязательства",
-                "Должен показывать, что может измениться для человека после подписания или выполнения документа."
-            ],
-            [
-                "Вопросы к юристу",
-                "Должен формировать список вопросов, которые стоит проверить со специалистом."
-            ]
-        ],
-        "note": "<b>Level 1</b> — будущий уровень для понимания юридических последствий документа. В демо не активен."
-    },
-    "2": {
-        "title": "Что даёт Level 2",
-        "state": "future",
-        "items": [
-            [
-                "Что делать дальше",
-                "Должен превращать объяснение документа в практический план следующих шагов."
-            ],
-            [
-                "Приоритеты",
-                "Должен помогать понять, что сделать первым, а что может подождать."
-            ],
-            [
-                "Подготовка",
-                "Должен подсказывать, какие данные, документы или вопросы стоит собрать."
-            ]
-        ],
-        "note": "<b>Level 2</b> — будущий уровень для перехода от понимания документа к действию. В демо не активен."
-    },
-    "3": {
-        "title": "Что даёт Level 3",
-        "state": "future",
-        "items": [
-            [
-                "Альтернативы",
-                "Должен показывать разные варианты поведения или решения."
-            ],
-            [
-                "Сценарии",
-                "Должен объяснять, как может развиваться ситуация в зависимости от выбора."
-            ],
-            [
-                "Сравнение",
-                "Должен помогать видеть риски, затраты и преимущества каждого сценария."
-            ]
-        ],
-        "note": "<b>Level 3</b> — будущий уровень для сравнения альтернатив и сценариев. В демо не активен."
-    },
-    "4": {
-        "title": "Что даёт Level 4",
-        "state": "future",
-        "items": [
-            ["Сценарии", "Должен сравнивать несколько вариантов действий."],
-            ["Подготовка к консультации", "Должен готовить материал, с которым проще идти к специалисту."],
-            ["Сравнение последствий", "Должен показывать плюсы, минусы и риски каждого сценария."]
-        ],
-        "note": "<b>Level 4</b> — будущий уровень для сценариев, сравнения и подготовки к консультации."
-    },
-    "5": {
-        "title": "Что даёт Level 5",
-        "state": "future",
-        "items": [
-            ["Полное сопровождение кейса", "Должен работать не только с одним документом, а со всем контекстом ситуации."],
-            ["Пакет документов", "Должен связывать несколько документов, событий, сроков и решений."],
-            ["Длинный контекст", "Должен помогать вести сложный кейс последовательно, с историей решений и следующими шагами."]
-        ],
-        "note": "<b>Level 5</b> — будущий уровень полного контекстного сопровождения документа или кейса. В demo не активен."
-    }
+  "0": {
+    "title": "Level 0 — Предварительное структурирование документа",
+    "state": "active",
+    "badge": "Доступен в демо · Free",
+    "items": [
+      [
+        "Бесплатное zero-token ядро",
+        "Работает без AI: извлекает, нормализует и структурирует найденные данные документа."
+      ],
+      [
+        "Найденные данные и фрагменты",
+        "Показывает стороны, даты, суммы, сроки, штрафы, обязанности, реквизиты и зоны внимания."
+      ],
+      [
+        "Баллы без юридического толкования",
+        "Может считать доказательность, полноту, неизвестные и приоритет показа, но не даёт правовую оценку."
+      ]
+    ],
+    "note": "<b>Level 0</b> — доступный демо-уровень. Это не AI-анализ и не юридическая консультация: ответы возможны только по найденным данным документа."
+  },
+  "1": {
+    "title": "Level 1 — Минимальное AI-объяснение",
+    "state": "future",
+    "badge": "Будущий платный · 1 кредит",
+    "items": [
+      [
+        "1 кредит",
+        "Базовая единица платного AI-объяснения."
+      ],
+      [
+        "Один фрагмент или один документ",
+        "Кратко объясняет конкретный найденный пункт или фрагмент, не запуская полный анализ без необходимости."
+      ],
+      [
+        "После Level 0",
+        "Использует структурированные данные и фрагменты как подготовительный слой."
+      ]
+    ],
+    "note": "<b>Level 1</b> — будущий платный уровень. В текущем static demo не активен и не запускает AI."
+  },
+  "2": {
+    "title": "Level 2 — Расширенное AI-объяснение одного документа",
+    "state": "future",
+    "badge": "Будущий платный · 3 кредита",
+    "items": [
+      [
+        "3 кредита",
+        "Расширенный платный уровень для одного документа."
+      ],
+      [
+        "Несколько найденных пунктов",
+        "Объясняет несколько важных фрагментов, формирует короткий AI-вывод и базовую карту рисков."
+      ],
+      [
+        "Контроль себестоимости",
+        "Работает с контролируемым объёмом контекста и AI-расходов."
+      ]
+    ],
+    "note": "<b>Level 2</b> — будущий платный уровень одного документа. В demo не активен."
+  },
+  "3": {
+    "title": "Level 3 — Высший стандартный анализ одного документа",
+    "state": "future",
+    "badge": "Будущий платный · 6 кредитов",
+    "items": [
+      [
+        "6 кредитов",
+        "Высший стандартный платный уровень для одного документа."
+      ],
+      [
+        "Полный стандартный AI-анализ",
+        "Работает в пределах стандартного тарифа, стандартных лимитов и контролируемой себестоимости."
+      ],
+      [
+        "Не Premium override",
+        "Если документ превышает стандартные лимиты, система может предложить уменьшить объём или перейти на Level 5 Premium."
+      ]
+    ],
+    "note": "<b>Level 3</b> — верх стандартной шкалы для одного документа. В demo не активен."
+  },
+  "4": {
+    "title": "Level 4 Premium — Анализ пакета документов",
+    "state": "future",
+    "badge": "Premium · кабинет / смета",
+    "items": [
+      [
+        "Много документов",
+        "Договор, приложения, акты, счета, спецификации или несколько версий документа."
+      ],
+      [
+        "Сравнение и противоречия",
+        "Находит зависимости, изменения и несоответствия в сроках, суммах, сторонах, реквизитах и обязанностях."
+      ],
+      [
+        "Project-case workspace",
+        "Требует личного кабинета, проверки подписки или отдельного счёта, сметы и upgrade credit в пределах кейса."
+      ]
+    ],
+    "note": "<b>Level 4 Premium</b> — будущий режим для пакета документов. Это не “усиленный Level 3” для одного документа."
+  },
+  "5": {
+    "title": "Level 5 Premium — Максимальный анализ одного документа",
+    "state": "future",
+    "badge": "Premium · один документ",
+    "items": [
+      [
+        "Один документ",
+        "Максимальный AI-анализ одного договора или документа после предварительной сметы."
+      ],
+      [
+        "Несколько AI-проходов",
+        "Может включать сильные модели, независимые проходы, cross-model validation, verifier-pass и final composer."
+      ],
+      [
+        "Guest checkout возможен",
+        "Личный кабинет не обязателен для одного документа; предыдущая оплата нижних уровней может учитываться как upgrade credit."
+      ]
+    ],
+    "note": "<b>Level 5 Premium</b> — будущий premium-уровень для одного документа. Это не multi-document workflow."
+  }
 };
 
   var LEVEL_BY_LANG={uk:LEVEL_UK,en:LEVEL_EN,ru:LEVEL_RU};
 
   var LEVEL_OPTION_LABELS={
-    uk:{'0':'Level 0 — доступний у демо · просте пояснення','1':'Level 1 — майбутній · структурований розбір','2':'Level 2 — майбутній · ризики, строки, штрафи','3':'Level 3 — майбутній · поглиблений аналіз','4':'Level 4 — майбутній · сценарії та підготовка','5':'Level 5 — майбутній · повний супровід кейсу'},
-    en:{'0':'Level 0 — available in demo · simple explanation','1':'Level 1 — planned · structured breakdown','2':'Level 2 — planned · risks, deadlines, penalties','3':'Level 3 — planned · deeper analysis','4':'Level 4 — planned · scenarios and preparation','5':'Level 5 — planned · full case support'},
-    ru:{'0':'Level 0 — доступен в демо · простое объяснение','1':'Level 1 — будущий · структурированный разбор','2':'Level 2 — будущий · риски, сроки, штрафы','3':'Level 3 — будущий · углублённый анализ','4':'Level 4 — будущий · сценарии и подготовка','5':'Level 5 — будущий · сопровождение кейса'}
-  };
+  "uk": {
+    "0": "Level 0",
+    "1": "Level 1",
+    "2": "Level 2",
+    "3": "Level 3",
+    "4": "Level 4 Premium",
+    "5": "Level 5 Premium"
+  },
+  "en": {
+    "0": "Level 0",
+    "1": "Level 1",
+    "2": "Level 2",
+    "3": "Level 3",
+    "4": "Level 4 Premium",
+    "5": "Level 5 Premium"
+  },
+  "ru": {
+    "0": "Level 0",
+    "1": "Level 1",
+    "2": "Level 2",
+    "3": "Level 3",
+    "4": "Level 4 Premium",
+    "5": "Level 5 Premium"
+  }
+};
 
   var LEVEL_STATUS_LABELS={
-    uk:{active:'Доступний у демо',future:'Майбутній рівень'},
-    en:{active:'Available in demo',future:'Planned level'},
-    ru:{active:'Доступен в демо',future:'Будущий уровень'}
-  };
+  "uk": {
+    "active": "Доступний у демо",
+    "future": "Майбутній рівень"
+  },
+  "en": {
+    "active": "Available in demo",
+    "future": "Planned level"
+  },
+  "ru": {
+    "active": "Доступен в демо",
+    "future": "Будущий уровень"
+  }
+};
 
   var LANGUAGE_FLAGS={uk:'🇺🇦',en:'🇬🇧',ru:'🇷🇺'};
 
@@ -562,9 +844,10 @@
     if(card) card.setAttribute('data-level-state', state);
     if(badge){
       var labels=LEVEL_STATUS_LABELS[resolvedLang] || LEVEL_STATUS_LABELS[DEFAULT_LANG];
-      badge.textContent=labels[state] || labels.future;
+      var badgeText=data.badge || labels[state] || labels.future;
+      badge.textContent=badgeText;
       badge.setAttribute('data-state', state);
-      badge.setAttribute('aria-label', badge.textContent);
+      badge.setAttribute('aria-label', badgeText);
     }
     if(list) list.innerHTML=data.items.map(function(i){return '<div class="level-item"><div><strong>'+i[0]+'</strong><p>'+i[1]+'</p></div></div>';}).join('');
     if(note) note.innerHTML=data.note;
