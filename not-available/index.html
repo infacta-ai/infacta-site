@@ -10,9 +10,9 @@
 <meta content="no-cache" http-equiv="Pragma"/>
 <meta content="0" http-equiv="Expires"/>
 <title>Функція не підключена · inFACTa</title>
-<link href="/favicon.ico" rel="icon" sizes="any"/>
-<link href="/favicon.svg" rel="icon" type="image/svg+xml"/>
-<link href="/apple-touch-icon.png" rel="apple-touch-icon"/>
+<link href="/favicon.ico?v=infacta-live-polish-v1-2-10" rel="icon" sizes="any"/>
+<link href="/favicon.svg?v=infacta-live-polish-v1-2-10" rel="icon" type="image/svg+xml"/>
+<link href="/apple-touch-icon.png?v=infacta-live-polish-v1-2-10" rel="apple-touch-icon"/>
 <style>
 :root{--paper:#f3eee4;--paper-light:#fbf8f2;--paper-card:#fffaf2;--ink:#1e2430;--muted:#5d6672;--navy:#132947;--gold:#c19a4f;--line:#ded2c2;--shadow:0 18px 46px rgba(30,36,48,.12);--header:64px}
 *{box-sizing:border-box}html,body{margin:0;padding:0;color:var(--ink);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--paper);min-height:100svh}a{color:inherit;text-decoration:none}
@@ -265,7 +265,7 @@ body[class*="preview"] .screen-main {
 </style>
 <script data-infacta-nav-lock="v2.3">
 (function(){
-  const INF_VERSION='infacta-live-polish-v1-2-8';
+  const INF_VERSION='infacta-live-polish-v1-2-10';
   const BASE='/';
   const params=new URLSearchParams(location.search);
   if(params.get('v')!==INF_VERSION){params.set('v',INF_VERSION); location.replace(location.pathname+'?'+params.toString()+location.hash);}
@@ -1322,67 +1322,76 @@ body::before, body::after { pointer-events:none !important; }
 
 
 
-/* v1.2.8 desktop-language-flag-only repair.
-   Draws a real flag mark on desktop through the language selector shell itself.
-   This avoids emoji/font/render issues and select-overlay hiding. No layout/upload/level/background changes. */
-@media (min-width: 521px) {
-  .topbar .language-selector,
-  .topbar .language-dropdown,
-  .pill.right.language-selector {
-    position: relative !important;
-    overflow: visible !important;
-  }
-  .topbar .language-current-flag,
-  .language-current-flag {
-    font-size: 0 !important;
-    color: transparent !important;
-    text-shadow: none !important;
-  }
-  .topbar .language-selector::after,
-  .topbar .language-dropdown::after,
-  .pill.right.language-selector::after {
-    content: "" !important;
-    display: block !important;
-    position: absolute !important;
-    left: 50% !important;
-    top: 50% !important;
-    transform: translate(-50%, -50%) !important;
-    width: 24px !important;
-    height: 16px !important;
-    border-radius: 4px !important;
-    border: 1px solid rgba(30,36,48,.24) !important;
-    box-shadow: 0 1px 2px rgba(30,36,48,.16), inset 0 0 0 1px rgba(255,255,255,.30) !important;
-    z-index: 12 !important;
-    pointer-events: none !important;
-    background: linear-gradient(to bottom, #0057b7 0 50%, #ffd700 50% 100%) !important;
-  }
-  .topbar .language-selector[data-active-lang="uk"]::after,
-  .topbar .language-dropdown[data-active-lang="uk"]::after,
-  .pill.right.language-selector[data-active-lang="uk"]::after {
-    background: linear-gradient(to bottom, #0057b7 0 50%, #ffd700 50% 100%) !important;
-  }
-  .topbar .language-selector[data-active-lang="en"]::after,
-  .topbar .language-dropdown[data-active-lang="en"]::after,
-  .pill.right.language-selector[data-active-lang="en"]::after {
-    background:
-      linear-gradient(to bottom, transparent 0 38%, #ffffff 38% 62%, transparent 62% 100%),
-      linear-gradient(to right, transparent 0 40%, #ffffff 40% 60%, transparent 60% 100%),
-      linear-gradient(to bottom, transparent 0 44%, #c8102e 44% 56%, transparent 56% 100%),
-      linear-gradient(to right, transparent 0 45%, #c8102e 45% 55%, transparent 55% 100%),
-      #012169 !important;
-  }
-  .topbar .language-selector[data-active-lang="ru"]::after,
-  .topbar .language-dropdown[data-active-lang="ru"]::after,
-  .pill.right.language-selector[data-active-lang="ru"]::after {
-    background: linear-gradient(to bottom, #ffffff 0 33.333%, #1c57a7 33.333% 66.666%, #d52b1e 66.666% 100%) !important;
-  }
-  .topbar .language-select,
-  .language-select {
-    opacity: 0.001 !important;
-    -webkit-text-fill-color: transparent !important;
-    color: transparent !important;
-    background: transparent !important;
-    z-index: 20 !important;
+/* v1.2.10 emoji-language-dropdown + favicon cache repair.
+   Targeted repair over v1.2.9: visible native language select uses emoji flags as selected value and dropdown options.
+   No changes to upload, Level 0, background, typography, demo block, or runtime boundaries. */
+.topbar .language-selector,
+.topbar .language-dropdown,
+.pill.right.language-selector {
+  position: relative !important;
+  overflow: hidden !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.topbar .language-selector::before,
+.topbar .language-selector::after,
+.topbar .language-dropdown::before,
+.topbar .language-dropdown::after,
+.pill.right.language-selector::before,
+.pill.right.language-selector::after {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+}
+.language-current-flag,
+.topbar .language-current-flag {
+  display: none !important;
+  visibility: hidden !important;
+}
+.language-select,
+.topbar .language-select {
+  position: relative !important;
+  inset: auto !important;
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  outline: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  opacity: 1 !important;
+  color: #1e2430 !important;
+  -webkit-text-fill-color: #1e2430 !important;
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", system-ui, sans-serif !important;
+  font-size: 20px !important;
+  line-height: 1 !important;
+  text-align: center !important;
+  text-align-last: center !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  cursor: pointer !important;
+  z-index: 4 !important;
+}
+.language-select option,
+.topbar .language-select option {
+  color: #1e2430 !important;
+  -webkit-text-fill-color: #1e2430 !important;
+  background: #fffaf2 !important;
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", system-ui, sans-serif !important;
+  font-size: 20px !important;
+  text-align: center !important;
+  text-align-last: center !important;
+}
+@media (max-width: 520px) {
+  .language-select,
+  .topbar .language-select {
+    font-size: 18px !important;
   }
 }
 </style>
@@ -1390,8 +1399,8 @@ body::before, body::after { pointer-events:none !important; }
 <body class="notranslate" translate="no">
 <header class="topbar">
 <label aria-label="Вибір рівня аналізу" class="level-switch level-selector" data-i18n-attr-aria-label="header.levelSelectorAria"><select aria-label="Виберіть рівень аналізу" data-i18n-attr-aria-label="header.levelSelectAria" id="levelSelect"><option value="0">Level 0</option><option value="1">Level 1</option><option value="2">Level 2</option><option value="3">Level 3</option><option value="4">Level 4 Premium</option><option value="5">Level 5 Premium</option></select></label>
-<a class="brand notranslate" href="/index.html?v=infacta-live-polish-v1-2-8" translate="no"><span translate="no">inFACTa</span></a>
-<label aria-label="Мова інтерфейсу" class="pill right language-selector language-dropdown notranslate" data-i18n-attr-aria-label="header.languageSelectorAria" data-infacta-language-switcher="" translate="no" data-current-flag="🇺🇦" data-active-lang="uk"><span aria-hidden="true" class="language-current-flag notranslate" data-language-current-flag="" translate="no">🇺🇦</span><select aria-label="Мова інтерфейсу" class="language-select notranslate" data-infacta-language-select="" id="languageSelect" translate="no"><option value="uk">UA</option><option value="en">EN</option><option value="ru">RU</option></select></label>
+<a class="brand notranslate" href="/index.html?v=infacta-live-polish-v1-2-10" translate="no"><span translate="no">inFACTa</span></a>
+<label aria-label="Мова інтерфейсу" class="pill right language-selector language-dropdown notranslate" data-i18n-attr-aria-label="header.languageSelectorAria" data-infacta-language-switcher="" translate="no" data-current-flag="🇺🇦" data-active-lang="uk"><span aria-hidden="true" class="language-current-flag notranslate" data-language-current-flag="" translate="no">🇺🇦</span><select aria-label="Мова інтерфейсу" class="language-select notranslate" data-infacta-language-select="" id="languageSelect" translate="no"><option value="uk">🇺🇦</option><option value="en">🇬🇧</option><option value="ru">🇷🇺</option></select></label>
 </header>
 <main>
 <section class="card">
@@ -1400,17 +1409,17 @@ body::before, body::after { pointer-events:none !important; }
 <p data-i18n="notAvailable.body.action" id="statusBody">У поточній тестовій версії ця дія ще не має реалізованого результату.</p>
 <div class="notice" data-i18n-html="notAvailable.noticeHtml"><strong>Жодного обману в діях.</strong><br/>Якщо дія не реалізована, inFACTa прямо показує її статус, а не підміняє результатом іншого документа.</div>
 <div class="actions">
-<a class="btn primary" data-i18n="notAvailable.cta.examples" href="/examples/index.html?v=infacta-live-polish-v1-2-8">Перейти до прикладів</a>
-<a class="btn" data-i18n="notAvailable.cta.demoLease" href="/preview/index.html?demo=lease&amp;example=realty-0&amp;v=infacta-live-polish-v1-2-8">Відкрити demo оренди</a>
+<a class="btn primary" data-i18n="notAvailable.cta.examples" href="/examples/index.html?v=infacta-live-polish-v1-2-10">Перейти до прикладів</a>
+<a class="btn" data-i18n="notAvailable.cta.demoLease" href="/preview/index.html?demo=lease&amp;example=realty-0&amp;v=infacta-live-polish-v1-2-10">Відкрити demo оренди</a>
 </div>
 <div class="meta" data-i18n="notAvailable.meta">STATIC v2.7 · honest action boundary · no runtime / no upload</div>
 </section>
 </main>
-<script data-infacta-i18n="gate3g-not-available-uk-en" src="../assets/infacta-i18n-static.js?v=infacta-live-polish-v1-2-8"></script>
+<script data-infacta-i18n="gate3g-not-available-uk-en" src="../assets/infacta-i18n-static.js?v=infacta-live-polish-v1-2-10"></script>
 <script data-infacta-navigation-visibility-repair="v2.5.1">
 (function(){
-  const START='/index.html?v=infacta-live-polish-v1-2-8';
-  const FALLBACK='/examples/index.html?v=infacta-live-polish-v1-2-8';
+  const START='/index.html?v=infacta-live-polish-v1-2-10';
+  const FALLBACK='/examples/index.html?v=infacta-live-polish-v1-2-10';
   function removeOldHiddenOrConflictingNav(){
     document.querySelectorAll('nav.float-nav.infacta-bottom-nav, nav.float-nav, .footer .footer-actions').forEach(function(node){
       node.setAttribute('aria-hidden','true');

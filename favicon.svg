@@ -1,1 +1,22 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="inFACTa"><rect width="64" height="64" rx="14" fill="#132947"/><path d="M18 10h22l8 8v36H18z" fill="#fffaf2" stroke="#c19a4f" stroke-width="3"/><path d="M40 10v10h10" fill="none" stroke="#c19a4f" stroke-width="3"/><text x="32" y="43" text-anchor="middle" font-family="Georgia, serif" font-size="22" font-weight="700" fill="#132947">iF</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Infacta document check icon">
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="6" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+  <rect width="512" height="512" fill="transparent"/>
+  <rect x="148" y="54" width="226" height="382" rx="12" fill="#f0e8ce" stroke="#5c503e" stroke-opacity="0.6" stroke-width="3" filter="url(#shadow)"/>
+  <g opacity="0.42" fill="#463f36">
+    <rect x="178" y="114" width="166" height="8" rx="3"/>
+    <rect x="178" y="140" width="140" height="8" rx="3"/>
+    <rect x="178" y="166" width="166" height="8" rx="3"/>
+    <rect x="178" y="206" width="166" height="8" rx="3"/>
+    <rect x="178" y="232" width="140" height="8" rx="3"/>
+    <rect x="178" y="258" width="166" height="8" rx="3"/>
+    <rect x="178" y="300" width="166" height="8" rx="3"/>
+    <rect x="178" y="326" width="140" height="8" rx="3"/>
+    <rect x="178" y="366" width="166" height="8" rx="3"/>
+  </g>
+  <path d="M128 266 L224 356 L376 138" fill="none" stroke="#92bb41" stroke-width="74" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M136 246 L222 328 L360 132" fill="none" stroke="#b2d764" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" opacity="0.45"/>
+</svg>
