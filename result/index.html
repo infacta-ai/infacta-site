@@ -1024,7 +1024,7 @@ body[class*="preview"] .screen-main {
 </style>
 <script data-infacta-nav-lock="v2.0">
 (function(){
-  const INF_VERSION='infacta-live-polish-v1-2-7';
+  const INF_VERSION='infacta-live-polish-v1-2-8';
   const BASE='/';
   function withVersion(path){ return path + (path.includes('?')?'&':'?') + 'v=' + INF_VERSION; }
   const params=new URLSearchParams(window.location.search);
@@ -2236,8 +2236,8 @@ body::before, body::after { pointer-events:none !important; }
 
 
 
-/* v1.2.7 header control alignment and upload-border repair.
-   Targeted repair over v1.2.6: center Level 0 label, Free badge only,
+/* v1.2.8 header control alignment and upload-border repair.
+   Targeted repair over v1.2.6 / v1.2.8 desktop flag visibility: center Level 0 label, Free badge only,
    stronger document-focus border, hard visible desktop flag, scrollbar-safe right inset,
    compact one-line mobile topbar. No Gate5/runtime/upload/OCR/auth/payment/database/API. */
 :root {
@@ -2524,13 +2524,78 @@ body::before, body::after { pointer-events:none !important; }
   #levelNote { font-size: 12.2px !important; }
 }
 
+
+
+/* v1.2.8 desktop-language-flag-only repair.
+   Draws a real flag mark on desktop through the language selector shell itself.
+   This avoids emoji/font/render issues and select-overlay hiding. No layout/upload/level/background changes. */
+@media (min-width: 521px) {
+  .topbar .language-selector,
+  .topbar .language-dropdown,
+  .pill.right.language-selector {
+    position: relative !important;
+    overflow: visible !important;
+  }
+  .topbar .language-current-flag,
+  .language-current-flag {
+    font-size: 0 !important;
+    color: transparent !important;
+    text-shadow: none !important;
+  }
+  .topbar .language-selector::after,
+  .topbar .language-dropdown::after,
+  .pill.right.language-selector::after {
+    content: "" !important;
+    display: block !important;
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 24px !important;
+    height: 16px !important;
+    border-radius: 4px !important;
+    border: 1px solid rgba(30,36,48,.24) !important;
+    box-shadow: 0 1px 2px rgba(30,36,48,.16), inset 0 0 0 1px rgba(255,255,255,.30) !important;
+    z-index: 12 !important;
+    pointer-events: none !important;
+    background: linear-gradient(to bottom, #0057b7 0 50%, #ffd700 50% 100%) !important;
+  }
+  .topbar .language-selector[data-active-lang="uk"]::after,
+  .topbar .language-dropdown[data-active-lang="uk"]::after,
+  .pill.right.language-selector[data-active-lang="uk"]::after {
+    background: linear-gradient(to bottom, #0057b7 0 50%, #ffd700 50% 100%) !important;
+  }
+  .topbar .language-selector[data-active-lang="en"]::after,
+  .topbar .language-dropdown[data-active-lang="en"]::after,
+  .pill.right.language-selector[data-active-lang="en"]::after {
+    background:
+      linear-gradient(to bottom, transparent 0 38%, #ffffff 38% 62%, transparent 62% 100%),
+      linear-gradient(to right, transparent 0 40%, #ffffff 40% 60%, transparent 60% 100%),
+      linear-gradient(to bottom, transparent 0 44%, #c8102e 44% 56%, transparent 56% 100%),
+      linear-gradient(to right, transparent 0 45%, #c8102e 45% 55%, transparent 55% 100%),
+      #012169 !important;
+  }
+  .topbar .language-selector[data-active-lang="ru"]::after,
+  .topbar .language-dropdown[data-active-lang="ru"]::after,
+  .pill.right.language-selector[data-active-lang="ru"]::after {
+    background: linear-gradient(to bottom, #ffffff 0 33.333%, #1c57a7 33.333% 66.666%, #d52b1e 66.666% 100%) !important;
+  }
+  .topbar .language-select,
+  .language-select {
+    opacity: 0.001 !important;
+    -webkit-text-fill-color: transparent !important;
+    color: transparent !important;
+    background: transparent !important;
+    z-index: 20 !important;
+  }
+}
 </style>
 </head>
 <body class="screen result-safe-scroll-v252 mobile-result-actions-hardshow-v266 result-actions-route-repair-v267 result-i18n-gate3m notranslate" data-i18n-title-key="result.metaTitle" translate="no">
 <header class="topbar">
 <label aria-label="Вибір рівня аналізу" class="level-switch level-selector" data-i18n-attr-aria-label="header.levelSelectorAria"><select aria-label="Виберіть рівень аналізу" data-i18n-attr-aria-label="header.levelSelectAria" id="levelSelect"><option value="0">Level 0</option><option value="1">Level 1</option><option value="2">Level 2</option><option value="3">Level 3</option><option value="4">Level 4 Premium</option><option value="5">Level 5 Premium</option></select></label>
-<a class="brand notranslate" href="/index.html?v=infacta-live-polish-v1-2-7" translate="no"><span translate="no">inFACTa</span></a>
-<label aria-label="Мова інтерфейсу" class="pill right language-selector language-dropdown notranslate" data-i18n-attr-aria-label="header.languageSelectorAria" data-infacta-language-switcher="" translate="no" data-current-flag="🇺🇦"><span aria-hidden="true" class="language-current-flag notranslate" data-language-current-flag="" translate="no">🇺🇦</span><select aria-label="Мова інтерфейсу" class="language-select notranslate" data-infacta-language-select="" id="languageSelect" translate="no"><option value="uk">UA</option><option value="en">EN</option><option value="ru">RU</option></select></label>
+<a class="brand notranslate" href="/index.html?v=infacta-live-polish-v1-2-8" translate="no"><span translate="no">inFACTa</span></a>
+<label aria-label="Мова інтерфейсу" class="pill right language-selector language-dropdown notranslate" data-i18n-attr-aria-label="header.languageSelectorAria" data-infacta-language-switcher="" translate="no" data-current-flag="🇺🇦" data-active-lang="uk"><span aria-hidden="true" class="language-current-flag notranslate" data-language-current-flag="" translate="no">🇺🇦</span><select aria-label="Мова інтерфейсу" class="language-select notranslate" data-infacta-language-select="" id="languageSelect" translate="no"><option value="uk">UA</option><option value="en">EN</option><option value="ru">RU</option></select></label>
 </header>
 <main class="screen-main">
 <section aria-label="Готовність до рішення" class="card" data-i18n-attr-aria-label="result.mobileAria" id="infacta-mobile-decision-v266">
@@ -2542,8 +2607,8 @@ body::before, body::after { pointer-events:none !important; }
 <p class="mobile-decision-legal-v266" data-i18n="result.legalBoundary">inFACTa пояснює документ і можливі ризики, але не є юридичним висновком і не замінює консультацію юриста.</p>
 </div>
 <div class="mobile-decision-actions-v266">
-<a class="mobile-primary-v266" data-i18n="result.cta.clarify" href="/ask-more/index.html?v=infacta-live-polish-v1-2-7">Уточнити результат</a>
-<a class="mobile-secondary-v266" data-i18n="result.cta.feedback" href="/feedback/index.html?v=infacta-live-polish-v1-2-7">Залишити відгук</a>
+<a class="mobile-primary-v266" data-i18n="result.cta.clarify" href="/ask-more/index.html?v=infacta-live-polish-v1-2-8">Уточнити результат</a>
+<a class="mobile-secondary-v266" data-i18n="result.cta.feedback" href="/feedback/index.html?v=infacta-live-polish-v1-2-8">Залишити відгук</a>
 </div>
 </div>
 </section>
@@ -2557,8 +2622,8 @@ body::before, body::after { pointer-events:none !important; }
 <p class="legal-boundary-note" data-i18n="result.legalBoundary">inFACTa пояснює документ і можливі ризики, але не є юридичним висновком і не замінює консультацію юриста.</p>
 </div>
 <div class="trial-main-action">
-<a class="btn primary" data-i18n="result.cta.clarify" href="/ask-more/index.html?v=infacta-live-polish-v1-2-7">Уточнити результат</a>
-<a class="trial-secondary-link" data-i18n="result.cta.feedback" href="/feedback/index.html?v=infacta-live-polish-v1-2-7">Залишити відгук</a>
+<a class="btn primary" data-i18n="result.cta.clarify" href="/ask-more/index.html?v=infacta-live-polish-v1-2-8">Уточнити результат</a>
+<a class="trial-secondary-link" data-i18n="result.cta.feedback" href="/feedback/index.html?v=infacta-live-polish-v1-2-8">Залишити відгук</a>
 </div>
 </div>
 <div class="trial-cards">
@@ -2585,22 +2650,22 @@ body::before, body::after { pointer-events:none !important; }
 </div>
 <div class="trial-next">
 <p class="trial-nav-note" data-i18n="result.trialNote">Дизайн-проба: головна дія перенесена в контекст результату, службова навігація знизу послаблена.</p>
-<a class="btn" data-i18n="result.cta.reviewAgain" href="/preview/index.html?v=infacta-live-polish-v1-2-7">Переглянути ще раз</a>
+<a class="btn" data-i18n="result.cta.reviewAgain" href="/preview/index.html?v=infacta-live-polish-v1-2-8">Переглянути ще раз</a>
 </div>
 </section>
 </main>
 <footer class="footer">
 <div></div>
 <div class="footer-actions">
-<a class="fbtn" data-fallback="/preview/index.html?v=infacta-live-polish-v1-2-7" data-i18n="nav.back" data-infacta-action="back" href="/preview/index.html?v=infacta-live-polish-v1-2-7">← Назад</a>
-<a class="fbtn primary" data-i18n="nav.start" data-infacta-action="start" href="/index.html?v=infacta-live-polish-v1-2-7">На старт</a>
+<a class="fbtn" data-fallback="/preview/index.html?v=infacta-live-polish-v1-2-8" data-i18n="nav.back" data-infacta-action="back" href="/preview/index.html?v=infacta-live-polish-v1-2-8">← Назад</a>
+<a class="fbtn primary" data-i18n="nav.start" data-infacta-action="start" href="/index.html?v=infacta-live-polish-v1-2-8">На старт</a>
 </div>
 <div class="footer-status" data-i18n="result.meta">STATIC v2.7 · Honest action boundary · no runtime / no upload</div>
 </footer>
 <script data-infacta-navigation-visibility-repair="v2.5.1" data-infacta-result-scroll-safe="v2.5.2">
 (function(){
-  const START='/index.html?v=infacta-live-polish-v1-2-7';
-  const FALLBACK='/preview/index.html?v=infacta-live-polish-v1-2-7';
+  const START='/index.html?v=infacta-live-polish-v1-2-8';
+  const FALLBACK='/preview/index.html?v=infacta-live-polish-v1-2-8';
   function removeOldHiddenOrConflictingNav(){
     document.querySelectorAll('nav.float-nav.infacta-bottom-nav, nav.float-nav, .footer .footer-actions').forEach(function(node){
       node.setAttribute('aria-hidden','true');
@@ -2639,5 +2704,5 @@ body::before, body::after { pointer-events:none !important; }
   }
 })();
 </script>
-<script data-infacta-i18n-loader="gate3m-result" src="../assets/infacta-i18n-static.js?v=infacta-live-polish-v1-2-7"></script></body>
+<script data-infacta-i18n-loader="gate3m-result" src="../assets/infacta-i18n-static.js?v=infacta-live-polish-v1-2-8"></script></body>
 </html>
