@@ -1,6 +1,6 @@
 (function(){
   'use strict';
-  var VERSION_TOKEN='infacta-live-polish-v1-2-4';
+  var VERSION_TOKEN='infacta-live-polish-v1-2-5';
   var DEFAULT_LANG='uk';
   var REAL_LANGS=['uk','en','ru'];
   var PLANNED_INTERFACE_LANGS=['uk','en','de','pl','es','it','ru','fr','cs'];
@@ -973,7 +973,7 @@
   }
 
 
-  function showFutureLevelNotice(lang, attemptedLevel){
+  function showFutureLevelNotice(lang, attemptedLevel, anchor){
     var resolved=resolveLang(lang || currentLang());
     var label=(LEVEL_OPTION_LABELS[resolved] && LEVEL_OPTION_LABELS[resolved][String(attemptedLevel)]) || ('Level '+attemptedLevel);
     var text=(t('level.futureNotice', resolved) || '').replace('{level}', label);
@@ -989,6 +989,17 @@
       document.body.appendChild(el);
     }
     el.textContent=text;
+    var anchorEl=anchor && (anchor.closest('.level-selector') || anchor.closest('.level-switch') || anchor.closest('.level-selector-shell') || anchor);
+    if(anchorEl && anchorEl.getBoundingClientRect){
+      var rect=anchorEl.getBoundingClientRect();
+      var desiredWidth=Math.min(380, Math.max(260, Math.round(rect.width * 2.8)));
+      var maxLeft=Math.max(12, window.innerWidth - desiredWidth - 12);
+      var left=Math.max(12, Math.min(Math.round(rect.left), maxLeft));
+      var top=Math.round(rect.bottom + 8);
+      el.style.setProperty('--infacta-toast-left', left + 'px');
+      el.style.setProperty('--infacta-toast-top', top + 'px');
+      el.style.setProperty('--infacta-toast-width', desiredWidth + 'px');
+    }
     el.hidden=false;
     window.clearTimeout(showFutureLevelNotice._timer);
     showFutureLevelNotice._timer=window.setTimeout(function(){ if(el) el.hidden=true; }, 4200);
@@ -1010,7 +1021,7 @@
       select.addEventListener('change', function(){
         var selected=String(select.value || '0');
         if(select.id==='levelSelect' && selected !== '0'){
-          showFutureLevelNotice(currentLang(), selected);
+          showFutureLevelNotice(currentLang(), selected, select);
           select.value='0';
           window.setTimeout(function(){ applyLevel(currentLang()); }, 0);
           return;
