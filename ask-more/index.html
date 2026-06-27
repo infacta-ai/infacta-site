@@ -860,7 +860,7 @@ body[class*="preview"] .screen-main {
 </style>
 <script data-infacta-nav-lock="v2.0">
 (function(){
-  const INF_VERSION='infacta-live-polish-v1-2-5';
+  const INF_VERSION='infacta-live-polish-v1-2-6';
   const BASE='/';
   function withVersion(path){ return path + (path.includes('?')?'&':'?') + 'v=' + INF_VERSION; }
   const params=new URLSearchParams(window.location.search);
@@ -1200,7 +1200,7 @@ p,
 }
 
 </style>
-<style data-infacta-clean-consolidation-v1-2-5="">
+<style data-infacta-clean-consolidation-v1-2-6="">
 /* v1.2.5 targeted visual regression repair.
    Base: v1.2.4 clean consolidation, preserving the v1.2.2 visual background contract.
    Rule: fix the actual visual regressions without another blind override layer.
@@ -1599,13 +1599,281 @@ body::before, body::after { pointer-events:none !important; }
   .language-current-flag { margin: 0 auto !important; }
 }
 
+
+
+/* v1.2.6 topbar + hero action focus repair.
+   Targeted visual repair over v1.2.5: no Gate5, no runtime upload/OCR/auth/payment/database/API.
+   Fixes: symmetric toolbar controls, flag-only language UI, Level 0 control parity,
+   toned-down level explanation hierarchy, stronger document-focus upload field. */
+:root {
+  --infacta-toolbar-inset: max(18px, env(safe-area-inset-left));
+  --infacta-toolbar-right-inset: max(18px, env(safe-area-inset-right));
+  --infacta-focus-green: rgba(91,139,108,.58);
+  --infacta-focus-green-soft: rgba(159,203,171,.26);
+  --infacta-focus-green-shadow: rgba(62,105,78,.12);
+}
+.topbar {
+  box-sizing: border-box !important;
+  display: grid !important;
+  grid-template-columns: minmax(116px, 1fr) auto minmax(116px, 1fr) !important;
+  grid-template-areas: "level brand lang" !important;
+  align-items: center !important;
+  column-gap: 12px !important;
+  padding-left: var(--infacta-toolbar-inset) !important;
+  padding-right: var(--infacta-toolbar-right-inset) !important;
+  background: rgba(251,248,242,.98) !important;
+  border-bottom: 1px solid rgba(222,210,194,.96) !important;
+  box-shadow: 0 10px 26px rgba(30,36,48,.10) !important;
+}
+.topbar .level-selector,
+.topbar .level-switch,
+.level-switch.level-selector,
+.pill.level-selector {
+  grid-area: level !important;
+  justify-self: start !important;
+  margin-left: 0 !important;
+  height: 36px !important;
+  min-width: 116px !important;
+  max-width: 176px !important;
+  padding: 0 12px !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(222,210,194,.98) !important;
+  background: #fffaf2 !important;
+  box-shadow: 0 5px 14px rgba(30,36,48,.055) !important;
+  color: #39414d !important;
+  overflow: hidden !important;
+}
+.topbar .level-selector::after,
+.topbar .level-switch::after,
+.level-card-switch::after {
+  content: "⌄" !important;
+  display: inline-block !important;
+  margin-left: 6px !important;
+  font-size: 12px !important;
+  color: rgba(75,64,40,.78) !important;
+  pointer-events: none !important;
+}
+.topbar #levelSelect,
+#levelSelect,
+#cardLevelSelect,
+.level-card-switch select {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  border: 0 !important;
+  background: transparent !important;
+  color: #39414d !important;
+  font-family: inherit !important;
+  font-size: 13px !important;
+  font-weight: 760 !important;
+  line-height: 1 !important;
+  outline: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+.topbar .language-selector,
+.topbar .language-dropdown,
+.pill.right.language-selector {
+  grid-area: lang !important;
+  justify-self: end !important;
+  margin-right: 0 !important;
+  position: relative !important;
+  display: inline-grid !important;
+  place-items: center !important;
+  width: 46px !important;
+  min-width: 46px !important;
+  max-width: 46px !important;
+  height: 36px !important;
+  padding: 0 !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(222,210,194,.98) !important;
+  background: #fffaf2 !important;
+  box-shadow: 0 5px 14px rgba(30,36,48,.055) !important;
+  overflow: hidden !important;
+}
+.topbar .language-selector::before,
+.topbar .language-dropdown::before,
+.pill.right.language-selector::before {
+  content: attr(data-current-flag) !important;
+  display: grid !important;
+  place-items: center !important;
+  width: 100% !important;
+  height: 100% !important;
+  font-size: 19px !important;
+  line-height: 1 !important;
+  z-index: 2 !important;
+  pointer-events: none !important;
+}
+.language-current-flag {
+  display: none !important;
+  visibility: hidden !important;
+}
+.language-select,
+.topbar .language-select {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  opacity: 0 !important;
+  color: transparent !important;
+  background: transparent !important;
+  border: 0 !important;
+  cursor: pointer !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  z-index: 4 !important;
+}
+.language-select option { color: #1e2430 !important; background: #fffaf2 !important; }
+.upload-hero-field,
+.upload-hero-field:hover,
+.upload-hero-field:focus-within {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  background-image: none !important;
+  border: 1px solid var(--infacta-focus-green) !important;
+  box-shadow:
+    inset 0 0 0 2px var(--infacta-focus-green-soft),
+    0 14px 34px rgba(30,36,48,.09),
+    0 0 0 1px rgba(255,255,255,.78) !important;
+}
+.upload-hero-field:hover,
+.upload-hero-field:focus-visible,
+.upload-hero-field:focus-within {
+  border-color: rgba(77,126,92,.72) !important;
+  box-shadow:
+    inset 0 0 0 2px rgba(159,203,171,.34),
+    0 18px 42px rgba(30,36,48,.12),
+    0 0 0 3px rgba(159,203,171,.18) !important;
+}
+.upload-title {
+  color: #1e2430 !important;
+}
+.upload-hero-field .lead,
+.lead {
+  color: #38404b !important;
+}
+.level-card .level-head h2,
+#levelTitle {
+  font-size: clamp(17px, 1.45vw, 20px) !important;
+  line-height: 1.22 !important;
+  font-weight: 680 !important;
+  letter-spacing: -.01em !important;
+}
+.level-note,
+#levelNote {
+  font-size: 12.8px !important;
+  line-height: 1.38 !important;
+  font-weight: 500 !important;
+  color: #4f5965 !important;
+}
+.level-list .level-item strong { font-size: 14px !important; }
+.level-list .level-item p { font-size: 12.8px !important; }
+.level-card-switch,
+.level-card-switch select,
+.level-status-badge {
+  border-radius: 999px !important;
+}
+.level-card-switch {
+  display: inline-flex !important;
+  align-items: center !important;
+  height: 34px !important;
+  min-width: 112px !important;
+  padding: 0 11px !important;
+  border: 1px solid rgba(222,210,194,.98) !important;
+  background: #fffaf2 !important;
+  box-shadow: 0 5px 14px rgba(30,36,48,.055) !important;
+  color: #39414d !important;
+}
+.level-status-badge {
+  min-height: 30px !important;
+  padding: 0 11px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: 1px solid rgba(222,210,194,.98) !important;
+  background: #fffaf2 !important;
+  color: #4d4332 !important;
+  font-size: 12px !important;
+  font-weight: 720 !important;
+  box-shadow: 0 5px 14px rgba(30,36,48,.045) !important;
+}
+.infacta-toast,
+.level-future-notice {
+  top: var(--infacta-toast-top, calc(var(--topbar-height) + 8px)) !important;
+  left: var(--infacta-toast-left, var(--infacta-toolbar-inset)) !important;
+  border-radius: 16px !important;
+  background: #fffaf2 !important;
+  border-color: rgba(193,154,79,.48) !important;
+  box-shadow: 0 18px 42px rgba(30,36,48,.18) !important;
+}
+@media (max-width: 520px) {
+  :root {
+    --infacta-toolbar-inset: max(16px, env(safe-area-inset-left));
+    --infacta-toolbar-right-inset: max(16px, env(safe-area-inset-right));
+    --topbar-height: 76px;
+  }
+  .topbar {
+    grid-template-columns: minmax(118px, 1fr) 46px !important;
+    grid-template-areas:
+      "brand brand"
+      "level lang" !important;
+    padding-left: var(--infacta-toolbar-inset) !important;
+    padding-right: var(--infacta-toolbar-right-inset) !important;
+    row-gap: 7px !important;
+  }
+  .topbar .language-selector,
+  .topbar .language-dropdown,
+  .pill.right.language-selector {
+    width: 42px !important;
+    min-width: 42px !important;
+    max-width: 42px !important;
+    height: 30px !important;
+  }
+  .topbar .language-selector::before,
+  .topbar .language-dropdown::before,
+  .pill.right.language-selector::before {
+    font-size: 18px !important;
+  }
+  .topbar .level-selector,
+  .topbar .level-switch,
+  .level-switch.level-selector,
+  .pill.level-selector {
+    height: 30px !important;
+    min-width: 118px !important;
+    max-width: calc(100vw - 128px) !important;
+    padding: 0 10px !important;
+  }
+  .topbar #levelSelect,
+  #levelSelect,
+  #cardLevelSelect,
+  .level-card-switch select {
+    font-size: 12px !important;
+  }
+  .upload-hero-field,
+  .upload-hero-field:hover,
+  .upload-hero-field:focus-within {
+    background: #ffffff !important;
+    border-color: rgba(77,126,92,.68) !important;
+    box-shadow:
+      inset 0 0 0 2px rgba(159,203,171,.32),
+      0 16px 36px rgba(30,36,48,.13) !important;
+  }
+  .level-card .level-head h2,
+  #levelTitle {
+    font-size: 17px !important;
+  }
+  .level-note,
+  #levelNote {
+    font-size: 12.2px !important;
+  }
+}
+
 </style>
 </head>
 <body class="screen ask-more-i18n-gate3o notranslate" data-i18n-title-key="askMore.metaTitle" translate="no">
 <header class="topbar">
 <label aria-label="Вибір рівня аналізу" class="level-switch level-selector" data-i18n-attr-aria-label="header.levelSelectorAria"><select aria-label="Виберіть рівень аналізу" data-i18n-attr-aria-label="header.levelSelectAria" id="levelSelect"><option value="0">Level 0</option><option value="1">Level 1</option><option value="2">Level 2</option><option value="3">Level 3</option><option value="4">Level 4 Premium</option><option value="5">Level 5 Premium</option></select></label>
-<a class="brand notranslate" href="/index.html?v=infacta-live-polish-v1-2-5" translate="no"><span translate="no">inFACTa</span></a>
-<label aria-label="Мова інтерфейсу" class="pill right language-selector language-dropdown notranslate" data-i18n-attr-aria-label="header.languageSelectorAria" data-infacta-language-switcher="" translate="no"><span aria-hidden="true" class="language-current-flag notranslate" data-language-current-flag="" translate="no">🇺🇦</span><select aria-label="Мова інтерфейсу" class="language-select notranslate" data-infacta-language-select="" id="languageSelect" translate="no"><option value="uk">UA</option><option value="en">EN</option><option value="ru">RU</option></select></label>
+<a class="brand notranslate" href="/index.html?v=infacta-live-polish-v1-2-6" translate="no"><span translate="no">inFACTa</span></a>
+<label aria-label="Мова інтерфейсу" class="pill right language-selector language-dropdown notranslate" data-i18n-attr-aria-label="header.languageSelectorAria" data-infacta-language-switcher="" translate="no" data-current-flag="🇺🇦"><span aria-hidden="true" class="language-current-flag notranslate" data-language-current-flag="" translate="no">🇺🇦</span><select aria-label="Мова інтерфейсу" class="language-select notranslate" data-infacta-language-select="" id="languageSelect" translate="no"><option value="uk">UA</option><option value="en">EN</option><option value="ru">RU</option></select></label>
 </header>
 <main class="screen-main">
 <section class="ask">
@@ -1613,9 +1881,9 @@ body::before, body::after { pointer-events:none !important; }
 <h1 data-i18n="askMore.title">Уточнення</h1>
 <p data-i18n="askMore.intro">Оберіть питання до результату. У цьому прототипі відповіді не генеруються.</p>
 <div class="questions">
-<a class="question" data-i18n="askMore.question.risk" href="/feedback/index.html?v=infacta-live-polish-v1-2-5">Що найризикованіше?</a>
-<a class="question" data-i18n="askMore.question.signing" href="/feedback/index.html?v=infacta-live-polish-v1-2-5">Що спитати перед підписанням?</a>
-<a class="question" data-i18n="askMore.question.termination" href="/feedback/index.html?v=infacta-live-polish-v1-2-5">Що буде при розірванні?</a>
+<a class="question" data-i18n="askMore.question.risk" href="/feedback/index.html?v=infacta-live-polish-v1-2-6">Що найризикованіше?</a>
+<a class="question" data-i18n="askMore.question.signing" href="/feedback/index.html?v=infacta-live-polish-v1-2-6">Що спитати перед підписанням?</a>
+<a class="question" data-i18n="askMore.question.termination" href="/feedback/index.html?v=infacta-live-polish-v1-2-6">Що буде при розірванні?</a>
 </div>
 </div>
 <div class="ask-card card">
@@ -1628,15 +1896,15 @@ body::before, body::after { pointer-events:none !important; }
 <footer class="footer">
 <div></div>
 <div class="footer-actions">
-<a class="fbtn" data-fallback="/result/index.html?v=infacta-live-polish-v1-2-5" data-i18n="nav.back" data-infacta-action="back" href="/result/index.html?v=infacta-live-polish-v1-2-5">← Назад</a>
-<a class="fbtn primary" data-i18n="nav.start" data-infacta-action="start" href="/index.html?v=infacta-live-polish-v1-2-5">На старт</a>
+<a class="fbtn" data-fallback="/result/index.html?v=infacta-live-polish-v1-2-6" data-i18n="nav.back" data-infacta-action="back" href="/result/index.html?v=infacta-live-polish-v1-2-6">← Назад</a>
+<a class="fbtn primary" data-i18n="nav.start" data-infacta-action="start" href="/index.html?v=infacta-live-polish-v1-2-6">На старт</a>
 </div>
 <div class="footer-status" data-i18n="askMore.meta">STATIC v2.7 · Honest action boundary · no runtime / no upload</div>
 </footer>
 <script data-infacta-navigation-visibility-repair="v2.5.1">
 (function(){
-  const START='/index.html?v=infacta-live-polish-v1-2-5';
-  const FALLBACK='/result/index.html?v=infacta-live-polish-v1-2-5';
+  const START='/index.html?v=infacta-live-polish-v1-2-6';
+  const FALLBACK='/result/index.html?v=infacta-live-polish-v1-2-6';
   function removeOldHiddenOrConflictingNav(){
     document.querySelectorAll('nav.float-nav.infacta-bottom-nav, nav.float-nav, .footer .footer-actions').forEach(function(node){
       node.setAttribute('aria-hidden','true');
@@ -1675,5 +1943,5 @@ body::before, body::after { pointer-events:none !important; }
   }
 })();
 </script>
-<script data-infacta-i18n-loader="gate3o-ask-more" src="../assets/infacta-i18n-static.js?v=infacta-live-polish-v1-2-5"></script></body>
+<script data-infacta-i18n-loader="gate3o-ask-more" src="../assets/infacta-i18n-static.js?v=infacta-live-polish-v1-2-6"></script></body>
 </html>

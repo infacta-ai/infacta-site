@@ -353,7 +353,7 @@ body[class*="preview"] .screen-main {
 </style>
 <script data-infacta-nav-lock="v2.0">
 (function(){
-  const INF_VERSION='infacta-live-polish-v1-2-5';
+  const INF_VERSION='infacta-live-polish-v1-2-6';
   const BASE='/';
   function withVersion(path){ return path + (path.includes('?')?'&':'?') + 'v=' + INF_VERSION; }
   const params=new URLSearchParams(window.location.search);
@@ -706,7 +706,7 @@ p,
 }
 
 </style>
-<style data-infacta-clean-consolidation-v1-2-5="">
+<style data-infacta-clean-consolidation-v1-2-6="">
 /* v1.2.5 targeted visual regression repair.
    Base: v1.2.4 clean consolidation, preserving the v1.2.2 visual background contract.
    Rule: fix the actual visual regressions without another blind override layer.
@@ -1105,18 +1105,286 @@ body::before, body::after { pointer-events:none !important; }
   .language-current-flag { margin: 0 auto !important; }
 }
 
+
+
+/* v1.2.6 topbar + hero action focus repair.
+   Targeted visual repair over v1.2.5: no Gate5, no runtime upload/OCR/auth/payment/database/API.
+   Fixes: symmetric toolbar controls, flag-only language UI, Level 0 control parity,
+   toned-down level explanation hierarchy, stronger document-focus upload field. */
+:root {
+  --infacta-toolbar-inset: max(18px, env(safe-area-inset-left));
+  --infacta-toolbar-right-inset: max(18px, env(safe-area-inset-right));
+  --infacta-focus-green: rgba(91,139,108,.58);
+  --infacta-focus-green-soft: rgba(159,203,171,.26);
+  --infacta-focus-green-shadow: rgba(62,105,78,.12);
+}
+.topbar {
+  box-sizing: border-box !important;
+  display: grid !important;
+  grid-template-columns: minmax(116px, 1fr) auto minmax(116px, 1fr) !important;
+  grid-template-areas: "level brand lang" !important;
+  align-items: center !important;
+  column-gap: 12px !important;
+  padding-left: var(--infacta-toolbar-inset) !important;
+  padding-right: var(--infacta-toolbar-right-inset) !important;
+  background: rgba(251,248,242,.98) !important;
+  border-bottom: 1px solid rgba(222,210,194,.96) !important;
+  box-shadow: 0 10px 26px rgba(30,36,48,.10) !important;
+}
+.topbar .level-selector,
+.topbar .level-switch,
+.level-switch.level-selector,
+.pill.level-selector {
+  grid-area: level !important;
+  justify-self: start !important;
+  margin-left: 0 !important;
+  height: 36px !important;
+  min-width: 116px !important;
+  max-width: 176px !important;
+  padding: 0 12px !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(222,210,194,.98) !important;
+  background: #fffaf2 !important;
+  box-shadow: 0 5px 14px rgba(30,36,48,.055) !important;
+  color: #39414d !important;
+  overflow: hidden !important;
+}
+.topbar .level-selector::after,
+.topbar .level-switch::after,
+.level-card-switch::after {
+  content: "⌄" !important;
+  display: inline-block !important;
+  margin-left: 6px !important;
+  font-size: 12px !important;
+  color: rgba(75,64,40,.78) !important;
+  pointer-events: none !important;
+}
+.topbar #levelSelect,
+#levelSelect,
+#cardLevelSelect,
+.level-card-switch select {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  border: 0 !important;
+  background: transparent !important;
+  color: #39414d !important;
+  font-family: inherit !important;
+  font-size: 13px !important;
+  font-weight: 760 !important;
+  line-height: 1 !important;
+  outline: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+.topbar .language-selector,
+.topbar .language-dropdown,
+.pill.right.language-selector {
+  grid-area: lang !important;
+  justify-self: end !important;
+  margin-right: 0 !important;
+  position: relative !important;
+  display: inline-grid !important;
+  place-items: center !important;
+  width: 46px !important;
+  min-width: 46px !important;
+  max-width: 46px !important;
+  height: 36px !important;
+  padding: 0 !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(222,210,194,.98) !important;
+  background: #fffaf2 !important;
+  box-shadow: 0 5px 14px rgba(30,36,48,.055) !important;
+  overflow: hidden !important;
+}
+.topbar .language-selector::before,
+.topbar .language-dropdown::before,
+.pill.right.language-selector::before {
+  content: attr(data-current-flag) !important;
+  display: grid !important;
+  place-items: center !important;
+  width: 100% !important;
+  height: 100% !important;
+  font-size: 19px !important;
+  line-height: 1 !important;
+  z-index: 2 !important;
+  pointer-events: none !important;
+}
+.language-current-flag {
+  display: none !important;
+  visibility: hidden !important;
+}
+.language-select,
+.topbar .language-select {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  opacity: 0 !important;
+  color: transparent !important;
+  background: transparent !important;
+  border: 0 !important;
+  cursor: pointer !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  z-index: 4 !important;
+}
+.language-select option { color: #1e2430 !important; background: #fffaf2 !important; }
+.upload-hero-field,
+.upload-hero-field:hover,
+.upload-hero-field:focus-within {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  background-image: none !important;
+  border: 1px solid var(--infacta-focus-green) !important;
+  box-shadow:
+    inset 0 0 0 2px var(--infacta-focus-green-soft),
+    0 14px 34px rgba(30,36,48,.09),
+    0 0 0 1px rgba(255,255,255,.78) !important;
+}
+.upload-hero-field:hover,
+.upload-hero-field:focus-visible,
+.upload-hero-field:focus-within {
+  border-color: rgba(77,126,92,.72) !important;
+  box-shadow:
+    inset 0 0 0 2px rgba(159,203,171,.34),
+    0 18px 42px rgba(30,36,48,.12),
+    0 0 0 3px rgba(159,203,171,.18) !important;
+}
+.upload-title {
+  color: #1e2430 !important;
+}
+.upload-hero-field .lead,
+.lead {
+  color: #38404b !important;
+}
+.level-card .level-head h2,
+#levelTitle {
+  font-size: clamp(17px, 1.45vw, 20px) !important;
+  line-height: 1.22 !important;
+  font-weight: 680 !important;
+  letter-spacing: -.01em !important;
+}
+.level-note,
+#levelNote {
+  font-size: 12.8px !important;
+  line-height: 1.38 !important;
+  font-weight: 500 !important;
+  color: #4f5965 !important;
+}
+.level-list .level-item strong { font-size: 14px !important; }
+.level-list .level-item p { font-size: 12.8px !important; }
+.level-card-switch,
+.level-card-switch select,
+.level-status-badge {
+  border-radius: 999px !important;
+}
+.level-card-switch {
+  display: inline-flex !important;
+  align-items: center !important;
+  height: 34px !important;
+  min-width: 112px !important;
+  padding: 0 11px !important;
+  border: 1px solid rgba(222,210,194,.98) !important;
+  background: #fffaf2 !important;
+  box-shadow: 0 5px 14px rgba(30,36,48,.055) !important;
+  color: #39414d !important;
+}
+.level-status-badge {
+  min-height: 30px !important;
+  padding: 0 11px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: 1px solid rgba(222,210,194,.98) !important;
+  background: #fffaf2 !important;
+  color: #4d4332 !important;
+  font-size: 12px !important;
+  font-weight: 720 !important;
+  box-shadow: 0 5px 14px rgba(30,36,48,.045) !important;
+}
+.infacta-toast,
+.level-future-notice {
+  top: var(--infacta-toast-top, calc(var(--topbar-height) + 8px)) !important;
+  left: var(--infacta-toast-left, var(--infacta-toolbar-inset)) !important;
+  border-radius: 16px !important;
+  background: #fffaf2 !important;
+  border-color: rgba(193,154,79,.48) !important;
+  box-shadow: 0 18px 42px rgba(30,36,48,.18) !important;
+}
+@media (max-width: 520px) {
+  :root {
+    --infacta-toolbar-inset: max(16px, env(safe-area-inset-left));
+    --infacta-toolbar-right-inset: max(16px, env(safe-area-inset-right));
+    --topbar-height: 76px;
+  }
+  .topbar {
+    grid-template-columns: minmax(118px, 1fr) 46px !important;
+    grid-template-areas:
+      "brand brand"
+      "level lang" !important;
+    padding-left: var(--infacta-toolbar-inset) !important;
+    padding-right: var(--infacta-toolbar-right-inset) !important;
+    row-gap: 7px !important;
+  }
+  .topbar .language-selector,
+  .topbar .language-dropdown,
+  .pill.right.language-selector {
+    width: 42px !important;
+    min-width: 42px !important;
+    max-width: 42px !important;
+    height: 30px !important;
+  }
+  .topbar .language-selector::before,
+  .topbar .language-dropdown::before,
+  .pill.right.language-selector::before {
+    font-size: 18px !important;
+  }
+  .topbar .level-selector,
+  .topbar .level-switch,
+  .level-switch.level-selector,
+  .pill.level-selector {
+    height: 30px !important;
+    min-width: 118px !important;
+    max-width: calc(100vw - 128px) !important;
+    padding: 0 10px !important;
+  }
+  .topbar #levelSelect,
+  #levelSelect,
+  #cardLevelSelect,
+  .level-card-switch select {
+    font-size: 12px !important;
+  }
+  .upload-hero-field,
+  .upload-hero-field:hover,
+  .upload-hero-field:focus-within {
+    background: #ffffff !important;
+    border-color: rgba(77,126,92,.68) !important;
+    box-shadow:
+      inset 0 0 0 2px rgba(159,203,171,.32),
+      0 16px 36px rgba(30,36,48,.13) !important;
+  }
+  .level-card .level-head h2,
+  #levelTitle {
+    font-size: 17px !important;
+  }
+  .level-note,
+  #levelNote {
+    font-size: 12.2px !important;
+  }
+}
+
 </style>
 </head>
 <body class="screen notranslate" translate="no">
 <header class="topbar">
 <label aria-label="Вибір рівня аналізу" class="level-switch level-selector" data-i18n-attr-aria-label="header.levelSelectorAria"><select aria-label="Виберіть рівень аналізу" data-i18n-attr-aria-label="header.levelSelectAria" id="levelSelect"><option value="0">Level 0</option><option value="1">Level 1</option><option value="2">Level 2</option><option value="3">Level 3</option><option value="4">Level 4 Premium</option><option value="5">Level 5 Premium</option></select></label>
-<a class="brand notranslate" href="/index.html?v=infacta-live-polish-v1-2-5" translate="no"><span translate="no">inFACTa</span></a>
-<label aria-label="Мова інтерфейсу" class="pill right language-selector language-dropdown notranslate" data-i18n-attr-aria-label="header.languageSelectorAria" data-infacta-language-switcher="" translate="no"><span aria-hidden="true" class="language-current-flag notranslate" data-language-current-flag="" translate="no">🇺🇦</span><select aria-label="Мова інтерфейсу" class="language-select notranslate" data-infacta-language-select="" id="languageSelect" translate="no"><option value="uk">UA</option><option value="en">EN</option><option value="ru">RU</option></select></label>
+<a class="brand notranslate" href="/index.html?v=infacta-live-polish-v1-2-6" translate="no"><span translate="no">inFACTa</span></a>
+<label aria-label="Мова інтерфейсу" class="pill right language-selector language-dropdown notranslate" data-i18n-attr-aria-label="header.languageSelectorAria" data-infacta-language-switcher="" translate="no" data-current-flag="🇺🇦"><span aria-hidden="true" class="language-current-flag notranslate" data-language-current-flag="" translate="no">🇺🇦</span><select aria-label="Мова інтерфейсу" class="language-select notranslate" data-infacta-language-select="" id="languageSelect" translate="no"><option value="uk">UA</option><option value="en">EN</option><option value="ru">RU</option></select></label>
 </header>
 <main class="screen-main">
 <section class="ref-hero">
 <div class="hero-copy">
-<a aria-label="Подати документ: у цій демо-версії поле не надсилає документ на сервер" class="upload-hero-field" data-i18n-attr-aria-label="index.uploadAria" href="/not-available/index.html?v=infacta-live-polish-v1-2-5&amp;kind=upload&amp;source=main">
+<a aria-label="Подати документ: у цій демо-версії поле не надсилає документ на сервер" class="upload-hero-field" data-i18n-attr-aria-label="index.uploadAria" href="/not-available/index.html?v=infacta-live-polish-v1-2-6&amp;kind=upload&amp;source=main">
 <span class="eyebrow" data-i18n="index.eyebrow">Розуміння замість здогадок</span>
 <span class="upload-title" data-i18n="index.heroTitle">Подайте документ</span>
 <span class="lead" data-i18n="index.heroLead">Ми допоможемо зрозуміти, що означає документ, які ризики він містить і на що варто звернути увагу. Просто, зрозуміло, без юридичного жаргону.</span>
@@ -1125,21 +1393,21 @@ body::before, body::after { pointer-events:none !important; }
 </a>
 <div class="add-label" data-i18n="index.addLabel">Інші способи подання</div>
 <div class="source-grid">
-<a aria-label="Файл" class="source-card" data-i18n-attr-aria-label="index.source.file" data-i18n-attr-title="index.source.file" data-source="file" href="/not-available/index.html?v=infacta-live-polish-v1-2-5&amp;kind=upload&amp;source=file" title="Файл"><span aria-hidden="true" class="source-picto"><svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M7 3.5h6.3L18 8.2V20.5H7z"></path><path d="M13.2 3.5v4.9H18"></path><path d="M9.6 13h4.8"></path><path d="M9.6 16h4.8"></path></svg></span><span class="visually-hidden" data-i18n="index.source.file">Файл</span></a>
-<a aria-label="Посилання" class="source-card" data-i18n-attr-aria-label="index.source.link" data-i18n-attr-title="index.source.link" data-source="link" href="/not-available/index.html?v=infacta-live-polish-v1-2-5&amp;kind=upload&amp;source=link" title="Посилання"><span aria-hidden="true" class="source-picto"><svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M10.5 13.5a3.2 3.2 0 0 1 0-4.5l2.1-2.1a3.2 3.2 0 0 1 4.5 4.5l-1.1 1.1"></path><path d="M13.5 10.5a3.2 3.2 0 0 1 0 4.5l-2.1 2.1a3.2 3.2 0 0 1-4.5-4.5l1.1-1.1"></path></svg></span><span class="visually-hidden" data-i18n="index.source.link">Посилання</span></a>
-<a aria-label="Фото" class="source-card" data-i18n-attr-aria-label="index.source.photo" data-i18n-attr-title="index.source.photo" data-source="photo" href="/not-available/index.html?v=infacta-live-polish-v1-2-5&amp;kind=upload&amp;source=photo" title="Фото"><span aria-hidden="true" class="source-picto"><svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><rect height="12" rx="2" width="15" x="4.5" y="6"></rect><circle cx="9" cy="10" r="1.4"></circle><path d="M6.8 16.2l3.5-3.4 2.5 2.4 2.1-2.1 2.3 3.1"></path></svg></span><span class="visually-hidden" data-i18n="index.source.photo">Фото</span></a>
-<a aria-label="Камера" class="source-card" data-i18n-attr-aria-label="index.source.camera" data-i18n-attr-title="index.source.camera" data-source="camera" href="/not-available/index.html?v=infacta-live-polish-v1-2-5&amp;kind=upload&amp;source=camera" title="Камера"><span aria-hidden="true" class="source-picto"><svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M7.2 7.5l1.2-2h7.2l1.2 2h2.1a2 2 0 0 1 2 2v7.6a2 2 0 0 1-2 2H5.1a2 2 0 0 1-2-2V9.5a2 2 0 0 1 2-2z"></path><circle cx="12" cy="13" r="3.1"></circle></svg></span><span class="visually-hidden" data-i18n="index.source.camera">Камера</span></a>
+<a aria-label="Файл" class="source-card" data-i18n-attr-aria-label="index.source.file" data-i18n-attr-title="index.source.file" data-source="file" href="/not-available/index.html?v=infacta-live-polish-v1-2-6&amp;kind=upload&amp;source=file" title="Файл"><span aria-hidden="true" class="source-picto"><svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M7 3.5h6.3L18 8.2V20.5H7z"></path><path d="M13.2 3.5v4.9H18"></path><path d="M9.6 13h4.8"></path><path d="M9.6 16h4.8"></path></svg></span><span class="visually-hidden" data-i18n="index.source.file">Файл</span></a>
+<a aria-label="Посилання" class="source-card" data-i18n-attr-aria-label="index.source.link" data-i18n-attr-title="index.source.link" data-source="link" href="/not-available/index.html?v=infacta-live-polish-v1-2-6&amp;kind=upload&amp;source=link" title="Посилання"><span aria-hidden="true" class="source-picto"><svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M10.5 13.5a3.2 3.2 0 0 1 0-4.5l2.1-2.1a3.2 3.2 0 0 1 4.5 4.5l-1.1 1.1"></path><path d="M13.5 10.5a3.2 3.2 0 0 1 0 4.5l-2.1 2.1a3.2 3.2 0 0 1-4.5-4.5l1.1-1.1"></path></svg></span><span class="visually-hidden" data-i18n="index.source.link">Посилання</span></a>
+<a aria-label="Фото" class="source-card" data-i18n-attr-aria-label="index.source.photo" data-i18n-attr-title="index.source.photo" data-source="photo" href="/not-available/index.html?v=infacta-live-polish-v1-2-6&amp;kind=upload&amp;source=photo" title="Фото"><span aria-hidden="true" class="source-picto"><svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><rect height="12" rx="2" width="15" x="4.5" y="6"></rect><circle cx="9" cy="10" r="1.4"></circle><path d="M6.8 16.2l3.5-3.4 2.5 2.4 2.1-2.1 2.3 3.1"></path></svg></span><span class="visually-hidden" data-i18n="index.source.photo">Фото</span></a>
+<a aria-label="Камера" class="source-card" data-i18n-attr-aria-label="index.source.camera" data-i18n-attr-title="index.source.camera" data-source="camera" href="/not-available/index.html?v=infacta-live-polish-v1-2-6&amp;kind=upload&amp;source=camera" title="Камера"><span aria-hidden="true" class="source-picto"><svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M7.2 7.5l1.2-2h7.2l1.2 2h2.1a2 2 0 0 1 2 2v7.6a2 2 0 0 1-2 2H5.1a2 2 0 0 1-2-2V9.5a2 2 0 0 1 2-2z"></path><circle cx="12" cy="13" r="3.1"></circle></svg></span><span class="visually-hidden" data-i18n="index.source.camera">Камера</span></a>
 </div>
 <p class="upload-honest-note" data-i18n="honest.staticDemoOnly">У цій демо-версії поле не надсилає документ на сервер і не запускає обробку. Для перевірки сценарію скористайтесь прикладами.</p>
 <section class="trust-ribbon mobile-trust">
 <div><strong data-i18n="legal.boundaryShort">inFACTa допомагає зрозуміти документ і наступні кроки.</strong><p data-i18n="legal.notLawyerReplacement">Це не юридичний висновок і не замінює консультацію юриста.</p></div>
-<a class="learn" data-i18n-html="index.learnMoreHtml" href="/examples/index.html?v=infacta-live-polish-v1-2-5">Дізнатися більше <span>→</span></a>
+<a class="learn" data-i18n-html="index.learnMoreHtml" href="/examples/index.html?v=infacta-live-polish-v1-2-6">Дізнатися більше <span>→</span></a>
 </section>
 </div>
 <div class="right-rail">
 <section class="trust-ribbon desktop-trust">
 <div><strong data-i18n="legal.boundaryShort">inFACTa допомагає зрозуміти документ і наступні кроки.</strong><p data-i18n="legal.notLawyerReplacement">Це не юридичний висновок і не замінює консультацію юриста.</p></div>
-<a class="learn" data-i18n-html="index.learnMoreHtml" href="/examples/index.html?v=infacta-live-polish-v1-2-5">Дізнатися більше <span>→</span></a>
+<a class="learn" data-i18n-html="index.learnMoreHtml" href="/examples/index.html?v=infacta-live-polish-v1-2-6">Дізнатися більше <span>→</span></a>
 </section>
 <aside class="level-card">
 <div class="level-head"><h2 data-i18n-level="level.title" id="levelTitle">Level 0 — Попереднє структурування документа</h2><span aria-label="Доступний у демо · Free" class="level-status-badge" data-level-status-badge="" data-state="active" id="levelStatusBadge">Доступний у демо · Free</span><label aria-label="Змінити рівень пояснення" class="level-card-switch" data-i18n-attr-aria-label="level.cardSwitchAria"><select aria-label="Виберіть рівень для пояснення" data-i18n-attr-aria-label="level.cardSelectAria" id="cardLevelSelect"><option value="0">Level 0</option><option value="1">Level 1</option><option value="2">Level 2</option><option value="3">Level 3</option><option value="4">Level 4 Premium</option><option value="5">Level 5 Premium</option></select></label></div>
@@ -1149,18 +1417,18 @@ body::before, body::after { pointer-events:none !important; }
 </div>
 </section>
 <section class="doc-section">
-<div class="doc-head"><h2 data-i18n="examples.title">Приклади документів</h2><a data-i18n="examples.showMore" href="/examples/index.html?v=infacta-live-polish-v1-2-5">Показати більше категорій ↓</a></div>
+<div class="doc-head"><h2 data-i18n="examples.title">Приклади документів</h2><a data-i18n="examples.showMore" href="/examples/index.html?v=infacta-live-polish-v1-2-6">Показати більше категорій ↓</a></div>
 <div class="category-grid">
-<a class="category-card" href="/examples/index.html?c=realty&amp;v=infacta-live-polish-v1-2-5"><strong data-i18n="examples.category.realty">Нерухомість</strong><p data-i18n="examples.category.realtyDesc">Договори, акти, витяги</p></a>
-<a class="category-card" href="/examples/index.html?c=work&amp;v=infacta-live-polish-v1-2-5"><strong data-i18n="examples.category.work">Робота</strong><p data-i18n="examples.category.workDesc">Трудові договори, контракти, накази</p></a>
-<a class="category-card" href="/examples/index.html?c=finance&amp;v=infacta-live-polish-v1-2-5"><strong data-i18n="examples.category.finance">Фінанси</strong><p data-i18n="examples.category.financeDesc">Кредити, договори, страхування</p></a>
-<a class="category-card" href="/examples/index.html?c=family&amp;v=infacta-live-polish-v1-2-5"><strong data-i18n="examples.category.family">Сімʼя</strong><p data-i18n="examples.category.familyDesc">Шлюбні договори, довіреності, аліменти</p></a>
-<a class="category-card" href="/examples/index.html?c=transport&amp;v=infacta-live-polish-v1-2-5"><strong data-i18n="examples.category.transport">Транспорт</strong><p data-i18n="examples.category.transportDesc">Купівля-продаж, страхування</p></a>
-<a class="category-card" href="/examples/index.html?c=other&amp;v=infacta-live-polish-v1-2-5"><strong data-i18n="examples.category.other">Інше</strong><p data-i18n="examples.category.otherDesc">Будь-які інші документи</p></a>
+<a class="category-card" href="/examples/index.html?c=realty&amp;v=infacta-live-polish-v1-2-6"><strong data-i18n="examples.category.realty">Нерухомість</strong><p data-i18n="examples.category.realtyDesc">Договори, акти, витяги</p></a>
+<a class="category-card" href="/examples/index.html?c=work&amp;v=infacta-live-polish-v1-2-6"><strong data-i18n="examples.category.work">Робота</strong><p data-i18n="examples.category.workDesc">Трудові договори, контракти, накази</p></a>
+<a class="category-card" href="/examples/index.html?c=finance&amp;v=infacta-live-polish-v1-2-6"><strong data-i18n="examples.category.finance">Фінанси</strong><p data-i18n="examples.category.financeDesc">Кредити, договори, страхування</p></a>
+<a class="category-card" href="/examples/index.html?c=family&amp;v=infacta-live-polish-v1-2-6"><strong data-i18n="examples.category.family">Сімʼя</strong><p data-i18n="examples.category.familyDesc">Шлюбні договори, довіреності, аліменти</p></a>
+<a class="category-card" href="/examples/index.html?c=transport&amp;v=infacta-live-polish-v1-2-6"><strong data-i18n="examples.category.transport">Транспорт</strong><p data-i18n="examples.category.transportDesc">Купівля-продаж, страхування</p></a>
+<a class="category-card" href="/examples/index.html?c=other&amp;v=infacta-live-polish-v1-2-6"><strong data-i18n="examples.category.other">Інше</strong><p data-i18n="examples.category.otherDesc">Будь-які інші документи</p></a>
 </div>
 </section>
 </main>
 
-<script data-infacta-i18n="gate3e-shared-helper-index-only" src="assets/infacta-i18n-static.js?v=infacta-live-polish-v1-2-5"></script>
+<script data-infacta-i18n="gate3e-shared-helper-index-only" src="assets/infacta-i18n-static.js?v=infacta-live-polish-v1-2-6"></script>
 </body>
 </html>

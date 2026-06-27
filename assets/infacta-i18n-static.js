@@ -1,6 +1,6 @@
 (function(){
   'use strict';
-  var VERSION_TOKEN='infacta-live-polish-v1-2-5';
+  var VERSION_TOKEN='infacta-live-polish-v1-2-6';
   var DEFAULT_LANG='uk';
   var REAL_LANGS=['uk','en','ru'];
   var PLANNED_INTERFACE_LANGS=['uk','en','de','pl','es','it','ru','fr','cs'];
@@ -950,9 +950,14 @@
       select.setAttribute('aria-label', t('header.languageSelectorAria', resolved));
       select.setAttribute('data-active-lang', resolved);
     });
+    var activeFlag=LANGUAGE_FLAGS[resolved] || LANGUAGE_FLAGS[DEFAULT_LANG] || '';
     scope.querySelectorAll('[data-language-current-flag]').forEach(function(flag){
-      flag.textContent=LANGUAGE_FLAGS[resolved] || LANGUAGE_FLAGS[DEFAULT_LANG] || '';
+      flag.textContent=activeFlag;
       flag.setAttribute('data-active-lang', resolved);
+    });
+    scope.querySelectorAll('[data-infacta-language-switcher]').forEach(function(shell){
+      shell.setAttribute('data-current-flag', activeFlag);
+      shell.setAttribute('data-active-lang', resolved);
     });
     return resolved;
   }
