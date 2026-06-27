@@ -905,7 +905,7 @@ body[class*="preview"] .screen-main {
 </style>
 <script data-infacta-nav-lock="v2.0">
 (function(){
-  const INF_VERSION='infacta-live-polish-v1-2-6';
+  const INF_VERSION='infacta-live-polish-v1-2-7';
   const BASE='/';
   function withVersion(path){ return path + (path.includes('?')?'&':'?') + 'v=' + INF_VERSION; }
   const params=new URLSearchParams(window.location.search);
@@ -1646,21 +1646,21 @@ body::before, body::after { pointer-events:none !important; }
 
 
 
-/* v1.2.6 topbar + hero action focus repair.
-   Targeted visual repair over v1.2.5: no Gate5, no runtime upload/OCR/auth/payment/database/API.
-   Fixes: symmetric toolbar controls, flag-only language UI, Level 0 control parity,
-   toned-down level explanation hierarchy, stronger document-focus upload field. */
+/* v1.2.7 header control alignment and upload-border repair.
+   Targeted repair over v1.2.6: center Level 0 label, Free badge only,
+   stronger document-focus border, hard visible desktop flag, scrollbar-safe right inset,
+   compact one-line mobile topbar. No Gate5/runtime/upload/OCR/auth/payment/database/API. */
 :root {
-  --infacta-toolbar-inset: max(18px, env(safe-area-inset-left));
-  --infacta-toolbar-right-inset: max(18px, env(safe-area-inset-right));
-  --infacta-focus-green: rgba(91,139,108,.58);
-  --infacta-focus-green-soft: rgba(159,203,171,.26);
-  --infacta-focus-green-shadow: rgba(62,105,78,.12);
+  --infacta-toolbar-inset: max(22px, env(safe-area-inset-left));
+  --infacta-toolbar-right-inset: max(36px, env(safe-area-inset-right));
+  --infacta-focus-green: rgba(77,126,92,.82);
+  --infacta-focus-green-soft: rgba(145,196,158,.46);
+  --infacta-focus-green-shadow: rgba(62,105,78,.18);
 }
 .topbar {
   box-sizing: border-box !important;
   display: grid !important;
-  grid-template-columns: minmax(116px, 1fr) auto minmax(116px, 1fr) !important;
+  grid-template-columns: minmax(104px, 1fr) auto minmax(104px, 1fr) !important;
   grid-template-areas: "level brand lang" !important;
   align-items: center !important;
   column-gap: 12px !important;
@@ -1670,6 +1670,11 @@ body::before, body::after { pointer-events:none !important; }
   border-bottom: 1px solid rgba(222,210,194,.96) !important;
   box-shadow: 0 10px 26px rgba(30,36,48,.10) !important;
 }
+.topbar .brand,
+.brand {
+  grid-area: brand !important;
+  justify-self: center !important;
+}
 .topbar .level-selector,
 .topbar .level-switch,
 .level-switch.level-selector,
@@ -1677,10 +1682,14 @@ body::before, body::after { pointer-events:none !important; }
   grid-area: level !important;
   justify-self: start !important;
   margin-left: 0 !important;
+  position: relative !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   height: 36px !important;
-  min-width: 116px !important;
-  max-width: 176px !important;
-  padding: 0 12px !important;
+  min-width: 104px !important;
+  max-width: 152px !important;
+  padding: 0 24px 0 14px !important;
   border-radius: 999px !important;
   border: 1px solid rgba(222,210,194,.98) !important;
   background: #fffaf2 !important;
@@ -1692,8 +1701,12 @@ body::before, body::after { pointer-events:none !important; }
 .topbar .level-switch::after,
 .level-card-switch::after {
   content: "⌄" !important;
-  display: inline-block !important;
-  margin-left: 6px !important;
+  position: absolute !important;
+  right: 10px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  display: block !important;
+  margin: 0 !important;
   font-size: 12px !important;
   color: rgba(75,64,40,.78) !important;
   pointer-events: none !important;
@@ -1714,6 +1727,9 @@ body::before, body::after { pointer-events:none !important; }
   outline: none !important;
   padding: 0 !important;
   margin: 0 !important;
+  width: 100% !important;
+  text-align: center !important;
+  text-align-last: center !important;
 }
 .topbar .language-selector,
 .topbar .language-dropdown,
@@ -1734,23 +1750,29 @@ body::before, body::after { pointer-events:none !important; }
   background: #fffaf2 !important;
   box-shadow: 0 5px 14px rgba(30,36,48,.055) !important;
   overflow: hidden !important;
+  color: #1e2430 !important;
 }
 .topbar .language-selector::before,
 .topbar .language-dropdown::before,
 .pill.right.language-selector::before {
-  content: attr(data-current-flag) !important;
+  content: none !important;
+  display: none !important;
+}
+.language-current-flag,
+.topbar .language-current-flag {
   display: grid !important;
+  visibility: visible !important;
+  position: absolute !important;
+  inset: 0 !important;
   place-items: center !important;
   width: 100% !important;
   height: 100% !important;
-  font-size: 19px !important;
+  font-size: 20px !important;
   line-height: 1 !important;
-  z-index: 2 !important;
+  color: #1e2430 !important;
+  opacity: 1 !important;
+  z-index: 3 !important;
   pointer-events: none !important;
-}
-.language-current-flag {
-  display: none !important;
-  visibility: hidden !important;
 }
 .language-select,
 .topbar .language-select {
@@ -1774,28 +1796,24 @@ body::before, body::after { pointer-events:none !important; }
   background: #ffffff !important;
   background-color: #ffffff !important;
   background-image: none !important;
-  border: 1px solid var(--infacta-focus-green) !important;
+  border: 3px solid var(--infacta-focus-green) !important;
   box-shadow:
-    inset 0 0 0 2px var(--infacta-focus-green-soft),
-    0 14px 34px rgba(30,36,48,.09),
-    0 0 0 1px rgba(255,255,255,.78) !important;
+    inset 0 0 0 4px var(--infacta-focus-green-soft),
+    0 16px 36px rgba(30,36,48,.10),
+    0 0 0 1px rgba(255,255,255,.86) !important;
 }
 .upload-hero-field:hover,
 .upload-hero-field:focus-visible,
 .upload-hero-field:focus-within {
-  border-color: rgba(77,126,92,.72) !important;
+  border-color: rgba(61,111,77,.94) !important;
   box-shadow:
-    inset 0 0 0 2px rgba(159,203,171,.34),
-    0 18px 42px rgba(30,36,48,.12),
-    0 0 0 3px rgba(159,203,171,.18) !important;
+    inset 0 0 0 4px rgba(145,196,158,.58),
+    0 20px 46px rgba(30,36,48,.13),
+    0 0 0 4px rgba(145,196,158,.22) !important;
 }
-.upload-title {
-  color: #1e2430 !important;
-}
+.upload-title { color: #1e2430 !important; }
 .upload-hero-field .lead,
-.lead {
-  color: #38404b !important;
-}
+.lead { color: #38404b !important; }
 .level-card .level-head h2,
 #levelTitle {
   font-size: clamp(17px, 1.45vw, 20px) !important;
@@ -1814,15 +1832,15 @@ body::before, body::after { pointer-events:none !important; }
 .level-list .level-item p { font-size: 12.8px !important; }
 .level-card-switch,
 .level-card-switch select,
-.level-status-badge {
-  border-radius: 999px !important;
-}
+.level-status-badge { border-radius: 999px !important; }
 .level-card-switch {
   display: inline-flex !important;
   align-items: center !important;
+  justify-content: center !important;
+  position: relative !important;
   height: 34px !important;
   min-width: 112px !important;
-  padding: 0 11px !important;
+  padding: 0 24px 0 12px !important;
   border: 1px solid rgba(222,210,194,.98) !important;
   background: #fffaf2 !important;
   box-shadow: 0 5px 14px rgba(30,36,48,.055) !important;
@@ -1830,7 +1848,7 @@ body::before, body::after { pointer-events:none !important; }
 }
 .level-status-badge {
   min-height: 30px !important;
-  padding: 0 11px !important;
+  padding: 0 12px !important;
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -1838,7 +1856,7 @@ body::before, body::after { pointer-events:none !important; }
   background: #fffaf2 !important;
   color: #4d4332 !important;
   font-size: 12px !important;
-  font-weight: 720 !important;
+  font-weight: 760 !important;
   box-shadow: 0 5px 14px rgba(30,36,48,.045) !important;
 }
 .infacta-toast,
@@ -1852,64 +1870,68 @@ body::before, body::after { pointer-events:none !important; }
 }
 @media (max-width: 520px) {
   :root {
-    --infacta-toolbar-inset: max(16px, env(safe-area-inset-left));
-    --infacta-toolbar-right-inset: max(16px, env(safe-area-inset-right));
-    --topbar-height: 76px;
+    --infacta-toolbar-inset: max(12px, env(safe-area-inset-left));
+    --infacta-toolbar-right-inset: max(12px, env(safe-area-inset-right));
+    --topbar-height: 48px;
   }
   .topbar {
-    grid-template-columns: minmax(118px, 1fr) 46px !important;
-    grid-template-areas:
-      "brand brand"
-      "level lang" !important;
+    height: var(--topbar-height) !important;
+    min-height: var(--topbar-height) !important;
+    grid-template-columns: 74px minmax(0,1fr) 38px !important;
+    grid-template-areas: "level brand lang" !important;
     padding-left: var(--infacta-toolbar-inset) !important;
     padding-right: var(--infacta-toolbar-right-inset) !important;
-    row-gap: 7px !important;
+    column-gap: 8px !important;
+    row-gap: 0 !important;
+  }
+  .topbar .brand,
+  .brand {
+    grid-area: brand !important;
+    justify-self: center !important;
+    font-size: 20px !important;
+    min-width: 0 !important;
   }
   .topbar .language-selector,
   .topbar .language-dropdown,
   .pill.right.language-selector {
-    width: 42px !important;
-    min-width: 42px !important;
-    max-width: 42px !important;
-    height: 30px !important;
+    width: 38px !important;
+    min-width: 38px !important;
+    max-width: 38px !important;
+    height: 28px !important;
   }
-  .topbar .language-selector::before,
-  .topbar .language-dropdown::before,
-  .pill.right.language-selector::before {
-    font-size: 18px !important;
-  }
+  .language-current-flag,
+  .topbar .language-current-flag { font-size: 18px !important; }
   .topbar .level-selector,
   .topbar .level-switch,
   .level-switch.level-selector,
   .pill.level-selector {
-    height: 30px !important;
-    min-width: 118px !important;
-    max-width: calc(100vw - 128px) !important;
-    padding: 0 10px !important;
+    height: 28px !important;
+    min-width: 70px !important;
+    max-width: 74px !important;
+    padding: 0 16px 0 8px !important;
   }
+  .topbar .level-selector::after,
+  .topbar .level-switch::after { right: 7px !important; font-size: 10px !important; }
   .topbar #levelSelect,
-  #levelSelect,
-  #cardLevelSelect,
-  .level-card-switch select {
-    font-size: 12px !important;
+  #levelSelect {
+    font-size: 11px !important;
+    max-width: 54px !important;
   }
+  #cardLevelSelect,
+  .level-card-switch select { font-size: 12px !important; }
   .upload-hero-field,
   .upload-hero-field:hover,
   .upload-hero-field:focus-within {
     background: #ffffff !important;
-    border-color: rgba(77,126,92,.68) !important;
+    border: 3px solid rgba(61,111,77,.9) !important;
     box-shadow:
-      inset 0 0 0 2px rgba(159,203,171,.32),
-      0 16px 36px rgba(30,36,48,.13) !important;
+      inset 0 0 0 4px rgba(145,196,158,.56),
+      0 16px 38px rgba(30,36,48,.14) !important;
   }
   .level-card .level-head h2,
-  #levelTitle {
-    font-size: 17px !important;
-  }
+  #levelTitle { font-size: 17px !important; }
   .level-note,
-  #levelNote {
-    font-size: 12.2px !important;
-  }
+  #levelNote { font-size: 12.2px !important; }
 }
 
 </style>
@@ -1917,7 +1939,7 @@ body::before, body::after { pointer-events:none !important; }
 <body class="content feedback-page feedback-i18n-gate3q notranslate" data-i18n-title-key="feedback.metaTitle" translate="no">
 <header class="topbar">
 <label aria-label="Вибір рівня аналізу" class="level-switch level-selector" data-i18n-attr-aria-label="header.levelSelectorAria"><select aria-label="Виберіть рівень аналізу" data-i18n-attr-aria-label="header.levelSelectAria" id="levelSelect"><option value="0">Level 0</option><option value="1">Level 1</option><option value="2">Level 2</option><option value="3">Level 3</option><option value="4">Level 4 Premium</option><option value="5">Level 5 Premium</option></select></label>
-<a class="brand notranslate" href="/index.html?v=infacta-live-polish-v1-2-6" translate="no"><span translate="no">inFACTa</span></a>
+<a class="brand notranslate" href="/index.html?v=infacta-live-polish-v1-2-7" translate="no"><span translate="no">inFACTa</span></a>
 <label aria-label="Мова інтерфейсу" class="pill right language-selector language-dropdown notranslate" data-i18n-attr-aria-label="header.languageSelectorAria" data-infacta-language-switcher="" translate="no" data-current-flag="🇺🇦"><span aria-hidden="true" class="language-current-flag notranslate" data-language-current-flag="" translate="no">🇺🇦</span><select aria-label="Мова інтерфейсу" class="language-select notranslate" data-infacta-language-select="" id="languageSelect" translate="no"><option value="uk">UA</option><option value="en">EN</option><option value="ru">RU</option></select></label>
 </header>
 <main class="content-main">
@@ -1938,22 +1960,22 @@ body::before, body::after { pointer-events:none !important; }
 9. Що найбільше незрозуміло?
 10. Що треба виправити першим?</div>
 <div class="content-actions">
-<a class="btn primary" data-i18n="feedback.cta.result" href="/result/index.html?v=infacta-live-polish-v1-2-6">До результату</a>
+<a class="btn primary" data-i18n="feedback.cta.result" href="/result/index.html?v=infacta-live-polish-v1-2-7">До результату</a>
 </div>
 </section>
 </main>
 <footer class="footer">
 <div></div>
 <div class="footer-actions">
-<a class="fbtn" data-fallback="/result/index.html?v=infacta-live-polish-v1-2-6" data-i18n="nav.back" data-infacta-action="back" href="/result/index.html?v=infacta-live-polish-v1-2-6">← Назад</a>
-<a class="fbtn primary" data-i18n="nav.start" data-infacta-action="start" href="/index.html?v=infacta-live-polish-v1-2-6">На старт</a>
+<a class="fbtn" data-fallback="/result/index.html?v=infacta-live-polish-v1-2-7" data-i18n="nav.back" data-infacta-action="back" href="/result/index.html?v=infacta-live-polish-v1-2-7">← Назад</a>
+<a class="fbtn primary" data-i18n="nav.start" data-infacta-action="start" href="/index.html?v=infacta-live-polish-v1-2-7">На старт</a>
 </div>
 <div class="footer-status" data-i18n="feedback.meta">STATIC v2.7 · Honest action boundary · no runtime / no upload</div>
 </footer>
 <script data-infacta-navigation-visibility-repair="v2.5.1">
 (function(){
-  const START='/index.html?v=infacta-live-polish-v1-2-6';
-  const FALLBACK='/result/index.html?v=infacta-live-polish-v1-2-6';
+  const START='/index.html?v=infacta-live-polish-v1-2-7';
+  const FALLBACK='/result/index.html?v=infacta-live-polish-v1-2-7';
   function removeOldHiddenOrConflictingNav(){
     document.querySelectorAll('nav.float-nav.infacta-bottom-nav, nav.float-nav, .footer .footer-actions').forEach(function(node){
       node.setAttribute('aria-hidden','true');
@@ -1992,5 +2014,5 @@ body::before, body::after { pointer-events:none !important; }
   }
 })();
 </script>
-<script data-infacta-i18n-loader="gate3q-feedback" src="../assets/infacta-i18n-static.js?v=infacta-live-polish-v1-2-6"></script></body>
+<script data-infacta-i18n-loader="gate3q-feedback" src="../assets/infacta-i18n-static.js?v=infacta-live-polish-v1-2-7"></script></body>
 </html>

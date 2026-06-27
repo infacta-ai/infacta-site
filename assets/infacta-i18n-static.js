@@ -1,6 +1,6 @@
 (function(){
   'use strict';
-  var VERSION_TOKEN='infacta-live-polish-v1-2-6';
+  var VERSION_TOKEN='infacta-live-polish-v1-2-7';
   var DEFAULT_LANG='uk';
   var REAL_LANGS=['uk','en','ru'];
   var PLANNED_INTERFACE_LANGS=['uk','en','de','pl','es','it','ru','fr','cs'];
@@ -398,7 +398,7 @@
   "0": {
     "title": "Level 0 — Попереднє структурування документа",
     "state": "active",
-    "badge": "Доступний у демо · Free",
+    "badge": "Free",
     "items": [
       [
         "Витягування й нормалізація",
@@ -413,7 +413,7 @@
         "Рахує доказовість, повноту, невідомі й пріоритет показу знайдених зон уваги."
       ]
     ],
-    "note": "<b>Level 0</b> — доступний демо-рівень. Показує структуру, знайдені дані, фрагменти й зони уваги. Для юридично значимих рішень варто звернутися до профільного спеціаліста."
+    "note": "<b>Level 0</b> — Free-рівень для попереднього структурування. Показує структуру, знайдені дані, фрагменти й зони уваги. Для юридично значимих рішень варто звернутися до профільного спеціаліста."
   },
   "1": {
     "title": "Level 1 — Мінімальне AI-пояснення",
@@ -521,7 +521,7 @@
   "0": {
     "title": "Level 0 — Preliminary document structuring",
     "state": "active",
-    "badge": "Available in demo · Free",
+    "badge": "Free",
     "items": [
       [
         "Extraction and normalization",
@@ -536,7 +536,7 @@
         "Scores evidence, completeness, unknowns, and display priority for found attention zones."
       ]
     ],
-    "note": "<b>Level 0</b> — available demo level. Shows structure, found data, fragments, and attention zones. For legally significant decisions, consult a relevant specialist."
+    "note": "<b>Level 0</b> — Free level for preliminary structuring. Shows structure, found data, fragments and attention zones. For legally significant decisions, consult a relevant specialist."
   },
   "1": {
     "title": "Level 1 — Minimal AI explanation",
@@ -644,7 +644,7 @@
   "0": {
     "title": "Level 0 — Предварительное структурирование документа",
     "state": "active",
-    "badge": "Доступен в демо · Free",
+    "badge": "Free",
     "items": [
       [
         "Извлечение и нормализация",
@@ -659,7 +659,7 @@
         "Считает доказательность, полноту, неизвестные и приоритет показа найденных зон внимания."
       ]
     ],
-    "note": "<b>Level 0</b> — доступный демо-уровень. Показывает структуру, найденные данные, фрагменты и зоны внимания. Для юридически значимых решений стоит обратиться к профильному специалисту."
+    "note": "<b>Level 0</b> — Free-уровень для предварительного структурирования. Показывает структуру, найденные данные, фрагменты и зоны внимания. Для юридически значимых решений стоит обратиться к профильному специалисту."
   },
   "1": {
     "title": "Level 1 — Минимальное AI-объяснение",
@@ -794,15 +794,15 @@
 
   var LEVEL_STATUS_LABELS={
   "uk": {
-    "active": "Доступний у демо",
+    "active": "Free",
     "future": "Майбутній рівень"
   },
   "en": {
-    "active": "Available in demo",
+    "active": "Free",
     "future": "Planned level"
   },
   "ru": {
-    "active": "Доступен в демо",
+    "active": "Free",
     "future": "Будущий уровень"
   }
 };
