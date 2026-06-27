@@ -1,6 +1,6 @@
 (function(){
   'use strict';
-  var VERSION_TOKEN='infacta-live-polish-v1-2-2';
+  var VERSION_TOKEN='infacta-live-polish-v1-2-4';
   var DEFAULT_LANG='uk';
   var REAL_LANGS=['uk','en','ru'];
   var PLANNED_INTERFACE_LANGS=['uk','en','de','pl','es','it','ru','fr','cs'];
@@ -57,7 +57,7 @@
         "feedback.metaTitle": "Відгук · inFACTa",
         "feedback.title": "Відгук тестера",
         "feedback.intro": "Ця сторінка не надсилає дані автоматично. Скопіюйте питання, дайте відповіді й надішліть власнику тесту вручну.",
-        "feedback.privacyBoundary": "Для фідбеку достатньо короткого опису проблеми. Документи й персональні дані в цій формі не потрібні.",
+        "feedback.privacyBoundary": "Для фідбеку достатньо короткого опису проблеми. Документи в цій формі не надсилаються і не потрібні.",
         "feedback.legalBoundary": "inFACTa пояснює документ і можливі ризики, але не є юридичним висновком і не замінює консультацію юриста.",
         "feedback.questionsTitle": "Питання для копіювання",
         "feedback.questionsText": "1. За 5 секунд зрозуміло, що робить inFACTa?\n2. Навігація назад/на старт очевидна?\n3. На першому екрані видно всі 6 типів зразків?\n4. Напис у полі вибору документа візуально центрований?\n5. Екран займає повний viewport і підлаштовується під розмір?\n6. Чи зрозуміло, що це тестовий прототип, а не робочий сервіс?\n7. Чи зрозуміло, що inFACTa не дає юридичний вирок?\n8. Чи зрозумілий результат Level-0?\n9. Що найбільше незрозуміло?\n10. Що треба виправити першим?",
@@ -103,7 +103,7 @@
         "preview.countryValue": "Україна — demo-приклад",
         "preview.contextDisclaimer": "Це demo-поле. Воно не визначає застосовне право.",
         "preview.levelLabel": "Рівень аналізу",
-        "preview.levelValue": "Level 0 · структурування без AI",
+        "preview.levelValue": "Level 0 · попереднє структурування",
         "preview.statusLabel": "Статус",
         "preview.statusValue": "готово до старту",
         "preview.mobileNextAria": "Перехід до demo-результату",
@@ -186,7 +186,7 @@
         "feedback.metaTitle": "Feedback · inFACTa",
         "feedback.title": "Tester feedback",
         "feedback.intro": "This page does not send data automatically. Copy the questions, answer them, and send them to the test owner manually.",
-        "feedback.privacyBoundary": "A short description of the issue is enough for feedback. Documents and personal data are not needed in this form.",
+        "feedback.privacyBoundary": "A short description of the issue is enough for feedback. Documents are not sent through this form and are not needed here.",
         "feedback.legalBoundary": "inFACTa explains the document and possible risks, but it is not a legal conclusion and does not replace a lawyer consultation.",
         "feedback.questionsTitle": "Questions to copy",
         "feedback.questionsText": "1. Is it clear within 5 seconds what inFACTa does?\n2. Is Back / Start navigation obvious?\n3. Are all 6 sample types visible on the first screen?\n4. Is the document selection field text visually centered?\n5. Does the screen fill the viewport and adapt to the screen size?\n6. Is it clear that this is a test prototype, not a working service?\n7. Is it clear that inFACTa does not give a legal verdict?\n8. Is the Level 0 result understandable?\n9. What is most unclear?\n10. What should be fixed first?",
@@ -232,7 +232,7 @@
         "preview.countryValue": "Ukraine — demo example",
         "preview.contextDisclaimer": "This is a demo field. It does not determine which laws apply.",
         "preview.levelLabel": "Analysis level",
-        "preview.levelValue": "Level 0 · zero-token structuring",
+        "preview.levelValue": "Level 0 · preliminary structuring",
         "preview.statusLabel": "Status",
         "preview.statusValue": "ready to start",
         "preview.mobileNextAria": "Go to the demo result",
@@ -315,7 +315,7 @@
         "feedback.metaTitle": "Отзыв · inFACTa",
         "feedback.title": "Отзыв тестера",
         "feedback.intro": "Эта страница не отправляет данные автоматически. Скопируйте вопросы, дайте ответы и отправьте владельцу теста вручную.",
-        "feedback.privacyBoundary": "Для фидбека достаточно короткого описания проблемы. Документы и персональные данные в этой форме не нужны.",
+        "feedback.privacyBoundary": "Для фидбека достаточно короткого описания проблемы. Документы в этой форме не отправляются и здесь не нужны.",
         "feedback.legalBoundary": "inFACTa объясняет документ и возможные риски, но не является юридическим заключением и не заменяет консультацию юриста.",
         "feedback.questionsTitle": "Вопросы для копирования",
         "feedback.questionsText": "1. За 5 секунд понятно, что делает inFACTa?\n2. Навигация назад/на старт очевидна?\n3. На первом экране видны все 6 типов образцов?\n4. Надпись в поле выбора документа визуально центрирована?\n5. Экран занимает весь viewport и подстраивается под размер?\n6. Понятно ли, что это тестовый прототип, а не рабочий сервис?\n7. Понятно ли, что inFACTa не даёт юридический вердикт?\n8. Понятен ли результат Level 0?\n9. Что больше всего непонятно?\n10. Что нужно исправить первым?",
@@ -361,7 +361,7 @@
         "preview.countryValue": "Украина — demo-пример",
         "preview.contextDisclaimer": "Это demo-поле. Оно не определяет применимое право.",
         "preview.levelLabel": "Уровень анализа",
-        "preview.levelValue": "Level 0 · структурирование без AI",
+        "preview.levelValue": "Level 0 · предварительное структурирование",
         "preview.statusLabel": "Статус",
         "preview.statusValue": "готово к старту",
         "preview.mobileNextAria": "Переход к demo-результату",
@@ -978,16 +978,15 @@
     var label=(LEVEL_OPTION_LABELS[resolved] && LEVEL_OPTION_LABELS[resolved][String(attemptedLevel)]) || ('Level '+attemptedLevel);
     var text=(t('level.futureNotice', resolved) || '').replace('{level}', label);
     if(!text) text=label + ' is still in development. Only Level 0 is active in this demo.';
-    var el=document.getElementById('levelFutureNotice');
+    var el=document.getElementById('infactaLevelToast');
     if(!el){
       el=document.createElement('div');
-      el.id='levelFutureNotice';
-      el.className='level-future-notice';
+      el.id='infactaLevelToast';
+      el.className='infacta-toast';
       el.setAttribute('role','status');
       el.setAttribute('aria-live','polite');
-      var topbar=document.querySelector('.topbar');
-      if(topbar && topbar.parentNode){ topbar.parentNode.insertBefore(el, topbar.nextSibling); }
-      else { document.body.insertBefore(el, document.body.firstChild); }
+      el.hidden=true;
+      document.body.appendChild(el);
     }
     el.textContent=text;
     el.hidden=false;
