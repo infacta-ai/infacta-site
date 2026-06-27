@@ -10,9 +10,9 @@
 <meta content="no-cache" http-equiv="Pragma"/>
 <meta content="0" http-equiv="Expires"/>
 <title>Результат Level 0 · inFACTa</title>
-<link href="/favicon.ico?v=infacta-live-polish-v1-2-10" rel="icon" sizes="any"/>
-<link href="/favicon.svg?v=infacta-live-polish-v1-2-10" rel="icon" type="image/svg+xml"/>
-<link href="/apple-touch-icon.png?v=infacta-live-polish-v1-2-10" rel="apple-touch-icon"/>
+<link href="/favicon.ico?v=infacta-live-polish-v1-2-11" rel="icon" sizes="any"/>
+<link href="/favicon.svg?v=infacta-live-polish-v1-2-11" rel="icon" type="image/svg+xml"/>
+<link href="/apple-touch-icon.png?v=infacta-live-polish-v1-2-11" rel="apple-touch-icon"/>
 <style>
 
 :root{
@@ -1024,7 +1024,7 @@ body[class*="preview"] .screen-main {
 </style>
 <script data-infacta-nav-lock="v2.0">
 (function(){
-  const INF_VERSION='infacta-live-polish-v1-2-10';
+  const INF_VERSION='infacta-live-polish-v1-2-11';
   const BASE='/';
   function withVersion(path){ return path + (path.includes('?')?'&':'?') + 'v=' + INF_VERSION; }
   const params=new URLSearchParams(window.location.search);
@@ -2526,17 +2526,17 @@ body::before, body::after { pointer-events:none !important; }
 
 
 
-/* v1.2.10 emoji-language-dropdown + favicon cache repair.
-   Targeted repair over v1.2.9: visible native language select uses emoji flags as selected value and dropdown options.
-   No changes to upload, Level 0, background, typography, demo block, or runtime boundaries. */
+/* v1.2.11 emoji language selector + stronger favicon repair.
+   Targeted repair over v1.2.10: visible selected language is the actual emoji span; native select remains the dropdown trigger and contains centered emoji options.
+   Preserve v1.2.10 position/inset improvements. No changes to background, upload, Level 0, mobile topbar layout, typography, demo block, or runtime boundaries. */
 .topbar .language-selector,
 .topbar .language-dropdown,
 .pill.right.language-selector {
   position: relative !important;
-  overflow: hidden !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
+  overflow: visible !important;
+  display: inline-grid !important;
+  place-items: center !important;
+  text-align: center !important;
 }
 .topbar .language-selector::before,
 .topbar .language-selector::after,
@@ -2549,14 +2549,29 @@ body::before, body::after { pointer-events:none !important; }
   background: none !important;
 }
 .language-current-flag,
-.topbar .language-current-flag {
-  display: none !important;
-  visibility: hidden !important;
+.topbar .language-current-flag,
+[data-language-current-flag] {
+  display: grid !important;
+  visibility: visible !important;
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  place-items: center !important;
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", system-ui, sans-serif !important;
+  font-size: 20px !important;
+  line-height: 1 !important;
+  color: #1e2430 !important;
+  -webkit-text-fill-color: #1e2430 !important;
+  opacity: 1 !important;
+  z-index: 2 !important;
+  pointer-events: none !important;
+  transform: translateZ(0) !important;
 }
 .language-select,
 .topbar .language-select {
-  position: relative !important;
-  inset: auto !important;
+  position: absolute !important;
+  inset: 0 !important;
   display: block !important;
   width: 100% !important;
   height: 100% !important;
@@ -2570,8 +2585,8 @@ body::before, body::after { pointer-events:none !important; }
   background: transparent !important;
   box-shadow: none !important;
   opacity: 1 !important;
-  color: #1e2430 !important;
-  -webkit-text-fill-color: #1e2430 !important;
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
   font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", system-ui, sans-serif !important;
   font-size: 20px !important;
   line-height: 1 !important;
@@ -2580,7 +2595,7 @@ body::before, body::after { pointer-events:none !important; }
   appearance: none !important;
   -webkit-appearance: none !important;
   cursor: pointer !important;
-  z-index: 4 !important;
+  z-index: 3 !important;
 }
 .language-select option,
 .topbar .language-select option {
@@ -2591,19 +2606,29 @@ body::before, body::after { pointer-events:none !important; }
   font-size: 20px !important;
   text-align: center !important;
   text-align-last: center !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }
 @media (max-width: 520px) {
+  .language-current-flag,
+  .topbar .language-current-flag,
+  [data-language-current-flag] {
+    font-size: 18px !important;
+  }
   .language-select,
-  .topbar .language-select {
+  .topbar .language-select,
+  .language-select option,
+  .topbar .language-select option {
     font-size: 18px !important;
   }
 }
+
 </style>
 </head>
 <body class="screen result-safe-scroll-v252 mobile-result-actions-hardshow-v266 result-actions-route-repair-v267 result-i18n-gate3m notranslate" data-i18n-title-key="result.metaTitle" translate="no">
 <header class="topbar">
 <label aria-label="Вибір рівня аналізу" class="level-switch level-selector" data-i18n-attr-aria-label="header.levelSelectorAria"><select aria-label="Виберіть рівень аналізу" data-i18n-attr-aria-label="header.levelSelectAria" id="levelSelect"><option value="0">Level 0</option><option value="1">Level 1</option><option value="2">Level 2</option><option value="3">Level 3</option><option value="4">Level 4 Premium</option><option value="5">Level 5 Premium</option></select></label>
-<a class="brand notranslate" href="/index.html?v=infacta-live-polish-v1-2-10" translate="no"><span translate="no">inFACTa</span></a>
+<a class="brand notranslate" href="/index.html?v=infacta-live-polish-v1-2-11" translate="no"><span translate="no">inFACTa</span></a>
 <label aria-label="Мова інтерфейсу" class="pill right language-selector language-dropdown notranslate" data-i18n-attr-aria-label="header.languageSelectorAria" data-infacta-language-switcher="" translate="no" data-current-flag="🇺🇦" data-active-lang="uk"><span aria-hidden="true" class="language-current-flag notranslate" data-language-current-flag="" translate="no">🇺🇦</span><select aria-label="Мова інтерфейсу" class="language-select notranslate" data-infacta-language-select="" id="languageSelect" translate="no"><option value="uk">🇺🇦</option><option value="en">🇬🇧</option><option value="ru">🇷🇺</option></select></label>
 </header>
 <main class="screen-main">
@@ -2616,8 +2641,8 @@ body::before, body::after { pointer-events:none !important; }
 <p class="mobile-decision-legal-v266" data-i18n="result.legalBoundary">inFACTa пояснює документ і можливі ризики, але не є юридичним висновком і не замінює консультацію юриста.</p>
 </div>
 <div class="mobile-decision-actions-v266">
-<a class="mobile-primary-v266" data-i18n="result.cta.clarify" href="/ask-more/index.html?v=infacta-live-polish-v1-2-10">Уточнити результат</a>
-<a class="mobile-secondary-v266" data-i18n="result.cta.feedback" href="/feedback/index.html?v=infacta-live-polish-v1-2-10">Залишити відгук</a>
+<a class="mobile-primary-v266" data-i18n="result.cta.clarify" href="/ask-more/index.html?v=infacta-live-polish-v1-2-11">Уточнити результат</a>
+<a class="mobile-secondary-v266" data-i18n="result.cta.feedback" href="/feedback/index.html?v=infacta-live-polish-v1-2-11">Залишити відгук</a>
 </div>
 </div>
 </section>
@@ -2631,8 +2656,8 @@ body::before, body::after { pointer-events:none !important; }
 <p class="legal-boundary-note" data-i18n="result.legalBoundary">inFACTa пояснює документ і можливі ризики, але не є юридичним висновком і не замінює консультацію юриста.</p>
 </div>
 <div class="trial-main-action">
-<a class="btn primary" data-i18n="result.cta.clarify" href="/ask-more/index.html?v=infacta-live-polish-v1-2-10">Уточнити результат</a>
-<a class="trial-secondary-link" data-i18n="result.cta.feedback" href="/feedback/index.html?v=infacta-live-polish-v1-2-10">Залишити відгук</a>
+<a class="btn primary" data-i18n="result.cta.clarify" href="/ask-more/index.html?v=infacta-live-polish-v1-2-11">Уточнити результат</a>
+<a class="trial-secondary-link" data-i18n="result.cta.feedback" href="/feedback/index.html?v=infacta-live-polish-v1-2-11">Залишити відгук</a>
 </div>
 </div>
 <div class="trial-cards">
@@ -2659,22 +2684,22 @@ body::before, body::after { pointer-events:none !important; }
 </div>
 <div class="trial-next">
 <p class="trial-nav-note" data-i18n="result.trialNote">Дизайн-проба: головна дія перенесена в контекст результату, службова навігація знизу послаблена.</p>
-<a class="btn" data-i18n="result.cta.reviewAgain" href="/preview/index.html?v=infacta-live-polish-v1-2-10">Переглянути ще раз</a>
+<a class="btn" data-i18n="result.cta.reviewAgain" href="/preview/index.html?v=infacta-live-polish-v1-2-11">Переглянути ще раз</a>
 </div>
 </section>
 </main>
 <footer class="footer">
 <div></div>
 <div class="footer-actions">
-<a class="fbtn" data-fallback="/preview/index.html?v=infacta-live-polish-v1-2-10" data-i18n="nav.back" data-infacta-action="back" href="/preview/index.html?v=infacta-live-polish-v1-2-10">← Назад</a>
-<a class="fbtn primary" data-i18n="nav.start" data-infacta-action="start" href="/index.html?v=infacta-live-polish-v1-2-10">На старт</a>
+<a class="fbtn" data-fallback="/preview/index.html?v=infacta-live-polish-v1-2-11" data-i18n="nav.back" data-infacta-action="back" href="/preview/index.html?v=infacta-live-polish-v1-2-11">← Назад</a>
+<a class="fbtn primary" data-i18n="nav.start" data-infacta-action="start" href="/index.html?v=infacta-live-polish-v1-2-11">На старт</a>
 </div>
 <div class="footer-status" data-i18n="result.meta">STATIC v2.7 · Honest action boundary · no runtime / no upload</div>
 </footer>
 <script data-infacta-navigation-visibility-repair="v2.5.1" data-infacta-result-scroll-safe="v2.5.2">
 (function(){
-  const START='/index.html?v=infacta-live-polish-v1-2-10';
-  const FALLBACK='/preview/index.html?v=infacta-live-polish-v1-2-10';
+  const START='/index.html?v=infacta-live-polish-v1-2-11';
+  const FALLBACK='/preview/index.html?v=infacta-live-polish-v1-2-11';
   function removeOldHiddenOrConflictingNav(){
     document.querySelectorAll('nav.float-nav.infacta-bottom-nav, nav.float-nav, .footer .footer-actions').forEach(function(node){
       node.setAttribute('aria-hidden','true');
@@ -2713,5 +2738,5 @@ body::before, body::after { pointer-events:none !important; }
   }
 })();
 </script>
-<script data-infacta-i18n-loader="gate3m-result" src="../assets/infacta-i18n-static.js?v=infacta-live-polish-v1-2-10"></script></body>
+<script data-infacta-i18n-loader="gate3m-result" src="../assets/infacta-i18n-static.js?v=infacta-live-polish-v1-2-11"></script></body>
 </html>
