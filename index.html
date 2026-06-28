@@ -141,7 +141,6 @@ p{margin:0;color:var(--muted);font-size:clamp(16px,1.42vw,20px);line-height:1.48
 }
 .level-head{gap:12px !important;}
 .level-head h2{flex:1 1 auto !important;}
-.language-selector{gap:7px !important;}
 
 
 .category-card[aria-current="page"]{border-color:rgba(193,154,79,.7);box-shadow:0 0 0 2px rgba(193,154,79,.13), var(--soft-shadow, 0 10px 28px rgba(30,36,48,.08));}
@@ -278,34 +277,6 @@ body::after {
 /* POST-LIVE REPAIR v1.0: language dropdown, no browser autotranslate, background parity, safe scroll, favicon readiness */
 html.notranslate, body.notranslate { -webkit-text-size-adjust: 100%; }
 .brand.notranslate, .brand.notranslate * { translate: no; }
-.language-dropdown {
-  position: relative;
-  min-width: 108px;
-  padding: 0 10px;
-  gap: 7px;
-}
-.language-dropdown::after {
-  content: "▾";
-  font-size: 11px;
-  color: var(--ink-soft,#39414d);
-  pointer-events: none;
-  margin-left: 2px;
-}
-.language-select {
-  appearance: none;
-  -webkit-appearance: none;
-  border: 0;
-  background: transparent;
-  color: var(--ink-soft,#39414d);
-  font: inherit;
-  font-weight: 750;
-  line-height: 1;
-  padding: 0 12px 0 0;
-  outline: none;
-  cursor: pointer;
-  max-width: 124px;
-}
-.language-select option { color:#1e2430; background:#fffaf2; }
 .level-selector select option { white-space: normal; }
 .level-switch select, .level-selector select {
   max-width: min(58vw, 420px);
@@ -345,8 +316,6 @@ body[class*="preview"] .screen-main {
   .topbar{grid-template-columns:auto 1fr auto;padding:0 10px;width:min(calc(100vw - 24px),1220px);gap:8px;}
   .brand{font-size:clamp(23px,7vw,31px);gap:7px;}
   .brand::before{width:24px;height:26px;border-radius:8px 8px 11px 11px;}
-  .language-dropdown{min-width:86px;padding:0 7px;}
-  .language-select{max-width:88px;font-size:13px;}
   .level-switch select, .level-selector select { max-width: 116px; font-size: 12px; }
   .screen-main, .content-main, main { padding-bottom: calc(170px + env(safe-area-inset-bottom, 0px)) !important; }
 }
@@ -822,81 +791,6 @@ html, body { margin-top:0; }
   width: 100% !important;
   padding: 0 !important;
 }
-.topbar .language-selector, .topbar .language-dropdown, .pill.right.language-selector {
-  grid-area: lang !important;
-  justify-self: end !important;
-  align-self: center !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  height: 34px !important;
-  min-width: 78px !important;
-  max-width: 112px !important;
-  width: auto !important;
-  padding: 0 10px !important;
-  gap: 6px !important;
-  border: 1px solid var(--line, #ded2c2) !important;
-  border-radius: 10px !important;
-  background: #fffaf2 !important;
-  box-shadow: 0 4px 12px rgba(30,36,48,.04) !important;
-  overflow: hidden !important;
-}
-.language-current-flag {
-  display: inline-grid !important;
-  place-items: center !important;
-  width: 20px !important;
-  min-width: 20px !important;
-  height: 20px !important;
-  font-size: 17px !important;
-  line-height: 1 !important;
-  filter: saturate(.98) contrast(1.02) !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-}
-.language-select {
-  display: inline-block !important;
-  border: 0 !important;
-  background: transparent !important;
-  color: var(--ink-soft, var(--text, #39414d)) !important;
-  font: inherit !important;
-  font-size: 13px !important;
-  font-weight: 780 !important;
-  line-height: 1 !important;
-  outline: none !important;
-  min-width: 34px !important;
-  max-width: 42px !important;
-  padding: 0 !important;
-}
-
-/* v1.2.5: language selector visual source of truth = emoji flag only; native select remains clickable but visually hidden. */
-.topbar .language-selector, .topbar .language-dropdown, .pill.right.language-selector {
-  position: relative !important;
-  min-width: 44px !important;
-  max-width: 52px !important;
-  width: 44px !important;
-  padding: 0 !important;
-  gap: 0 !important;
-  overflow: visible !important;
-}
-.language-current-flag {
-  margin: 0 auto !important;
-  pointer-events: none !important;
-  z-index: 2 !important;
-}
-.language-select {
-  position: absolute !important;
-  inset: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  min-width: 100% !important;
-  max-width: 100% !important;
-  opacity: 0 !important;
-  color: transparent !important;
-  background: transparent !important;
-  cursor: pointer !important;
-  z-index: 3 !important;
-}
-.language-dropdown::after, .language-selector::after { display:none !important; content:none !important; }
 
 /* v1.2.5: future-level notice is anchored under the level selector, not centered on the viewport. */
 .infacta-toast, .level-future-notice {
@@ -1030,12 +924,6 @@ html, body { margin-top:0; }
   color: #39414d !important;
 }
 @media (max-width: 520px) {
-  .topbar .language-selector, .topbar .language-dropdown, .pill.right.language-selector {
-    min-width: 40px !important;
-    max-width: 44px !important;
-    width: 40px !important;
-    padding: 0 !important;
-  }
   .upload-hero-field,
   .upload-hero-field:hover,
   .upload-hero-field:focus-within {
@@ -1079,31 +967,10 @@ body::before, body::after { pointer-events:none !important; }
     padding: 0 8px !important;
   }
   .topbar #levelSelect, #levelSelect { font-size: 12px !important; max-width: 132px !important; }
-  .topbar .language-selector, .topbar .language-dropdown, .pill.right.language-selector {
-    grid-area: lang !important;
-    justify-self: end !important;
-    height: 28px !important;
-    min-width: 76px !important;
-    max-width: 92px !important;
-    padding: 0 8px !important;
-  }
-  .language-current-flag { width:18px !important; min-width:18px !important; height:18px !important; font-size:16px !important; }
-  .language-select { font-size:12px !important; min-width:32px !important; max-width:38px !important; }
   .source-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
   .infacta-toast, .level-future-notice { font-size:13px !important; }
 }
 
-/* v1.2.5 final visual guard: keep language UI emoji-only after all mobile grid rules. */
-@media (max-width: 520px) {
-  .topbar .language-selector, .topbar .language-dropdown, .pill.right.language-selector {
-    min-width: 40px !important;
-    max-width: 44px !important;
-    width: 40px !important;
-    padding: 0 !important;
-    gap: 0 !important;
-  }
-  .language-current-flag { margin: 0 auto !important; }
-}
 
 
 
@@ -1192,65 +1059,6 @@ body::before, body::after { pointer-events:none !important; }
   text-align: center !important;
   text-align-last: center !important;
 }
-.topbar .language-selector,
-.topbar .language-dropdown,
-.pill.right.language-selector {
-  grid-area: lang !important;
-  justify-self: end !important;
-  margin-right: 0 !important;
-  position: relative !important;
-  display: inline-grid !important;
-  place-items: center !important;
-  width: 46px !important;
-  min-width: 46px !important;
-  max-width: 46px !important;
-  height: 36px !important;
-  padding: 0 !important;
-  border-radius: 999px !important;
-  border: 1px solid rgba(222,210,194,.98) !important;
-  background: #fffaf2 !important;
-  box-shadow: 0 5px 14px rgba(30,36,48,.055) !important;
-  overflow: hidden !important;
-  color: #1e2430 !important;
-}
-.topbar .language-selector::before,
-.topbar .language-dropdown::before,
-.pill.right.language-selector::before {
-  content: none !important;
-  display: none !important;
-}
-.language-current-flag,
-.topbar .language-current-flag {
-  display: grid !important;
-  visibility: visible !important;
-  position: absolute !important;
-  inset: 0 !important;
-  place-items: center !important;
-  width: 100% !important;
-  height: 100% !important;
-  font-size: 20px !important;
-  line-height: 1 !important;
-  color: #1e2430 !important;
-  opacity: 1 !important;
-  z-index: 3 !important;
-  pointer-events: none !important;
-}
-.language-select,
-.topbar .language-select {
-  position: absolute !important;
-  inset: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  opacity: 0 !important;
-  color: transparent !important;
-  background: transparent !important;
-  border: 0 !important;
-  cursor: pointer !important;
-  appearance: none !important;
-  -webkit-appearance: none !important;
-  z-index: 4 !important;
-}
-.language-select option { color: #1e2430 !important; background: #fffaf2 !important; }
 .upload-hero-field,
 .upload-hero-field:hover,
 .upload-hero-field:focus-within {
@@ -1352,16 +1160,6 @@ body::before, body::after { pointer-events:none !important; }
     font-size: 20px !important;
     min-width: 0 !important;
   }
-  .topbar .language-selector,
-  .topbar .language-dropdown,
-  .pill.right.language-selector {
-    width: 38px !important;
-    min-width: 38px !important;
-    max-width: 38px !important;
-    height: 28px !important;
-  }
-  .language-current-flag,
-  .topbar .language-current-flag { font-size: 18px !important; }
   .topbar .level-selector,
   .topbar .level-switch,
   .level-switch.level-selector,
@@ -1396,18 +1194,30 @@ body::before, body::after { pointer-events:none !important; }
 }
 
 
-
-
-/* v1.2.12 emoji-like drawn flag selector repair.
-   Targeted repair over v1.2.11: visible flag is drawn/SVG-like, font-independent, and sits above the transparent native select.
-   Preserves v1.2.10/v1.2.11 selector position/inset and does not touch upload, Level 0, background, favicon, typography, or demo block. */
+/* v1.2.13 cleanup-only consolidated language selector.
+   Preserves v1.2.12 drawn flag behavior and v1.2.8/v1.2.10 selector position/sizing.
+   Cleanup-only: no product-scope, infrastructure, content, or navigation changes. */
 .topbar .language-selector,
 .topbar .language-dropdown,
 .pill.right.language-selector {
+  grid-area: lang !important;
+  justify-self: end !important;
+  align-self: center !important;
+  margin-right: 0 !important;
   position: relative !important;
-  overflow: visible !important;
   display: inline-grid !important;
   place-items: center !important;
+  width: 46px !important;
+  min-width: 46px !important;
+  max-width: 46px !important;
+  height: 36px !important;
+  padding: 0 !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(222,210,194,.98) !important;
+  background: #fffaf2 !important;
+  box-shadow: 0 5px 14px rgba(30,36,48,.055) !important;
+  overflow: visible !important;
+  color: #1e2430 !important;
   text-align: center !important;
 }
 .topbar .language-selector::before,
@@ -1426,6 +1236,7 @@ body::before, body::after { pointer-events:none !important; }
   position: absolute !important;
   inset: 0 !important;
   display: block !important;
+  place-items: center !important;
   visibility: visible !important;
   opacity: 1 !important;
   width: 26px !important;
@@ -1515,6 +1326,14 @@ body::before, body::after { pointer-events:none !important; }
   padding-right: 0 !important;
 }
 @media (max-width: 520px) {
+  .topbar .language-selector,
+  .topbar .language-dropdown,
+  .pill.right.language-selector {
+    width: 38px !important;
+    min-width: 38px !important;
+    max-width: 38px !important;
+    height: 28px !important;
+  }
   .language-current-flag,
   .topbar .language-current-flag,
   [data-language-current-flag] {
